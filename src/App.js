@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./Client/components/layout/navbar/Navbar";
+import HomePage from "./Client/components/pages/HomePage";
+import EssayPagePage from "./Client/components/pages/EssayPage";
+import MultiChoicePage from "./Client/components/pages/MultiChoicePage";
+import QuizPage from "./Client/components/pages/QuizPage";
+import TheoryPage from "./Client/components/pages/TheoryPage";
+import CreateLessonPage from "./Client/components/pages/CreateLessonPage";
+import TheoryDetailPage from "./Client/components/pages/TheoryDetailPage";
+import EditLessonPage from "./Client/components/pages/EditLessonPage";
+import "./App.css";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/tu-luan" element={<EssayPagePage />} />
+        <Route path="/trac-nghiem" element={<MultiChoicePage />} />
+        <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/ly-thuyet" element={<TheoryPage />} />
+        <Route path="/ly-thuyet/create-lesson" element={<CreateLessonPage />} />
+        <Route path="/ly-thuyet/:slug" element={<TheoryDetailPage />} />
+        <Route path="/ly-thuyet/:slug/edit" element={<EditLessonPage />} />
+      </Routes>
+      <Navbar />
     </div>
   );
 }

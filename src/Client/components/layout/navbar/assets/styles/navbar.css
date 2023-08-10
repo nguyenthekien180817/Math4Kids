@@ -1,0 +1,98 @@
+.navbarContainer {
+    height: 46px;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+
+#nav {
+    margin-top: 0;
+    display: inline-block;
+    padding: 0;
+}
+
+#nav ul {
+    padding: 0;
+    margin: 0;
+}
+
+#nav,
+.subnav {
+    list-style-type: none;
+}
+
+#nav li {
+    display: inline-block;
+    position: relative;
+}
+
+#nav li a {
+    color: white;
+    padding: 0 20px;
+    font-size: 15px;
+    line-height: 46px;
+    padding: 15.5px 24px;
+    cursor: pointer;
+
+}
+
+#nav .subnav {
+    position: absolute;
+    background-color: white;
+    box-shadow: 10px 10px 50px 10px rgba(0, 0, 0, 0.5);
+}
+
+#nav .subnav a {
+    padding: 0px 24px;
+    width: 180px;
+    color: black;
+    display: block;
+}
+
+ .subnav ul {
+    padding: 0;
+}
+
+#nav .subnav li:hover,
+#nav>li:hover {
+    background-color: rgb(223, 216, 216);
+    color: black;
+}
+
+
+.loginButton {
+    float: right;
+    height: 35px;
+    margin: 6px 10px 0 0;
+    color: white;
+    background-color: hsl(206, 100%, 52%);
+    width: 80px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    background-color: hsl(206, 100%, 40%);
+}
+
+.signupButton {
+    float: right;
+    height: 35px;
+    margin: 6px 10px 0 0;
+    color: black;
+    background-color: hsl(203, 17%, 85%);
+    width: 80px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.signupButton a {
+    color: black;
+}
+
+.signupButton:hover {
+    background-color: hsl(206, 7%, 44%);
+}
