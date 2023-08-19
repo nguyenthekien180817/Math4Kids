@@ -6,6 +6,8 @@ import { ClickOutContext, SetSignUpContext } from "../navbar/Navbar";
 function LoginPopup(props) {
   const closeFunction = useContext(ClickOutContext);
   const setType = useContext(SetSignUpContext);
+  const [accountData, setAccountData] = useState(null);
+
   // console.log(props);
   return (
     <div>
@@ -27,7 +29,7 @@ function LoginPopup(props) {
             <label className="formLabel" htmlFor="password">
               Password
             </label>
-            <input type="password" className="formInput"></input>
+            <input minLength="12" type="password" className="formInput"></input>
             <a
               className="passwordRevcovery"
               href="password-recovery"

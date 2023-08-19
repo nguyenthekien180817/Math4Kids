@@ -3,6 +3,6 @@ import QuizForm from "../layout/quiz page/QuizForm";
 import SectionSelection from "../layout/navbar/SectionSelection";
 
 function QuizPage() {
-  return <div></div>;
+  return <div>Hello</div>;
 }
 export default QuizPage;

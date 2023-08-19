@@ -17,40 +17,24 @@ function SignupPopup(props) {
           <div className="popupHeader">
             <h1 style={{}}>Sign Up</h1>
           </div>
-          <form>
+          <form method="post" action="http://localhost:4000/account/create">
             <label className="formLabel" htmlFor="email">
               Email
             </label>
-            <input
-              type="email"
-              className="formInput"
-              id="email"
-              required
-            ></input>
+            <input type="email" className="formInput" id="email" name="email" />
             <label className="formLabel" htmlFor="password">
               Mật khẩu
             </label>
             <input
               type="password"
               className="formInput"
-              id="email"
-              required
-            ></input>
-
-            <label className="formLabel" htmlFor="password">
-              Xác nhận mật khẩu
-            </label>
-            <input
-              type="password"
-              className="formInput"
-              id="email"
-              required
-            ></input>
-            <input
-              value={"Đăng Ký Ngay!"}
-              type="submit"
-              className="loginButtonPopup"
+              id="password"
+              name="password"
             />
+
+            <button type="submit" className="loginButtonPopup">
+              Thêm khóa học
+            </button>
           </form>
         </div>
       </div>
