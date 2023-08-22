@@ -1,14 +1,12 @@
 import React from "react";
 import "./loginPopup.css";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ClickOutContext, SetSignUpContext } from "../navbar/Navbar";
+import { Button } from "bootstrap";
 function LoginPopup(props) {
   const closeFunction = useContext(ClickOutContext);
   const setType = useContext(SetSignUpContext);
-  const [accountData, setAccountData] = useState(null);
-
-  // console.log(props);
   return (
     <div>
       <div className="loginBackground" onClick={() => closeFunction()}>
@@ -21,15 +19,25 @@ function LoginPopup(props) {
           <div className="popupHeader">
             <h1 style={{}}>Login</h1>
           </div>
-          <form>
+          <form method="post" action="http://localhost:4000/account/validation">
             <label className="formLabel" htmlFor="email">
               Email
             </label>
-            <input type="email" className="formInput"></input>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="formInput"
+            ></input>
             <label className="formLabel" htmlFor="password">
               Password
             </label>
-            <input minLength="12" type="password" className="formInput"></input>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="formInput"
+            ></input>
             <a
               className="passwordRevcovery"
               href="password-recovery"
@@ -37,11 +45,9 @@ function LoginPopup(props) {
             >
               Quên mật khẩu?
             </a>
-            <input
-              value={"Đăng Nhập Ngay!"}
-              type="submit"
-              className="loginButtonPopup"
-            />
+            <button type="submit" className="loginButtonPopup">
+              Đăng Nhập Ngay!
+            </button>
           </form>
           <p className="registration">
             Bạn chưa có tài khoản?

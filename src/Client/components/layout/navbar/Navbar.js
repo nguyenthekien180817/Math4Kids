@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import FormPopup from "../Account Pages and Pop-up/FormPopup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +11,7 @@ export const TypeContext = createContext();
 export const SetSignUpContext = createContext();
 
 function Navbar() {
+  const [account, setAccount] = useState(null);
   const [visible, setVisible] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [type, setType] = useState("");
@@ -41,16 +42,36 @@ function Navbar() {
     }
   };
 
+  // Get login data
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/account/validation")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setAccount(data);
+  //     });
+  // }, []);
+
   return (
     <div>
       <div className="navbarContainer">
-        <button className="loginButton" onClick={handleLoginClick}>
-          Login
-        </button>
+        {account && (
+          <div>
+            <button className="signupButton" onClick={() => setAccount(null)}>
+              Logout
+            </button>
+          </div>
+        )}
+        {!account && (
+          <div>
+            <button className="loginButton" onClick={handleLoginClick}>
+              Login
+            </button>
 
-        <button className="signupButton" onClick={handleSignupClick}>
-          Sign Up
-        </button>
+            <button className="signupButton" onClick={handleSignupClick}>
+              Sign Up
+            </button>
+          </div>
+        )}
         <SetSignUpContext.Provider value={changeToSignup}>
           <TypeContext.Provider value={type}>
             <ClickOutContext.Provider value={closePopup}>

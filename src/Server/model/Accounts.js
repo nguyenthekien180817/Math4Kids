@@ -10,7 +10,7 @@ const Accounts = new Schema({
     type: String,
     default: "https://media.gametora.com/umamusume/characters/profile/1032.png",
   },
-  slug: { type: String, slug: "email", unique: true },
+  userName: { type: String, slug: "email", unique: true },
   createdAt: { type: Date, default: Date.now() },
   updatedAt: { type: Date, default: Date.now() },
 });
