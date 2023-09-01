@@ -6,6 +6,11 @@ const {
 
 class LessonController {
   show(req, res, next) {
+    // console.log(
+    //   Courses.find({}).then((course) => {
+    //     return { lessons: multipleMongooseToObject(courses) };
+    //   })
+    // );
     Courses.find({})
       .then((courses) => {
         res.json({ lessons: multipleMongooseToObject(courses) });

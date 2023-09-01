@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, createContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import FormPopup from "../Account Pages and Pop-up/FormPopup";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import "./assets/styles/navbar.css";
@@ -13,72 +13,51 @@ export const SetSignUpContext = createContext();
 function Navbar() {
   const [account, setAccount] = useState(null);
   const [visible, setVisible] = useState(false);
-  const [formVisible, setFormVisible] = useState(false);
-  const [type, setType] = useState("");
-  let closePopup = () => {
-    setFormVisible(false);
-  };
 
-  let changeToSignup = () => {
-    setType("signup");
-    setFormVisible(true);
-  };
+  useEffect(() => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:4000/account/get-user",
+    })
+      .then((response) => {
+        console.log("Current Account: " + response.data);
+        setAccount(response.data);
+      })
+      .catch((err) => {});
+  }, []);
 
-  let handleLoginClick = () => {
-    setType("login");
-    if (!formVisible) {
-      setFormVisible(true);
-    } else {
-      setFormVisible(false);
-    }
+  let logout = () => {
+    axios({
+      method: "POST",
+      withCredentials: true,
+      url: "http://localhost:4000/account/signout",
+    })
+      .then(window.location.replace("http://localhost:3000/login"))
+      .catch((err) => {});
   };
-
-  let handleSignupClick = () => {
-    setType("signup");
-    if (!formVisible) {
-      setFormVisible(true);
-    } else {
-      setFormVisible(false);
-    }
-  };
-
-  // Get login data
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/account/validation")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setAccount(data);
-  //     });
-  // }, []);
 
   return (
     <div>
       <div className="navbarContainer">
-        {account && (
+        {account ? (
           <div>
-            <button className="signupButton" onClick={() => setAccount(null)}>
+            <button className="signupButton" onClick={logout}>
               Logout
             </button>
+            <p className="loginButton">{account}</p>
           </div>
-        )}
-        {!account && (
+        ) : (
           <div>
-            <button className="loginButton" onClick={handleLoginClick}>
+            <Link to="/login" className="loginButton">
               Login
-            </button>
+            </Link>
 
-            <button className="signupButton" onClick={handleSignupClick}>
+            <Link to="/signup" className="signupButton">
               Sign Up
-            </button>
+            </Link>
           </div>
         )}
-        <SetSignUpContext.Provider value={changeToSignup}>
-          <TypeContext.Provider value={type}>
-            <ClickOutContext.Provider value={closePopup}>
-              {formVisible && <FormPopup />}
-            </ClickOutContext.Provider>
-          </TypeContext.Provider>
-        </SetSignUpContext.Provider>
         <ul id="nav">
           <li key={"/"}>
             <Link to="/">Home</Link>

@@ -4,21 +4,25 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    display: flex;
 }
 
 .loginFormContainer {
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     background-color: white;
-    height: 65vh;
-    width: 30vw;
+    height: 70vh;
+    width: 40vw;
     padding: 20px;
     border-radius: 10px;
-    animation: loginModalFadeIn ease 1s;
+    border: 1px solid black;
 }
 
 form {
@@ -26,6 +30,7 @@ form {
 }
 
 .formLabel {
+    float: left;
     text-align: left;
     display: block;
     font-size: 20px;

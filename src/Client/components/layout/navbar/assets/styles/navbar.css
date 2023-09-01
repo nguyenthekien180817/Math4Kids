@@ -64,6 +64,9 @@
 
 
 .loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     float: right;
     height: 35px;
     margin: 6px 10px 0 0;
@@ -79,6 +82,9 @@
 }
 
 .signupButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     float: right;
     height: 35px;
     margin: 6px 10px 0 0;

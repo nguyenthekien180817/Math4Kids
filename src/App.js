@@ -8,11 +8,15 @@ import TheoryPage from "./Client/components/pages/TheoryPage";
 import CreateLessonPage from "./Client/components/pages/CreateLessonPage";
 import TheoryDetailPage from "./Client/components/pages/TheoryDetailPage";
 import EditLessonPage from "./Client/components/pages/EditLessonPage";
+import LoginPage from "./Client/components/pages/LoginPage";
+import SignupPage from "./Client/components/pages/SignupPage";
 import "./App.css";
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/tu-luan" element={<EssayPagePage />} />
         <Route path="/trac-nghiem" element={<MultiChoicePage />} />

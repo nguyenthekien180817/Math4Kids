@@ -2,7 +2,7 @@ import React from "react";
 import "./assets/styles/sectionSelection.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 let chapters = [
   "Ôn tập các số đến 100 000",
   "Biểu thức có chứa một chữ",
@@ -41,7 +41,7 @@ function SectionSelection() {
                   action={`http://localhost:4000/ly-thuyet/${removeData}?_method=DELETE`}
                 >
                   <button
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     type="submit"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -52,7 +52,7 @@ function SectionSelection() {
                   </button>
                 </form>
                 <Link to={`/ly-thuyet/${chapter.slug}/edit`}>
-                  <button class="btn btn-primary" type="submit">
+                  <button className="btn btn-primary" type="submit">
                     Edit
                   </button>
                 </Link>

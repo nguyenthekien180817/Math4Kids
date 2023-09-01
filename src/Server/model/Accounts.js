@@ -6,6 +6,7 @@ mongoose.plugin(slug);
 const Accounts = new Schema({
   email: { type: String, unique: true },
   password: { type: String },
+  level: { type: String, default: "student" },
   thumbnail: {
     type: String,
     default: "https://media.gametora.com/umamusume/characters/profile/1032.png",
