@@ -16,7 +16,6 @@ function HomePage() {
 
   return (
     <div>
-      <button onClick={getUser}>Get User</button>
       <HomeHeader />
     </div>
   );

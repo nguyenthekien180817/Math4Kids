@@ -69,6 +69,10 @@ class AccountController {
       })
     );
   }
+
+  getMultiTest(req, res, next) {
+    res.send(req.body);
+  }
 }
 
 module.exports = new AccountController();

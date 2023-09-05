@@ -1,0 +1,19 @@
+.multiquestionCard {
+    width: 30vw;
+    padding: 0 10px 10px 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border: 3px, black, solid;
+
+}
+
+.multiquestionCard > input {
+    min-width: 100px;
+    max-width: fit-content;
+}
+
+.multiquestionCard > p {
+    float:left
+}

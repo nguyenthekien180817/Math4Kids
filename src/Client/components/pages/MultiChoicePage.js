@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { redirect } from "react-router-dom";
 function MultiChoicePage() {
+  const [disable, setDisable] = useState(false);
   const myQuestions = [
     {
       question: "Javascript is _________ language.",
@@ -59,76 +61,77 @@ function MultiChoicePage() {
     console.log(answersArray);
   };
 
-  let handleSubmitScore = () => {
+  let handleSubmitScore = (e) => {
+    setDisable(true);
     for (let i = 0; i < myQuestions.length; i++) {
       if (myQuestions[i].correctAnswer == answersArray[i]) {
         score++;
       }
     }
-    console.log(`You scored ${score} out of ${answersArray.length}`);
   };
 
   return (
     <div>
-      <form>
-        {myQuestions.map((question, index) => {
-          return (
-            <div>
-              <br />
-              <p>{question.question}</p>
-              {/* Question A */}
-              <input
-                type="radio"
-                name={`${index}`}
-                value={question.answers.a}
-                id={question.answers.a}
-                onClick={(e) => handleRadioSelect(e)}
-              ></input>
-              <label htmlFor={question.answers.a}>
-                A: {question.answers.a}
-              </label>
-              <br />
-              {/* Question B */}
-              <input
-                type="radio"
-                name={`${index}`}
-                value={question.answers.b}
-                id={question.answers.b}
-                onClick={(e) => handleRadioSelect(e)}
-              ></input>
-              <label htmlFor={question.answers.b}>
-                B: {question.answers.b}
-              </label>
-              <br />
-              {/* Question C */}
-              <input
-                type="radio"
-                name={`${index}`}
-                value={question.answers.c}
-                id={question.answers.c}
-                onClick={(e) => handleRadioSelect(e)}
-              ></input>
-              <label htmlFor={question.answers.c}>
-                C: {question.answers.c}
-              </label>
-              <br />
-              {/* Question D */}
-              <input
-                type="radio"
-                name={`${index}`}
-                value={question.answers.d}
-                id={question.answers.d}
-                onClick={(e) => handleRadioSelect(e)}
-              ></input>
-              <label htmlFor={question.answers.d}>
-                D: {question.answers.d}
-              </label>
-              <br />
-            </div>
-          );
-        })}
-        <div onClick={() => handleSubmitScore()}>Submit</div>
-      </form>
+      {/* <form> */}
+      {myQuestions.map((question, index) => {
+        return (
+          <div>
+            <br />
+            <p>{question.question}</p>
+            {/* Question A */}
+            <input
+              type="radio"
+              name={`${index}`}
+              value={question.answers.a}
+              id={question.answers.a}
+              onClick={(e) => handleRadioSelect(e)}
+            ></input>
+            <label htmlFor={question.answers.a}>A: {question.answers.a}</label>
+            <br />
+            {/* Question B */}
+            <input
+              type="radio"
+              name={`${index}`}
+              value={question.answers.b}
+              id={question.answers.b}
+              onClick={(e) => handleRadioSelect(e)}
+            ></input>
+            <label htmlFor={question.answers.b}>B: {question.answers.b}</label>
+            <br />
+            {/* Question C */}
+            <input
+              type="radio"
+              name={`${index}`}
+              value={question.answers.c}
+              id={question.answers.c}
+              onClick={(e) => handleRadioSelect(e)}
+            ></input>
+            <label htmlFor={question.answers.c}>C: {question.answers.c}</label>
+            <br />
+            {/* Question D */}
+            <input
+              type="radio"
+              name={`${index}`}
+              value={question.answers.d}
+              id={question.answers.d}
+              onClick={(e) => handleRadioSelect(e)}
+            ></input>
+            <label htmlFor={question.answers.d}>D: {question.answers.d}</label>
+            <br />
+          </div>
+        );
+      })}
+      {disable ? (
+        <p style={{ color: "red" }}>
+          You scored {score} out of {answersArray.length}
+        </p>
+      ) : (
+        <p></p>
+      )}
+      <button disabled={disable} onClick={() => handleSubmitScore()}>
+        Submit
+      </button>
+      {/* </form> */}
     </div>
   );
 }

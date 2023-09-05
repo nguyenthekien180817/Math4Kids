@@ -23,10 +23,10 @@ function LoginPage(props) {
     })
       .then((response) => {
         if (response.data == "Done") {
-          toast.success("Đăng nhập thành công");
+          toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
             window.location.replace("http://localhost:3000");
-          }, 3000);
+          }, 2500);
         } else {
           toast.warn("Sai tài khoản hoặc mật khẩu");
         }

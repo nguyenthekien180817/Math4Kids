@@ -10,6 +10,7 @@ import TheoryDetailPage from "./Client/components/pages/TheoryDetailPage";
 import EditLessonPage from "./Client/components/pages/EditLessonPage";
 import LoginPage from "./Client/components/pages/LoginPage";
 import SignupPage from "./Client/components/pages/SignupPage";
+import CreateMultiTestPage from "./Client/components/pages/CreateMultiTestPage";
 import "./App.css";
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
         <Route path="/ly-thuyet/create-lesson" element={<CreateLessonPage />} />
         <Route path="/ly-thuyet/:slug" element={<TheoryDetailPage />} />
         <Route path="/ly-thuyet/:slug/edit" element={<EditLessonPage />} />
+        <Route
+          path="/:slug/create-multichoice"
+          element={<CreateMultiTestPage />}
+        />
       </Routes>
       <Navbar />
     </div>

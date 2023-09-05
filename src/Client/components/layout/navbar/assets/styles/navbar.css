@@ -77,6 +77,21 @@
     cursor: pointer;
 }
 
+
+.userWelcome {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    height: 35px;
+    margin: 6px 10px 0 0;
+    color: white;
+
+    width: fit-content;
+    border-radius: 8px;
+}
+
 .loginButton:hover {
     background-color: hsl(206, 100%, 40%);
 }

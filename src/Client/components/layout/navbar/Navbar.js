@@ -13,7 +13,7 @@ export const SetSignUpContext = createContext();
 function Navbar() {
   const [account, setAccount] = useState(null);
   const [visible, setVisible] = useState(false);
-
+  const [visible2, setVisible2] = useState(false);
   useEffect(() => {
     axios({
       method: "GET",
@@ -45,7 +45,7 @@ function Navbar() {
             <button className="signupButton" onClick={logout}>
               Logout
             </button>
-            <p className="loginButton">{account}</p>
+            <p className="userWelcome">Xin chào {account}</p>
           </div>
         ) : (
           <div>
@@ -72,30 +72,47 @@ function Navbar() {
             onMouseOver={() => setVisible(true)}
           >
             <a>
-              Ôn Luyện <span />
+              Kiểm Tra <span />
               <FontAwesomeIcon icon={faCaretDown} />
             </a>
             {visible && (
               <ul className="subnav">
-                <li key={"quiz"}>
-                  <Link to="/quiz">Đố Vui</Link>
-                </li>
                 <li key={"trac"}>
-                  <Link to="/trac-nghiem">Kiểm tra trắc nghiệm</Link>
+                  <Link to="/trac-nghiem">Trắc nghiệm</Link>
                 </li>
                 <li key={"tu"}>
-                  <Link to="/tu-luan">Kiểm tra tự luận</Link>
+                  <Link to="/tu-luan">Tự luận</Link>
+                </li>
+                <li key={"combined"}>
+                  <Link to="/combined">Tổng Hợp</Link>
                 </li>
               </ul>
             )}
           </li>
 
-          <li key={"test"}>
-            <Link to="/test">Kiểm Tra</Link>
+          <li key={"practice"}>
+            <Link to="/practice">Ôn Luyện</Link>
           </li>
 
-          <li key={"create-lesson"}>
-            <Link to="/ly-thuyet/create-lesson">Tạo Bài Giảng</Link>
+          <li
+            key={"create-lesson"}
+            onMouseOut={() => setVisible2(false)}
+            onMouseOver={() => setVisible2(true)}
+          >
+            <a>
+              Tạo bài kiểm tra <span />
+              <FontAwesomeIcon icon={faCaretDown} />
+            </a>
+            {visible2 && (
+              <ul className="subnav">
+                <li key={"creMul"}>
+                  <Link to={`/${account}/create-multichoice`}>Trắc Nghiệm</Link>
+                </li>
+                <li key={"essay"}>
+                  <Link to={`/${account}/create-essay`}>Tự luận</Link>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </div>
