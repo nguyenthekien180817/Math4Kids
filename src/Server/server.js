@@ -14,7 +14,7 @@ const bcrypt = require("bcrypt");
 
 app.use(
   cors({
-    origin: "http://localhost:3000/login",
+    // origin: "http://localhost:3000/login",
     credentials: true,
   })
 );

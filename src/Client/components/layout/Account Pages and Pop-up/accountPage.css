@@ -1,0 +1,33 @@
+.infoBox {
+    height: fit-content;
+    width: 90vw;
+    box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.3);
+    margin: auto;
+    margin-top: 70px;
+
+}
+
+.boxHeader {
+    padding: 20px;
+    background-color: #324f90;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+    color: white;
+}
+
+.boxBody {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    background-color: #F3F3F4;
+    padding: 30px;
+
+    margin-right: 100px ;
+}
+.boxBody input {
+    margin-right: 20px;
+    width: 60%;
+}
+
+.boxBody a {
+    cursor: pointer;
+}

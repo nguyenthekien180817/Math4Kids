@@ -3,13 +3,6 @@ import "./assets/styles/sectionSelection.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-let chapters = [
-  "Ôn tập các số đến 100 000",
-  "Biểu thức có chứa một chữ",
-  "Chương 3",
-  "Chương 4",
-  "Chương 5",
-];
 
 function SectionSelection() {
   const [backend, setBackend] = useState(null);
@@ -19,8 +12,19 @@ function SectionSelection() {
       .then((response) => response.json())
       .then((data) => {
         setBackend(data.lessons);
-      });
+      })
+      .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    if (backend == null) {
+      const timer = setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [backend]);
+
   console.log(removeData);
   return (
     <div className="sectionSelector">

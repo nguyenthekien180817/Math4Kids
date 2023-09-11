@@ -11,6 +11,7 @@ import EditLessonPage from "./Client/components/pages/EditLessonPage";
 import LoginPage from "./Client/components/pages/LoginPage";
 import SignupPage from "./Client/components/pages/SignupPage";
 import CreateMultiTestPage from "./Client/components/pages/CreateMultiTestPage";
+import Account from "./Client/components/pages/Account";
 import "./App.css";
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           path="/:slug/create-multichoice"
           element={<CreateMultiTestPage />}
         />
+        <Route path="/:slug" element={<Account />} />
       </Routes>
       <Navbar />
     </div>

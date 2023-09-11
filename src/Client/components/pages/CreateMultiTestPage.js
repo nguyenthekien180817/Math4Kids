@@ -5,6 +5,8 @@ import MultiCreationCard from "../layout/Multi and Essay Creation card/MultiCrea
 import axios from "axios";
 function CreateMultiTestPage() {
   const [account, setAccount] = useState(null);
+  const [testName, setTestName] = useState(null);
+  const [testDescription, setTestDescription] = useState(null);
   useEffect(() => {
     axios({
       method: "GET",
@@ -26,9 +28,15 @@ function CreateMultiTestPage() {
     );
   };
 
-  let handleDelete = () => {
-    console.log(inputList.length);
-    setInputList(inputList.slice(0, inputList.length - 1));
+  let handleDelete = (e) => {
+    let newInputList2 = [];
+    let newInputList = inputList;
+    setInputList(
+      newInputList2.concat(
+        inputList.slice(0, Number(e.currentTarget.id)),
+        inputList.slice(Number(e.currentTarget.id) + 1, inputList.length)
+      )
+    );
   };
 
   let submit = () => {
@@ -36,9 +44,11 @@ function CreateMultiTestPage() {
       method: "POST",
       data: {
         author: account,
+        name: testName,
+        description: testDescription,
       },
       withCredentials: true,
-      url: `http://localhost:4000/account/${account}/multi-test`,
+      url: `http://localhost:4000/multi-test/${account}/store`,
     }).then((response) => {
       console.log(response.data);
     });
@@ -46,34 +56,52 @@ function CreateMultiTestPage() {
   return (
     <div style={{ paddingLeft: "10px" }}>
       <h1>Tạo bài kiểm tra trắc nghiệm</h1>
-      <button style={{ marginBottom: "10px" }} onClick={handleAdd}>
+      {/* <button style={{ marginBottom: "10px" }} onClick={handleAdd}>
         Thêm Câu hỏi
       </button>
-      <button style={{ marginBottom: "10px" }} onClick={handleDelete}>
-        Xóa Câu Hỏi
-      </button>
 
-      {inputList.length > 0 ? (
+      <button
+        style={{ marginLeft: "10px", marginBottom: "10px" }}
+        onClick={handleDelete}
+      >
+        Xóa Câu Hỏi
+      </button> */}
+
+      <input
+        onChange={(e) => setTestName(e.target.value)}
+        placeholder="Nhập tên bài kiểm tra"
+        name="name"
+      />
+      <textarea
+        onChange={(e) => setTestDescription(e.target.value)}
+        name="description"
+      >
+        Nhập mô tả bài kiểm tra
+      </textarea>
+
+      {/* {inputList.length > 0 ? (
         <div>
           {inputList.map((component, index) => {
             return (
-              <div>
+              <div className={index}>
                 <p style={{ marginBottom: "5px" }}>Câu hỏi số {index + 1}</p>
+
                 {component}
               </div>
             );
           })}
-          <button onClick={submit}>submit</button>
+
+          <button onClick={submit}>Đăng bài kiểm tra</button>
         </div>
       ) : (
         <p>
           Nhấn nút "Thêm Câu hỏi" để thêm câu hỏi và nút "Xóa Câu Hỏi" để xóa
           bớt câu hỏi{" "}
         </p>
-      )}
+      )} */}
+      <button onClick={submit}>Đăng bài kiểm tra</button>
     </div>
   );
 }
-export const IndexContext = createContext();
 
 export default CreateMultiTestPage;

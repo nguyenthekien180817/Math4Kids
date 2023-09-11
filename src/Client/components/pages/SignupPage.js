@@ -10,6 +10,7 @@ function SignupPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [accountName, setAccountName] = useState("");
 
   let register = () => {
     if (email == "") {
@@ -36,6 +37,7 @@ function SignupPage(props) {
         data: {
           email: email,
           password: password,
+          accountName: accountName,
         },
         withCredentials: true,
         url: "http://localhost:4000/account/create",
@@ -76,6 +78,18 @@ function SignupPage(props) {
             name="email"
             onChange={(e) => setEmail(e.target.value)}
           />
+
+          <label className="formLabel" htmlFor="accountName">
+            Tên Người Dùng
+          </label>
+          <input
+            type="text"
+            className="formInput"
+            id="accountName"
+            name="accountName"
+            onChange={(e) => setAccountName(e.target.value)}
+          />
+
           <label className="formLabel" htmlFor="password">
             Mật khẩu
           </label>

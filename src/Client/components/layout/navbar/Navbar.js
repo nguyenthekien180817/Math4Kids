@@ -21,7 +21,7 @@ function Navbar() {
       url: "http://localhost:4000/account/get-user",
     })
       .then((response) => {
-        console.log("Current Account: " + response.data);
+        console.log(response.data);
         setAccount(response.data);
       })
       .catch((err) => {});
@@ -31,7 +31,7 @@ function Navbar() {
     axios({
       method: "POST",
       withCredentials: true,
-      url: "http://localhost:4000/account/signout",
+      url: `http://localhost:4000/account/${account.email}/signout`,
     })
       .then(window.location.replace("http://localhost:3000/login"))
       .catch((err) => {});
@@ -45,7 +45,9 @@ function Navbar() {
             <button className="signupButton" onClick={logout}>
               Logout
             </button>
-            <p className="userWelcome">Xin chào {account}</p>
+            <Link className="userWelcome" to={account.email}>
+              Xin chào {account.accountName}
+            </Link>
           </div>
         ) : (
           <div>

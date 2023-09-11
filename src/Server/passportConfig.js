@@ -24,11 +24,11 @@ module.exports = function (passport) {
   );
 
   passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+    return cb(null, user.id);
   });
 
   passport.deserializeUser((id, cb) => {
-    Accounts.findOne({ _id: id }, (err, account) => {
+    return Accounts.findOne({ _id: id }, (err, account) => {
       cb(err, account);
     });
   });

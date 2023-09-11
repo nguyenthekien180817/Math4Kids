@@ -34,6 +34,7 @@ class AccountController {
           let account = new Accounts({
             email: req.body.email,
             password: hashedPassword,
+            accountName: req.body.accountName,
           });
           account.save().then(res.send("Done"));
         } catch (err) {}
@@ -42,7 +43,10 @@ class AccountController {
   }
 
   getUser(req, res) {
-    res.json(req.user.email);
+    res.json({
+      email: req.user.email,
+      accountName: req.user.accountName,
+    });
   }
 
   validation(req, res, next) {
@@ -65,13 +69,14 @@ class AccountController {
         if (err) {
           return next(err);
         }
-        return res.send("Done");
       })
     );
   }
 
-  getMultiTest(req, res, next) {
-    res.send(req.body);
+  update(req, res, next) {
+    Accounts.updateOne({ email: req.params.slug }, req.body).then(
+      res.send("Done")
+    );
   }
 }
 

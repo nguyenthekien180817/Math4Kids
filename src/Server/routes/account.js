@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const accountController = require("../controllers/AccountController");
 
+// localhost/account
 router.post("/create", accountController.create);
 router.get("/", accountController.getAccounts);
-router.post("/:slug/multi-test", accountController.getMultiTest);
 router.post("/validation", accountController.validation);
 router.get("/get-user", accountController.getUser);
-router.post("/signout", accountController.signout);
+router.post("/:slug/signout", accountController.signout);
+router.put("/:slug/update", accountController.update);
 module.exports = router;
