@@ -5,5 +5,9 @@ const MultiChoiceTestController = require("../controllers/MultiChoiceTestControl
 /* multi-test Route */
 
 router.post("/:slug/store", MultiChoiceTestController.store);
-router.get("/show-multi-test", MultiChoiceTestController.show);
+router.post(
+  "/:slug/store-finished",
+  MultiChoiceTestController.storeFinishedTest
+);
+router.get("/:slug/show-multi-test", MultiChoiceTestController.show);
 module.exports = router;

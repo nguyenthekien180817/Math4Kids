@@ -9,4 +9,5 @@ router.post("/validation", accountController.validation);
 router.get("/get-user", accountController.getUser);
 router.post("/:slug/signout", accountController.signout);
 router.put("/:slug/update", accountController.update);
+router.post("/:slug/store-finished", accountController.storeFinishedTest);
 module.exports = router;

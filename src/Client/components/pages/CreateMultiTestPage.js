@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MultiCreationCard from "../layout/Multi and Essay Creation card/MultiCreationCard";
 import axios from "axios";
 function CreateMultiTestPage() {
-  const [account, setAccount] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [accountName, setAccountName] = useState(null);
   const [testName, setTestName] = useState(null);
   const [testDescription, setTestDescription] = useState(null);
   useEffect(() => {
@@ -14,14 +15,15 @@ function CreateMultiTestPage() {
       url: "http://localhost:4000/account/get-user",
     })
       .then((response) => {
-        console.log("Current Account: " + response.data);
-        setAccount(response.data);
+        console.log(response.data);
+        setEmail(response.data.email);
+        setAccountName(response.data.accountName);
       })
       .catch((err) => {});
   }, []);
 
   const [inputList, setInputList] = useState([]);
-
+  console.log("Current Account: " + email);
   let handleAdd = () => {
     setInputList(
       inputList.concat(<MultiCreationCard key={inputList.length} />)
@@ -43,16 +45,21 @@ function CreateMultiTestPage() {
     axios({
       method: "POST",
       data: {
-        author: account,
+        author: email,
         name: testName,
         description: testDescription,
       },
       withCredentials: true,
-      url: `http://localhost:4000/multi-test/${account}/store`,
-    }).then((response) => {
-      console.log(response.data);
-    });
+      url: `http://localhost:4000/multi-test/${email}/store`,
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
   return (
     <div style={{ paddingLeft: "10px" }}>
       <h1>Tạo bài kiểm tra trắc nghiệm</h1>
@@ -75,30 +82,9 @@ function CreateMultiTestPage() {
       <textarea
         onChange={(e) => setTestDescription(e.target.value)}
         name="description"
-      >
-        Nhập mô tả bài kiểm tra
-      </textarea>
+        placeholder="Nhập mô tả bài kiểm tra"
+      ></textarea>
 
-      {/* {inputList.length > 0 ? (
-        <div>
-          {inputList.map((component, index) => {
-            return (
-              <div className={index}>
-                <p style={{ marginBottom: "5px" }}>Câu hỏi số {index + 1}</p>
-
-                {component}
-              </div>
-            );
-          })}
-
-          <button onClick={submit}>Đăng bài kiểm tra</button>
-        </div>
-      ) : (
-        <p>
-          Nhấn nút "Thêm Câu hỏi" để thêm câu hỏi và nút "Xóa Câu Hỏi" để xóa
-          bớt câu hỏi{" "}
-        </p>
-      )} */}
       <button onClick={submit}>Đăng bài kiểm tra</button>
     </div>
   );

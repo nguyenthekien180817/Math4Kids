@@ -14,7 +14,7 @@ const bcrypt = require("bcrypt");
 
 app.use(
   cors({
-    // origin: "http://localhost:3000/login",
+    origin: "http://localhost:3000/login",
     credentials: true,
   })
 );
@@ -24,6 +24,7 @@ app.use(
     secret: "180817",
     resave: false,
     saveUninitialized: true,
+    cookie: { _expires: 3600000 },
   })
 );
 
@@ -38,11 +39,18 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 
 try {
-  mongoose.connect("mongodb://localhost:27017/Test");
+  mongoose.connect("mongodb://localhost:27017/Test", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   console.log("Connected to the Database");
 } catch (error) {
   console.log("Fail to connect to Database");
 }
+
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
 route(app);
 

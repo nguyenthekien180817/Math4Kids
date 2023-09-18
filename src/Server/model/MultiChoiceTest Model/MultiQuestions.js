@@ -6,6 +6,7 @@ mongoose.plugin(slug);
 const MultiQuestions = new Schema({
   author: { type: String, required: true, default: "user01@test" },
   question_name: { type: String, required: true },
+  correctAnswer: { type: String },
   a: { type: String },
   b: { type: String },
   c: { type: String },

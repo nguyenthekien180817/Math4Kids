@@ -1,4 +1,5 @@
 const Accounts = require("../model/Accounts");
+const FinishedTests = require("../model/MultiChoiceTest Model/FinishedMultiTest");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const express = require("express");
@@ -46,6 +47,7 @@ class AccountController {
     res.json({
       email: req.user.email,
       accountName: req.user.accountName,
+      level: req.user.level,
     });
   }
 
@@ -77,6 +79,13 @@ class AccountController {
     Accounts.updateOne({ email: req.params.slug }, req.body).then(
       res.send("Done")
     );
+  }
+
+  async storeFinishedTest(req, res, next) {
+    try {
+      let finishedTest = new FinishedTests(req.body);
+      finishedTest.save().then(res.send("Done"));
+    } catch (err) {}
   }
 }
 
