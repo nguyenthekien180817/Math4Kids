@@ -12,6 +12,8 @@ import LoginPage from "./Client/components/pages/LoginPage";
 import SignupPage from "./Client/components/pages/SignupPage";
 import CreateMultiTestPage from "./Client/components/pages/CreateMultiTestPage";
 import Account from "./Client/components/pages/Account";
+import SubmittedTestPage from "./Client/components/pages/SubmittedTestPage";
+import DetailedMultiChoicePage from "./Client/components/pages/DetailedMultiChoicePage";
 import "./App.css";
 function App() {
   return (
@@ -31,7 +33,15 @@ function App() {
           path="/:slug/create-multichoice"
           element={<CreateMultiTestPage />}
         />
+        <Route
+          path="/:slug/store-finished-multi/:id/detail"
+          element={<SubmittedTestPage />}
+        />
         <Route path="/:slug" element={<Account />} />
+        <Route
+          path="/trac-nghiem/:slug"
+          element={<DetailedMultiChoicePage />}
+        />
       </Routes>
       <Navbar />
     </div>

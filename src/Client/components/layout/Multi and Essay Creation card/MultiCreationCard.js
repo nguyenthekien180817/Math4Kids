@@ -3,21 +3,58 @@ import { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Card.css";
 
+import {
+  IndexContext,
+  handleInputContext,
+} from "../../pages/CreateMultiTestPage";
+
 function MultiCreationCard() {
-  // console.log(index);
-  const [answerA, setAnswerA] = useState("");
-  const [answerB, setAnswerB] = useState("");
-  const [answerC, setAnswerC] = useState("");
-  const [answerD, setAnswerD] = useState("");
-  const [questionAnswer, setQuestionAnswer] = useState("");
+  let index = useContext(IndexContext);
+  let handleInput = useContext(handleInputContext);
+  console.log(index);
   return (
     <div className="multiquestionCard">
-      <input placeholder="Nội dung câu hỏi" name="question" />
-      <input placeholder="Đáp án A" name="answersA" />
-      <input placeholder="Đáp án B" name="answersB" />
-      <input placeholder="Đáp án C" name="answersC" />
-      <input placeholder="Đáp án D" name="answersD" />
-      <input placeholder="Đáp án đúng" name="correctAnswer" />
+      <input
+        onChange={handleInput}
+        className={index}
+        placeholder="Nội dung câu hỏi"
+        name="question"
+      />
+      <input
+        onChange={handleInput}
+        required
+        className={index}
+        placeholder="Đáp án A"
+        name="answerA"
+      />
+      <input
+        onChange={handleInput}
+        required
+        className={index}
+        placeholder="Đáp án B"
+        name="answerB"
+      />
+      <input
+        onChange={handleInput}
+        required
+        className={index}
+        placeholder="Đáp án C"
+        name="answerC"
+      />
+      <input
+        onChange={handleInput}
+        required
+        className={index}
+        placeholder="Đáp án D"
+        name="answerD"
+      />
+      <input
+        onChange={handleInput}
+        required
+        className={index}
+        placeholder="Đáp án đúng"
+        name="correctAnswer"
+      />
     </div>
   );
 }

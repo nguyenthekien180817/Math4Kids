@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment-timezone");
+const dateHanoi = moment.tz(Date.now(), "Asia/Hanoi");
 var slug = require("mongoose-slug-generator");
 mongoose.plugin(slug);
 
@@ -13,8 +15,8 @@ const Accounts = new Schema({
     default: "https://media.gametora.com/umamusume/characters/profile/1032.png",
   },
   userName: { type: String, slug: "email", unique: true },
-  createdAt: { type: Date, default: Date.now() },
-  updatedAt: { type: Date, default: Date.now() },
+  createdAt: { type: Date, default: dateHanoi },
+  updatedAt: { type: Date, default: dateHanoi },
 });
 
 module.exports = mongoose.model("Accounts", Accounts);

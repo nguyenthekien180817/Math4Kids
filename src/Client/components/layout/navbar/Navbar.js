@@ -61,15 +61,15 @@ function Navbar() {
           </div>
         )}
         <ul id="nav">
-          <li key={"/"}>
+          <li key={window.crypto.randomUUID()}>
             <Link to="/">Home</Link>
           </li>
-          <li key={"/ly-thuyet"}>
+          <li key={window.crypto.randomUUID()}>
             <Link to="/ly-thuyet">Lý Thuyết</Link>
           </li>
 
           <li
-            key={"dropdown"}
+            key={window.crypto.randomUUID()}
             onMouseOut={() => setVisible(false)}
             onMouseOver={() => setVisible(true)}
           >
@@ -79,25 +79,25 @@ function Navbar() {
             </a>
             {visible && (
               <ul className="subnav">
-                <li key={"trac"}>
+                <li key={window.crypto.randomUUID()}>
                   <Link to="/trac-nghiem">Trắc nghiệm</Link>
                 </li>
-                <li key={"tu"}>
+                <li key={window.crypto.randomUUID()}>
                   <Link to="/tu-luan">Tự luận</Link>
                 </li>
-                <li key={"combined"}>
+                <li key={window.crypto.randomUUID()}>
                   <Link to="/combined">Tổng Hợp</Link>
                 </li>
               </ul>
             )}
           </li>
 
-          <li key={"practice"}>
+          <li key={window.crypto.randomUUID()}>
             <Link to="/practice">Ôn Luyện</Link>
           </li>
 
           <li
-            key={"create-lesson"}
+            key={window.crypto.randomUUID()}
             onMouseOut={() => setVisible2(false)}
             onMouseOver={() => setVisible2(true)}
           >
@@ -107,12 +107,29 @@ function Navbar() {
             </a>
             {visible2 && (
               <ul className="subnav">
-                <li key={"creMul"}>
-                  <Link to={`/${account}/create-multichoice`}>Trắc Nghiệm</Link>
-                </li>
-                <li key={"essay"}>
-                  <Link to={`/${account}/create-essay`}>Tự luận</Link>
-                </li>
+                {account == null ? (
+                  <li>
+                    <Link to="/login">Trắc Nghiệm</Link>
+                  </li>
+                ) : (
+                  <li key={window.crypto.randomUUID()}>
+                    <Link to={`/${account.email}/create-multichoice`}>
+                      Trắc Nghiệm
+                    </Link>
+                  </li>
+                )}
+
+                {account == null ? (
+                  <li>
+                    <Link to="/login">Tự luận</Link>
+                  </li>
+                ) : (
+                  <li key={window.crypto.randomUUID()}>
+                    <li key={window.crypto.randomUUID()}>
+                      <Link to={`/${account.email}/create-essay`}>Tự luận</Link>
+                    </li>
+                  </li>
+                )}
               </ul>
             )}
           </li>

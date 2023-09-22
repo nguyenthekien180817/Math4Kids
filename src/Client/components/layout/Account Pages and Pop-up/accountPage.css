@@ -18,10 +18,12 @@
     display: flex;
     flex-direction: column;
     width: inherit;
+    max-height: 400px;
+    overflow: scroll;
     background-color: #F3F3F4;
     padding: 30px;
 
-    margin-right: 100px ;
+    /* margin-right: 100px ; */
 }
 .boxBody input {
     margin-right: 20px;
@@ -30,4 +32,9 @@
 
 .boxBody a {
     cursor: pointer;
+}
+
+.stroke {
+    /* -webkit-text-stroke: 0.5px white; */
+    color: white;
 }
