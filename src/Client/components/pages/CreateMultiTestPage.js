@@ -66,6 +66,7 @@ function CreateMultiTestPage() {
   //Push data into its array
   let handleInput = async (e) => {
     let index = e.currentTarget.className;
+    console.log(index);
     //Convert IMG to Base64 String
 
     switch (e.currentTarget.name) {

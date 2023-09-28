@@ -27,8 +27,8 @@ input[type="file"] {
     display: none
 }
 
-img {
-    height: 50px
+.multiQImg  {
+    height: 50px;
 }
 
 label {

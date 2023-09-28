@@ -45,7 +45,11 @@ function DetailedMultiChoicePage() {
   }, []);
 
   let handleRadioSelect = (e) => {
-    answersArray[e.target.name] = e.target.value;
+    if (e.target.value == "") {
+      answersArray[e.target.name] = String(e.target.id).slice(0, 1);
+    } else {
+      answersArray[e.target.name] = e.target.value;
+    }
     answerImage[e.target.name] = String(e.target.id).slice(0, 1);
     console.log(answerImage);
   };
@@ -56,7 +60,10 @@ function DetailedMultiChoicePage() {
     setDisable(true);
     let count = 0;
     for (let i = 0; i < myQuestions.question.length; i++) {
-      if (myQuestions.correctAnswerArray[i] == answersArray[i]) {
+      if (
+        myQuestions.correctAnswerArray[i].toLowerCase() ==
+        answersArray[i].toLowerCase()
+      ) {
         resultArray[i] = "true";
         count++;
       } else {
@@ -113,7 +120,10 @@ function DetailedMultiChoicePage() {
                 <br />
                 <p>
                   Câu hỏi {index + 1}: {question}{" "}
-                  <img src={myQuestions.imageArray.question[index]} />
+                  <img
+                    className="multiQImg"
+                    src={myQuestions.imageArray.question[index]}
+                  />
                 </p>
 
                 {/* Question A */}
@@ -128,7 +138,10 @@ function DetailedMultiChoicePage() {
                 ></input>
                 <label htmlFor={"A" + index}>
                   A: {myQuestions.answerAArray[index]}
-                  <img src={myQuestions.imageArray.answerA[index]} />
+                  <img
+                    className="multiQImg"
+                    src={myQuestions.imageArray.answerA[index]}
+                  />
                 </label>
 
                 <br />
@@ -144,7 +157,10 @@ function DetailedMultiChoicePage() {
                 ></input>
                 <label htmlFor={"B" + index}>
                   B: {myQuestions.answerBArray[index]}
-                  <img src={myQuestions.imageArray.answerB[index]} />
+                  <img
+                    className="multiQImg"
+                    src={myQuestions.imageArray.answerB[index]}
+                  />
                 </label>
                 <br />
                 {/* Question C */}
@@ -159,7 +175,10 @@ function DetailedMultiChoicePage() {
                 ></input>
                 <label htmlFor={"C" + index}>
                   C: {myQuestions.answerCArray[index]}
-                  <img src={myQuestions.imageArray.answerC[index]} />
+                  <img
+                    className="multiQImg"
+                    src={myQuestions.imageArray.answerC[index]}
+                  />
                 </label>
                 <br />
                 {/* Question D */}
@@ -174,7 +193,10 @@ function DetailedMultiChoicePage() {
                 ></input>
                 <label htmlFor={"D" + index}>
                   D: {myQuestions.answerDArray[index]}
-                  <img src={myQuestions.imageArray.answerD[index]} />
+                  <img
+                    className="multiQImg"
+                    src={myQuestions.imageArray.answerD[index]}
+                  />
                 </label>
                 <br />
               </div>

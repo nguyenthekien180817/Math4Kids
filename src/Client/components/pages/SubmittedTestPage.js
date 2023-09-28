@@ -48,15 +48,17 @@ function SubmittedTestPage() {
   };
 
   let setSrc = (index) => {
-    switch (backend[0].answerImage[index]) {
+    switch (backend[index].answerImage[index]) {
       case "A":
-        return backend[0].imageArray.answerA[index];
+        return backend[index].imageArray.answerA[index];
       case "B":
-        return backend[0].imageArray.answerB[index];
+        return backend[index].imageArray.answerB[index];
       case "C":
-        return backend[0].imageArray.answerC[index];
+        console.log(index);
+        return backend[index].imageArray.answerC[index];
       case "D":
-        return backend[0].imageArray.answerD[index];
+        console.log(index);
+        return backend[index].imageArray.answerD[index];
     }
   };
   return (
@@ -65,7 +67,7 @@ function SubmittedTestPage() {
         <div className="infoBox">
           <div className="boxHeader">
             <h2>
-              Các thi của bài thi: <span />
+              Các bài nộp của bài thi: <span />
               <strong className="stroke">{backend[0].test_name}</strong>
             </h2>
           </div>
@@ -137,7 +139,8 @@ function SubmittedTestPage() {
                               )}
 
                               <h5 className="textAnswerWrapper">
-                                Câu hỏi {index + 1}: {test.questionArray[index]}
+                                Câu hỏi {index + 1}: {test.questionArray[index]}{" "}
+                                <img src={test.imageArray.question[1]} />
                                 <br />
                                 Câu trả lời {index + 1}: {answer}
                                 <img src={setSrc(index)} />

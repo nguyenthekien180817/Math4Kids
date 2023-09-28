@@ -14,7 +14,7 @@ function MultiCreationCard() {
   let index = useContext(IndexContext);
   let handleInput = useContext(handleInputContext);
   let imageSrc = useContext(imageSrcContext);
-  console.log(imageSrc);
+
   return (
     <div className="multiquestionCard">
       <div className="answerInputField">
@@ -30,9 +30,10 @@ function MultiCreationCard() {
           onChange={handleInput}
           type="file"
           name="questionImage"
-          id="questionImage"
+          id={`questionImage${index}`}
+          key={index}
         />
-        <label className="btn" htmlFor="questionImage">
+        <label className="btn" htmlFor={`questionImage${index}`}>
           File Đính Kèm
         </label>
         <img src="" />
@@ -52,9 +53,9 @@ function MultiCreationCard() {
           onChange={handleInput}
           type="file"
           name="answerAImage"
-          id="answerAImage"
+          id={`answerAImage${index}`}
         />
-        <label className="btn" htmlFor="answerAImage">
+        <label className="btn" htmlFor={`answerAImage${index}`}>
           File Đính Kèm
         </label>
         {/* <img src={imageSrc.question[index]} /> */}
@@ -73,9 +74,9 @@ function MultiCreationCard() {
           onChange={handleInput}
           type="file"
           name="answerBImage"
-          id="answerBImage"
+          id={`answerBImage${index}`}
         />
-        <label className="btn" htmlFor="answerBImage">
+        <label className="btn" htmlFor={`answerBImage${index}`}>
           File Đính Kèm
         </label>
       </div>
@@ -93,9 +94,9 @@ function MultiCreationCard() {
           onChange={handleInput}
           type="file"
           name="answerCImage"
-          id="answerCImage"
+          id={`answerCImage${index}`}
         />
-        <label className="btn" htmlFor="answerCImage">
+        <label className="btn" htmlFor={`answerCImage${index}`}>
           File Đính Kèm
         </label>
       </div>
@@ -114,9 +115,9 @@ function MultiCreationCard() {
           onChange={handleInput}
           type="file"
           name="answerDImage"
-          id="answerDImage"
+          id={`answerDImage${index}`}
         />
-        <label className="btn" htmlFor="answerDImage">
+        <label className="btn" htmlFor={`answerDImage${index}`}>
           File Đính Kèm
         </label>
       </div>
