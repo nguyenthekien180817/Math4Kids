@@ -5,18 +5,33 @@ import MultiCreationCard from "../layout/Multi and Essay Creation card/MultiCrea
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../layout/Multi and Essay Creation card/MultiStyle.css";
+const { base64Converter } = require("../../util/Base64Converter");
 function CreateMultiTestPage() {
   const [email, setEmail] = useState(null);
   const [accountName, setAccountName] = useState(null);
   const [testName, setTestName] = useState(null);
   const [testDescription, setTestDescription] = useState(null);
   const [inputList, setInputList] = useState([]);
+  const [testImage, setTestImage] = useState("");
+  const [src, setSrc] = useState({
+    questionImage: [],
+    answerA: [],
+    answerB: [],
+    answerC: [],
+    answerD: [],
+  });
   let questionArray = [],
     answerAArray = [],
     answerBArray = [],
     answerCArray = [],
     answerDArray = [],
-    correctAnswerArray = [];
+    correctAnswerArray = [],
+    answerAImages = [],
+    answerBImages = [],
+    answerCImages = [],
+    answerDImages = [],
+    questionImages = [];
   useEffect(() => {
     axios({
       method: "GET",
@@ -49,9 +64,10 @@ function CreateMultiTestPage() {
   };
 
   //Push data into its array
-  let handleInput = (e) => {
+  let handleInput = async (e) => {
     let index = e.currentTarget.className;
-    console.log(index);
+    //Convert IMG to Base64 String
+
     switch (e.currentTarget.name) {
       case "question":
         questionArray[index] = e.currentTarget.value;
@@ -77,6 +93,27 @@ function CreateMultiTestPage() {
         correctAnswerArray[index] = e.currentTarget.value;
         console.log(correctAnswerArray);
         break;
+      case "questionImage":
+        questionImages[index] = await base64Converter(e.target.files[0]);
+        console.log(questionImages);
+        break;
+      case "answerAImage":
+        answerAImages[index] = await base64Converter(e.target.files[0]);
+        console.log(answerAImages);
+        break;
+      case "answerBImage":
+        answerBImages[index] = await base64Converter(e.target.files[0]);
+        console.log(answerAImages);
+        break;
+
+      case "answerCImage":
+        answerCImages[index] = await base64Converter(e.target.files[0]);
+        console.log(answerCImages);
+        break;
+      case "answerDImage":
+        answerDImages[index] = await base64Converter(e.target.files[0]);
+        console.log(answerDImages);
+        break;
     }
   };
 
@@ -93,6 +130,13 @@ function CreateMultiTestPage() {
         answerCArray: answerCArray,
         answerDArray: answerDArray,
         correctAnswerArray: correctAnswerArray,
+        imageArray: {
+          question: questionImages,
+          answerA: answerAImages,
+          answerB: answerBImages,
+          answerC: answerCImages,
+          answerD: answerDImages,
+        },
       },
       withCredentials: true,
       url: `http://localhost:4000/multi-test/${email}/store`,
@@ -124,6 +168,20 @@ function CreateMultiTestPage() {
         name="description"
         placeholder="Nhập mô tả bài kiểm tra"
       ></textarea>
+
+      <label className="btn" htmlFor="testImage">
+        File Đính Kèm
+      </label>
+
+      <input
+        type="file"
+        id="testImage"
+        onChange={async (e) => {
+          let converted = await base64Converter(e.target.files[0]);
+          setTestImage(converted);
+        }}
+      />
+      <img src={testImage} />
       <button style={{ marginBottom: "10px" }} onClick={handleAdd}>
         Thêm Câu hỏi
       </button>
@@ -141,12 +199,14 @@ function CreateMultiTestPage() {
             return (
               <handleInputContext.Provider value={handleInput}>
                 <IndexContext.Provider value={index}>
-                  <div>
-                    <p style={{ marginBottom: "5px" }}>
-                      Câu hỏi số {index + 1}
-                    </p>
-                    {component}
-                  </div>
+                  <imageSrcContext.Provider value={src}>
+                    <div>
+                      <p style={{ marginBottom: "5px" }}>
+                        Câu hỏi số {index + 1}
+                      </p>
+                      {component}
+                    </div>
+                  </imageSrcContext.Provider>
                 </IndexContext.Provider>
               </handleInputContext.Provider>
             );
@@ -164,5 +224,5 @@ function CreateMultiTestPage() {
 }
 export const IndexContext = createContext();
 export const handleInputContext = createContext();
-
+export const imageSrcContext = createContext();
 export default CreateMultiTestPage;

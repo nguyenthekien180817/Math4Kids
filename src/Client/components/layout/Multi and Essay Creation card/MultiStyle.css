@@ -17,3 +17,20 @@
 .multiquestionCard > p {
     float:left
 }
+
+.answerInputField {
+    display: flex;
+    margin-right: auto;
+}
+
+input[type="file"] {
+    display: none
+}
+
+img {
+    height: 50px
+}
+
+label {
+    color: black;
+}

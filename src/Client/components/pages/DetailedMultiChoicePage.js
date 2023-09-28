@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 function DetailedMultiChoicePage() {
   let answersArray = [];
+  let answerImage = [];
   const [disable, setDisable] = useState(false);
   const [score, setScore] = useState(0);
   const [email, setEmail] = useState(null);
@@ -45,10 +46,13 @@ function DetailedMultiChoicePage() {
 
   let handleRadioSelect = (e) => {
     answersArray[e.target.name] = e.target.value;
+    answerImage[e.target.name] = String(e.target.id).slice(0, 1);
+    console.log(answerImage);
   };
 
   let handleSubmitScore = () => {
     let resultArray = [];
+    let resultImage = [];
     setDisable(true);
     let count = 0;
     for (let i = 0; i < myQuestions.question.length; i++) {
@@ -72,6 +76,8 @@ function DetailedMultiChoicePage() {
         answersArray: answersArray,
         resultArray: resultArray,
         test_id: myQuestions._id,
+        imageArray: myQuestions.imageArray,
+        answerImage: answerImage,
       },
     })
       .then((response) => {
@@ -106,21 +112,25 @@ function DetailedMultiChoicePage() {
               <div style={{ marginLeft: "40px" }}>
                 <br />
                 <p>
-                  Câu hỏi {index + 1}: {question}
+                  Câu hỏi {index + 1}: {question}{" "}
+                  <img src={myQuestions.imageArray.question[index]} />
                 </p>
+
                 {/* Question A */}
                 <input
                   disabled={disable}
                   type="radio"
                   name={`${index}`}
                   value={myQuestions.answerAArray[index]}
-                  id={myQuestions.answerAArray[index] + "A" + index}
+                  id={"A" + index}
                   onClick={(e) => handleRadioSelect(e)}
                   key={index + "questionA"}
                 ></input>
-                <label htmlFor={myQuestions.answerAArray[index] + "A" + index}>
+                <label htmlFor={"A" + index}>
                   A: {myQuestions.answerAArray[index]}
+                  <img src={myQuestions.imageArray.answerA[index]} />
                 </label>
+
                 <br />
                 {/* Question B */}
                 <input
@@ -128,12 +138,13 @@ function DetailedMultiChoicePage() {
                   type="radio"
                   name={`${index}`}
                   value={myQuestions.answerBArray[index]}
-                  id={myQuestions.answerBArray[index] + "B" + index}
+                  id={"B" + index}
                   onClick={(e) => handleRadioSelect(e)}
                   key={index + "questionB"}
                 ></input>
-                <label htmlFor={myQuestions.answerBArray[index] + "B" + index}>
+                <label htmlFor={"B" + index}>
                   B: {myQuestions.answerBArray[index]}
+                  <img src={myQuestions.imageArray.answerB[index]} />
                 </label>
                 <br />
                 {/* Question C */}
@@ -142,12 +153,13 @@ function DetailedMultiChoicePage() {
                   type="radio"
                   name={`${index}`}
                   value={myQuestions.answerCArray[index]}
-                  id={myQuestions.answerCArray[index] + "C" + index}
+                  id={"C" + index}
                   onClick={(e) => handleRadioSelect(e)}
                   key={index + "questionC"}
                 ></input>
-                <label htmlFor={myQuestions.answerCArray[index] + "C" + index}>
+                <label htmlFor={"C" + index}>
                   C: {myQuestions.answerCArray[index]}
+                  <img src={myQuestions.imageArray.answerC[index]} />
                 </label>
                 <br />
                 {/* Question D */}
@@ -156,12 +168,13 @@ function DetailedMultiChoicePage() {
                   type="radio"
                   name={`${index}`}
                   value={myQuestions.answerDArray[index]}
-                  id={myQuestions.answerDArray[index] + "D" + index}
+                  id={"D" + index}
                   onClick={(e) => handleRadioSelect(e)}
                   key={index + "questionD"}
                 ></input>
-                <label htmlFor={myQuestions.answerDArray[index] + "D" + index}>
+                <label htmlFor={"D" + index}>
                   D: {myQuestions.answerDArray[index]}
+                  <img src={myQuestions.imageArray.answerD[index]} />
                 </label>
                 <br />
               </div>

@@ -14,6 +14,14 @@ function Account() {
   const [essayTestList, setEssayTestList] = useState([]);
   const [studentTestList, setStudentTestList] = useState([]);
   const [level, setLevel] = useState("student");
+  const [show, setShow] = useState(null);
+  const [testName, setTestName] = useState("");
+  let questionArray = [],
+    answerAArray = [],
+    answerBArray = [],
+    answerCArray = [],
+    answerDArray = [],
+    correctAnswerArray = [];
 
   useEffect(() => {
     axios({
@@ -71,6 +79,44 @@ function Account() {
         }, 2000);
       }
     });
+  };
+
+  let handleToggle = (index) => {
+    if (show == index) {
+      return setShow(null);
+    }
+    setShow(index);
+  };
+
+  let handleInput = (e) => {
+    let index = e.currentTarget.className;
+    console.log(index);
+    switch (e.currentTarget.name) {
+      case "question":
+        questionArray[index] = e.currentTarget.value;
+        console.log(questionArray);
+        break;
+      case "answerA":
+        answerAArray[index] = e.currentTarget.value;
+        console.log(answerAArray);
+        break;
+      case "answerB":
+        answerBArray[index] = e.currentTarget.value;
+        console.log(answerBArray);
+        break;
+      case "answerC":
+        answerCArray[index] = e.currentTarget.value;
+        console.log(answerCArray);
+        break;
+      case "answerD":
+        answerDArray[index] = e.currentTarget.value;
+        console.log(answerDArray);
+        break;
+      case "correctAnswer":
+        correctAnswerArray[index] = e.currentTarget.value;
+        console.log(correctAnswerArray);
+        break;
+    }
   };
 
   return (
@@ -138,18 +184,43 @@ function Account() {
                 </thead>
                 <tbody>
                   {multiTestList.map((test, index) => (
-                    <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>
-                        <Link
-                          to={`/${email}/store-finished-multi/${test._id}/detail`}
+                    <>
+                      <tr key={index}>
+                        <th scope="row">{index + 1}</th>
+                        <td>
+                          <Link
+                            to={`/${email}/store-finished-multi/${test._id}/detail`}
+                          >
+                            {test.name}
+                          </Link>
+                        </td>
+                        <td>{test.createdAt}</td>
+                        <td>{test._id}</td>
+                        <a
+                          style={{ color: "blue" }}
+                          id={`${index}`}
+                          onClick={() => handleToggle(index)}
                         >
-                          {test.name}
-                        </Link>
-                      </td>
-                      <td>{test.createdAt}</td>
-                      <td>{test._id}</td>
-                    </tr>
+                          Chi tiết
+                        </a>
+                      </tr>
+                      <tr>
+                        <td
+                          colSpan={6}
+                          style={{
+                            padding: "0",
+                          }}
+                        >
+                          <div
+                            className={
+                              show == index ? "accordion show" : "accordion"
+                            }
+                          >
+                            Lorem ipsum dolor sit amet, consectetur
+                          </div>
+                        </td>
+                      </tr>
+                    </>
                   ))}
                 </tbody>
               </table>

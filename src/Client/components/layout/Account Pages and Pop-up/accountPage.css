@@ -38,3 +38,51 @@
     /* -webkit-text-stroke: 0.5px white; */
     color: white;
 }
+
+
+label {
+    color: blue;
+    cursor: pointer;
+    
+}
+
+.accordion {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 10s ease-out;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.accordion button {
+    margin-top: 30px;
+}
+
+.show {
+    max-height: fit-content;
+    
+}
+
+.detailWrapper {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    border: solid 5px #DEE2E6;
+    border-radius: 10px;
+    padding: 5px;
+    transition: 0.5s ease-in;
+    height: fit-content;
+}
+
+.textAnswerWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    justify-content: center;
+    line-height: 35px;
+    height: fit-content;
+}
+

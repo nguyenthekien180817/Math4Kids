@@ -81,9 +81,9 @@ function LoginPage(props) {
           <button className="loginButtonPopup" onClick={login}>
             Đăng Nhập Ngay!
           </button>
-          <button className="loginButtonPopup" onClick={getUser}>
+          {/* <button className="loginButtonPopup" onClick={getUser}>
             Nhận thông tin!
-          </button>
+          </button> */}
           <p className="registration">
             Bạn chưa có tài khoản?
             <div>

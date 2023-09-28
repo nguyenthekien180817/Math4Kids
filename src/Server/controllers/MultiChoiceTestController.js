@@ -51,6 +51,7 @@ class MultiChoicePageController {
     FinishedTests.findOne(
       {
         student_email: req.body.student_email,
+        test_id: req.body.test_id,
       },
       async function (err, done) {
         if (err) res.send(err);
@@ -78,12 +79,12 @@ class MultiChoicePageController {
       if (err) throw err;
       if (results.length != 0) {
         if (results[0].author == req.params.slug) {
-          res.json({ tests: multipleMongooseToObject(results) });
+          res.send(results);
         } else {
           res.send("No access");
         }
       } else {
-        res.send("No Data");
+        res.send([]);
       }
     });
   }
