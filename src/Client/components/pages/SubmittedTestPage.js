@@ -40,25 +40,23 @@ function SubmittedTestPage() {
   }, [user]);
 
   let handleToggle = (index) => {
-    console.log(backend[index]);
+    console.log(backend);
     if (show == index) {
       return setShow(null);
     }
     setShow(index);
   };
 
-  let setSrc = (index) => {
-    switch (backend[index].answerImage[index]) {
+  let setSrc = (i, index) => {
+    switch (backend[index].answerImage[i]) {
       case "A":
-        return backend[index].imageArray.answerA[index];
+        return backend[index].imageArray.answerA[i];
       case "B":
-        return backend[index].imageArray.answerB[index];
+        return backend[index].imageArray.answerB[i];
       case "C":
-        console.log(index);
-        return backend[index].imageArray.answerC[index];
+        return backend[index].imageArray.answerC[i];
       case "D":
-        console.log(index);
-        return backend[index].imageArray.answerD[index];
+        return backend[index].imageArray.answerD[i];
     }
   };
   return (
@@ -91,7 +89,9 @@ function SubmittedTestPage() {
                       <td>{test.student_name}</td>
                       <td>{test.student_email}</td>
                       <td>{test.createdAt}</td>
-                      <td>{test.score}</td>
+                      <td>
+                        {(10 / backend[0].questionArray.length) * test.score}
+                      </td>
                       <td>
                         <a
                           style={{ color: "blue" }}
@@ -114,9 +114,9 @@ function SubmittedTestPage() {
                             show == index ? "accordion show" : "accordion"
                           }
                         >
-                          {test.answersArray.map((answer, index) => (
+                          {test.answersArray.map((answer, i) => (
                             <div className="detailWrapper">
-                              {test.resultArray[index] == "true" ? (
+                              {test.resultArray[i] == "true" ? (
                                 <FontAwesomeIcon
                                   style={{
                                     fontSize: "73px",
@@ -139,11 +139,11 @@ function SubmittedTestPage() {
                               )}
 
                               <h5 className="textAnswerWrapper">
-                                Câu hỏi {index + 1}: {test.questionArray[index]}{" "}
+                                Câu hỏi {i + 1}: {test.questionArray[i]}{" "}
                                 <img src={test.imageArray.question[1]} />
                                 <br />
-                                Câu trả lời {index + 1}: {answer}
-                                <img src={setSrc(index)} />
+                                Câu trả lời {i + 1}: {answer}
+                                <img src={setSrc(i, index)} />
                               </h5>
                             </div>
                           ))}

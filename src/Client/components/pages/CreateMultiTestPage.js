@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MultiCreationCard from "../layout/Multi and Essay Creation card/MultiCreationCard";
 import axios from "axios";
@@ -21,17 +21,17 @@ function CreateMultiTestPage() {
     answerC: [],
     answerD: [],
   });
-  let questionArray = [],
-    answerAArray = [],
-    answerBArray = [],
-    answerCArray = [],
-    answerDArray = [],
-    correctAnswerArray = [],
-    answerAImages = [],
-    answerBImages = [],
-    answerCImages = [],
-    answerDImages = [],
-    questionImages = [];
+  let questionArray = useRef([]),
+    answerAArray = useRef([]),
+    answerBArray = useRef([]),
+    answerCArray = useRef([]),
+    answerDArray = useRef([]),
+    correctAnswerArray = useRef([]),
+    answerAImages = useRef([]),
+    answerBImages = useRef([]),
+    answerCImages = useRef([]),
+    answerDImages = useRef([]),
+    questionImages = useRef([]);
   useEffect(() => {
     axios({
       method: "GET",
@@ -68,52 +68,75 @@ function CreateMultiTestPage() {
     let index = e.currentTarget.className;
     console.log(index);
     //Convert IMG to Base64 String
-
     switch (e.currentTarget.name) {
       case "question":
-        questionArray[index] = e.currentTarget.value;
+        questionArray.current[index] = e.currentTarget.value;
         console.log(questionArray);
         break;
       case "answerA":
-        answerAArray[index] = e.currentTarget.value;
+        answerAArray.current[index] = e.currentTarget.value;
         console.log(answerAArray);
         break;
       case "answerB":
-        answerBArray[index] = e.currentTarget.value;
+        answerBArray.current[index] = e.currentTarget.value;
         console.log(answerBArray);
         break;
       case "answerC":
-        answerCArray[index] = e.currentTarget.value;
+        answerCArray.current[index] = e.currentTarget.value;
         console.log(answerCArray);
         break;
       case "answerD":
-        answerDArray[index] = e.currentTarget.value;
+        answerDArray.current[index] = e.currentTarget.value;
         console.log(answerDArray);
         break;
       case "correctAnswer":
-        correctAnswerArray[index] = e.currentTarget.value;
+        correctAnswerArray.current[index] = e.currentTarget.value;
         console.log(correctAnswerArray);
         break;
       case "questionImage":
-        questionImages[index] = await base64Converter(e.target.files[0]);
+        questionImages.current[index] = await base64Converter(
+          e.target.files[0]
+        );
+        setSrc((src) => ({
+          ...src,
+          questionImage: questionImages.current,
+        }));
         console.log(questionImages);
+
         break;
       case "answerAImage":
-        answerAImages[index] = await base64Converter(e.target.files[0]);
-        console.log(answerAImages);
+        answerAImages.current[index] = await base64Converter(e.target.files[0]);
+        setSrc((src) => ({
+          ...src,
+
+          answerA: answerAImages.current,
+        }));
         break;
       case "answerBImage":
-        answerBImages[index] = await base64Converter(e.target.files[0]);
-        console.log(answerAImages);
+        answerBImages.current[index] = await base64Converter(e.target.files[0]);
+        setSrc((src) => ({
+          ...src,
+
+          answerB: answerBImages.current,
+        }));
         break;
 
       case "answerCImage":
-        answerCImages[index] = await base64Converter(e.target.files[0]);
-        console.log(answerCImages);
+        answerCImages.current[index] = await base64Converter(e.target.files[0]);
+        setSrc((src) => ({
+          ...src,
+
+          answerC: answerCImages.current,
+        }));
         break;
       case "answerDImage":
-        answerDImages[index] = await base64Converter(e.target.files[0]);
-        console.log(answerDImages);
+        answerDImages.current[index] = await base64Converter(e.target.files[0]);
+
+        setSrc((src) => ({
+          ...src,
+
+          answerD: answerDImages.current,
+        }));
         break;
     }
   };
@@ -125,18 +148,18 @@ function CreateMultiTestPage() {
         author: email,
         name: testName,
         description: testDescription,
-        question: questionArray,
-        answerAArray: answerAArray,
-        answerBArray: answerBArray,
-        answerCArray: answerCArray,
-        answerDArray: answerDArray,
-        correctAnswerArray: correctAnswerArray,
+        question: questionArray.current,
+        answerAArray: answerAArray.current,
+        answerBArray: answerBArray.current,
+        answerCArray: answerCArray.current,
+        answerDArray: answerDArray.current,
+        correctAnswerArray: correctAnswerArray.current,
         imageArray: {
-          question: questionImages,
-          answerA: answerAImages,
-          answerB: answerBImages,
-          answerC: answerCImages,
-          answerD: answerDImages,
+          question: questionImages.current,
+          answerA: answerAImages.current,
+          answerB: answerBImages.current,
+          answerC: answerCImages.current,
+          answerD: answerDImages.current,
         },
       },
       withCredentials: true,

@@ -27,20 +27,24 @@ class MultiChoicePageController {
 
   async showAll(req, res, next) {
     try {
-      MultiTests.find({ author: req.params.slug })
-        .then((tests) => {
-          res.json({ tests: multipleMongooseToObject(tests) });
-        })
-        .catch(next);
+      MultiTests.find({ author: req.params.slug }, (err, result) => {
+        if (err) res.send(err);
+        if (result) {
+          res.json({ tests: multipleMongooseToObject(result) });
+        }
+      });
     } catch (err) {}
   }
 
   async showSpecificTest(req, res, next) {
     try {
-      MultiTests.findOne({ _id: req.params.id }).then((response) => {
-        res.json({
-          tests: mongooseToObject(response),
-        });
+      MultiTests.findOne({ _id: req.params.id }, (err, result) => {
+        if (err) res.send(err);
+        if (result) {
+          res.json({
+            tests: mongooseToObject(result),
+          });
+        }
       });
     } catch (err) {
       res.send(err);

@@ -138,12 +138,11 @@ function DetailedMultiChoicePage() {
                 ></input>
                 <label htmlFor={"A" + index}>
                   A: {myQuestions.answerAArray[index]}
-                  <img
-                    className="multiQImg"
-                    src={myQuestions.imageArray.answerA[index]}
-                  />
                 </label>
-
+                <img
+                  className="multiQImg"
+                  src={myQuestions.imageArray.answerA[index]}
+                />
                 <br />
                 {/* Question B */}
                 <input

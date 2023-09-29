@@ -14,6 +14,7 @@ function MultiCreationCard() {
   let index = useContext(IndexContext);
   let handleInput = useContext(handleInputContext);
   let imageSrc = useContext(imageSrcContext);
+  // console.log(imageSrc);
 
   return (
     <div className="multiquestionCard">
@@ -36,7 +37,7 @@ function MultiCreationCard() {
         <label className="btn" htmlFor={`questionImage${index}`}>
           File Đính Kèm
         </label>
-        <img src="" />
+        <img className="multiQImg" src={imageSrc.questionImage[index]} />
       </div>
 
       <div className="answerInputField">
@@ -58,7 +59,7 @@ function MultiCreationCard() {
         <label className="btn" htmlFor={`answerAImage${index}`}>
           File Đính Kèm
         </label>
-        {/* <img src={imageSrc.question[index]} /> */}
+        <img className="multiQImg" src={imageSrc.answerA[index]} />
       </div>
 
       <div className="answerInputField">
@@ -79,6 +80,7 @@ function MultiCreationCard() {
         <label className="btn" htmlFor={`answerBImage${index}`}>
           File Đính Kèm
         </label>
+        <img className="multiQImg" src={imageSrc.answerB[index]} />
       </div>
 
       <div className="answerInputField">
@@ -99,6 +101,7 @@ function MultiCreationCard() {
         <label className="btn" htmlFor={`answerCImage${index}`}>
           File Đính Kèm
         </label>
+        <img className="multiQImg" src={imageSrc.answerC[index]} />
       </div>
 
       <div className="answerInputField">
@@ -120,6 +123,7 @@ function MultiCreationCard() {
         <label className="btn" htmlFor={`answerDImage${index}`}>
           File Đính Kèm
         </label>
+        <img className="multiQImg" src={imageSrc.answerD[index]} />
       </div>
 
       <div className="answerInputField">
