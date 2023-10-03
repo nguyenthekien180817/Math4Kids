@@ -95,7 +95,7 @@ class MultiChoicePageController {
 
   async listedStudentTest(req, res, next) {
     FinishedTests.find(
-      { student_email: req.params.student },
+      { student_email: req.params.student, author: req.params.teacher },
       (err, results) => {
         if (err) throw err;
         if (results.length != 0) {

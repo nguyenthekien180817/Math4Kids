@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./Client/components/layout/navbar/Navbar";
 import HomePage from "./Client/components/pages/HomePage";
 import EssayPagePage from "./Client/components/pages/EssayPage";
-import MultiChoicePage from "./Client/components/pages/MultiChoicePage"; // Multi
+import MultiChoicePage from "./Client/components/pages/MultiTestPages/MultiChoicePage"; // Multi
 import QuizPage from "./Client/components/pages/QuizPage";
 import TheoryPage from "./Client/components/pages/TheoryPage";
 import CreateLessonPage from "./Client/components/pages/CreateLessonPage";
@@ -10,10 +10,10 @@ import TheoryDetailPage from "./Client/components/pages/TheoryDetailPage";
 import EditLessonPage from "./Client/components/pages/EditLessonPage";
 import LoginPage from "./Client/components/pages/LoginPage";
 import SignupPage from "./Client/components/pages/SignupPage";
-import CreateMultiTestPage from "./Client/components/pages/CreateMultiTestPage"; //Multi
+import CreateMultiTestPage from "./Client/components/pages/MultiTestPages/CreateMultiTestPage"; //Multi
 import Account from "./Client/components/pages/Account";
 import SubmittedTestPage from "./Client/components/pages/SubmittedTestPage";
-import DetailedMultiChoicePage from "./Client/components/pages/DetailedMultiChoicePage"; // Multi
+import DetailedMultiChoicePage from "./Client/components/pages/MultiTestPages/DetailedMultiChoicePage"; // Multi
 import "./App.css";
 function App() {
   return (

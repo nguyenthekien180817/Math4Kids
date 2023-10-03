@@ -6,7 +6,7 @@ import {
   IndexContext,
   handleInputContext,
   imageSrcContext,
-} from "../../pages/CreateMultiTestPage";
+} from "../../pages/MultiTestPages/CreateMultiTestPage";
 
 const { base64Converter } = require("../../../util/Base64Converter");
 
