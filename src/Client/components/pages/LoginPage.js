@@ -26,7 +26,7 @@ function LoginPage(props) {
           toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
             window.location.replace("http://localhost:3000");
-          }, 2500);
+          }, 500);
         } else {
           toast.warn("Sai tài khoản hoặc mật khẩu");
         }
@@ -46,11 +46,7 @@ function LoginPage(props) {
 
   return (
     <div>
-      <ToastContainer
-        autoClose={2000}
-        limit={2}
-        style={{ marginTop: "30px" }}
-      />
+      <ToastContainer autoClose={500} limit={2} style={{ marginTop: "30px" }} />
       <div className="loginBackground">
         <div className="loginFormContainer">
           <div className="popupHeader">

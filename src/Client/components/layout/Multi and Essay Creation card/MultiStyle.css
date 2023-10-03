@@ -23,7 +23,7 @@
     margin-right: auto;
 }
 
-input[type="file"] {
+.answerInputField > [type="file"] {
     display: none
 }
 

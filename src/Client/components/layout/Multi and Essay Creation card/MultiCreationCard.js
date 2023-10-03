@@ -17,13 +17,14 @@ function MultiCreationCard() {
   // console.log(imageSrc);
 
   return (
-    <div className="multiquestionCard">
+    <div className="multiquestionCard" key={"creationfield" + index}>
       <div className="answerInputField">
         <input
           onChange={handleInput}
           className={index}
           placeholder="Nội dung câu hỏi"
           name="question"
+          key={index + "questionCreate"}
         />
 
         <input
@@ -32,7 +33,7 @@ function MultiCreationCard() {
           type="file"
           name="questionImage"
           id={`questionImage${index}`}
-          key={index}
+          key={index + "questionImageCreate"}
         />
         <label className="btn" htmlFor={`questionImage${index}`}>
           File Đính Kèm
@@ -47,6 +48,7 @@ function MultiCreationCard() {
           className={index}
           placeholder="Đáp án A"
           name="answerA"
+          key={index + "answerACreate"}
         />
 
         <input
@@ -55,6 +57,7 @@ function MultiCreationCard() {
           type="file"
           name="answerAImage"
           id={`answerAImage${index}`}
+          key={index + "answerAImageCreate"}
         />
         <label className="btn" htmlFor={`answerAImage${index}`}>
           File Đính Kèm
@@ -69,6 +72,7 @@ function MultiCreationCard() {
           className={index}
           placeholder="Đáp án B"
           name="answerB"
+          key={index + "answerBCreate"}
         />
         <input
           className={index}
@@ -76,6 +80,7 @@ function MultiCreationCard() {
           type="file"
           name="answerBImage"
           id={`answerBImage${index}`}
+          key={index + "answerBImageCreate"}
         />
         <label className="btn" htmlFor={`answerBImage${index}`}>
           File Đính Kèm
@@ -90,6 +95,7 @@ function MultiCreationCard() {
           className={index}
           placeholder="Đáp án C"
           name="answerC"
+          key={index + "answerCCreate"}
         />
         <input
           className={index}
@@ -97,6 +103,7 @@ function MultiCreationCard() {
           type="file"
           name="answerCImage"
           id={`answerCImage${index}`}
+          key={index + "answerCImageCreate"}
         />
         <label className="btn" htmlFor={`answerCImage${index}`}>
           File Đính Kèm
@@ -111,6 +118,7 @@ function MultiCreationCard() {
           className={index}
           placeholder="Đáp án D"
           name="answerD"
+          key={index + "answerDCreate"}
         />
 
         <input
@@ -119,6 +127,7 @@ function MultiCreationCard() {
           type="file"
           name="answerDImage"
           id={`answerDImage${index}`}
+          key={index + "answerDImageCreate"}
         />
         <label className="btn" htmlFor={`answerDImage${index}`}>
           File Đính Kèm

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,6 +15,7 @@ function DetailedMultiChoicePage() {
   const [myQuestions, setMyQuestions] = useState(null);
   const params = useParams();
   console.log(params.slug);
+  let showScore = useRef(0);
 
   // [GET] test details ------------------------------------------------
   useEffect(() => {
@@ -66,6 +67,7 @@ function DetailedMultiChoicePage() {
       ) {
         resultArray[i] = "true";
         count++;
+        showScore.current = count;
       } else {
         resultArray[i] = "false";
       }
@@ -79,6 +81,7 @@ function DetailedMultiChoicePage() {
         student_name: accountName,
         student_email: email,
         score: count,
+        test_name: myQuestions.name,
         questionArray: myQuestions.question,
         answersArray: answersArray,
         resultArray: resultArray,
@@ -91,14 +94,6 @@ function DetailedMultiChoicePage() {
         console.log(response);
         if (response.data.message == "Done") {
           toast.success("Nộp bài thành công");
-          let cnt = 0;
-          for (let i = 0; i < response.data.detail; i++) {
-            if (response.data.detail[i] == "true") {
-              cnt++;
-              setScore(cnt);
-            }
-          }
-          console.log(score);
         } else {
           toast.warning("Bạn đã làm bài thi từ trước rồi!");
         }
@@ -137,7 +132,10 @@ function DetailedMultiChoicePage() {
                   key={index + "questionA"}
                 ></input>
                 <label htmlFor={"A" + index}>
-                  A: {myQuestions.answerAArray[index]}
+                  A:{" "}
+                  {myQuestions.answerAArray[index].toLowerCase() == "a"
+                    ? ""
+                    : myQuestions.answerAArray[index]}
                 </label>
                 <img
                   className="multiQImg"
@@ -155,7 +153,10 @@ function DetailedMultiChoicePage() {
                   key={index + "questionB"}
                 ></input>
                 <label htmlFor={"B" + index}>
-                  B: {myQuestions.answerBArray[index]}
+                  B:{" "}
+                  {myQuestions.answerBArray[index].toLowerCase() == "b"
+                    ? ""
+                    : myQuestions.answerBArray[index]}
                   <img
                     className="multiQImg"
                     src={myQuestions.imageArray.answerB[index]}
@@ -173,7 +174,10 @@ function DetailedMultiChoicePage() {
                   key={index + "questionC"}
                 ></input>
                 <label htmlFor={"C" + index}>
-                  C: {myQuestions.answerCArray[index]}
+                  C:{" "}
+                  {myQuestions.answerCArray[index].toLowerCase() == "c"
+                    ? ""
+                    : myQuestions.answerCArray[index]}
                   <img
                     className="multiQImg"
                     src={myQuestions.imageArray.answerC[index]}
@@ -191,7 +195,10 @@ function DetailedMultiChoicePage() {
                   key={index + "questionD"}
                 ></input>
                 <label htmlFor={"D" + index}>
-                  D: {myQuestions.answerDArray[index]}
+                  D:{" "}
+                  {myQuestions.answerDArray[index].toLowerCase() == "d"
+                    ? ""
+                    : myQuestions.answerDArray[index]}
                   <img
                     className="multiQImg"
                     src={myQuestions.imageArray.answerD[index]}
@@ -203,7 +210,8 @@ function DetailedMultiChoicePage() {
           })}
           {disable ? (
             <p style={{ color: "green" }}>
-              You scored {score} out of {myQuestions.question.length}
+              Bạn làm đúng {showScore.current} trên tổng số{" "}
+              {myQuestions.question.length} câu hỏi
             </p>
           ) : (
             <p></p>

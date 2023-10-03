@@ -53,13 +53,38 @@ function CreateMultiTestPage() {
   };
 
   let handleDelete = (e) => {
-    let newInputList2 = [];
-    let newInputList = inputList;
-    setInputList(
-      newInputList2.concat(
-        inputList.slice(0, Number(e.currentTarget.id)),
-        inputList.slice(Number(e.currentTarget.id) + 1, inputList.length)
-      )
+    setInputList(inputList.slice(0, inputList.length - 1));
+    questionArray.current = questionArray.current.slice(
+      0,
+      inputList.length - 1
+    );
+    answerAArray.current = answerAArray.current.slice(0, inputList.length - 1);
+    answerBArray.current = answerAArray.current.slice(0, inputList.length - 1);
+    answerCArray.current = answerAArray.current.slice(0, inputList.length - 1);
+    answerDArray.current = answerAArray.current.slice(0, inputList.length - 1);
+    correctAnswerArray.current = correctAnswerArray.current.slice(
+      0,
+      inputList.length - 1
+    );
+    answerAImages.current = answerAImages.current.slice(
+      0,
+      inputList.length - 1
+    );
+    answerBImages.current = answerAImages.current.slice(
+      0,
+      inputList.length - 1
+    );
+    answerCImages.current = answerAImages.current.slice(
+      0,
+      inputList.length - 1
+    );
+    answerDImages.current = answerAImages.current.slice(
+      0,
+      inputList.length - 1
+    );
+    questionImages.current = questionImages.current.slice(
+      0,
+      inputList.length - 1
     );
   };
 
@@ -71,32 +96,33 @@ function CreateMultiTestPage() {
     switch (e.currentTarget.name) {
       case "question":
         questionArray.current[index] = e.currentTarget.value;
-        console.log(questionArray);
+        console.log(questionArray.current);
         break;
       case "answerA":
         answerAArray.current[index] = e.currentTarget.value;
-        console.log(answerAArray);
+        console.log(answerAArray.current);
         break;
       case "answerB":
         answerBArray.current[index] = e.currentTarget.value;
-        console.log(answerBArray);
+        console.log(answerBArray.current);
         break;
       case "answerC":
         answerCArray.current[index] = e.currentTarget.value;
-        console.log(answerCArray);
+        console.log(answerCArray.current);
         break;
       case "answerD":
         answerDArray.current[index] = e.currentTarget.value;
-        console.log(answerDArray);
+        console.log(answerDArray.current);
         break;
       case "correctAnswer":
         correctAnswerArray.current[index] = e.currentTarget.value;
-        console.log(correctAnswerArray);
+        console.log(correctAnswerArray.current);
         break;
       case "questionImage":
         questionImages.current[index] = await base64Converter(
           e.target.files[0]
         );
+        console.log(questionImages.current);
         setSrc((src) => ({
           ...src,
           questionImage: questionImages.current,
@@ -193,19 +219,6 @@ function CreateMultiTestPage() {
         placeholder="Nhập mô tả bài kiểm tra"
       ></textarea>
 
-      <label className="btn" htmlFor="testImage">
-        File Đính Kèm
-      </label>
-
-      <input
-        type="file"
-        id="testImage"
-        onChange={async (e) => {
-          let converted = await base64Converter(e.target.files[0]);
-          setTestImage(converted);
-        }}
-      />
-      <img src={testImage} />
       <button style={{ marginBottom: "10px" }} onClick={handleAdd}>
         Thêm Câu hỏi
       </button>
@@ -214,7 +227,7 @@ function CreateMultiTestPage() {
         style={{ marginLeft: "10px", marginBottom: "10px" }}
         onClick={handleDelete}
       >
-        Xóa Câu Hỏi
+        Xóa Câu Hỏi Cuối
       </button>
 
       {inputList.length > 0 ? (

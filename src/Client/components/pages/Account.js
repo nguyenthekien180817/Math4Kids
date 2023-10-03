@@ -88,35 +88,11 @@ function Account() {
     setShow(index);
   };
 
-  let handleInput = (e) => {
-    let index = e.currentTarget.className;
-    console.log(index);
-    switch (e.currentTarget.name) {
-      case "question":
-        questionArray[index] = e.currentTarget.value;
-        console.log(questionArray);
-        break;
-      case "answerA":
-        answerAArray[index] = e.currentTarget.value;
-        console.log(answerAArray);
-        break;
-      case "answerB":
-        answerBArray[index] = e.currentTarget.value;
-        console.log(answerBArray);
-        break;
-      case "answerC":
-        answerCArray[index] = e.currentTarget.value;
-        console.log(answerCArray);
-        break;
-      case "answerD":
-        answerDArray[index] = e.currentTarget.value;
-        console.log(answerDArray);
-        break;
-      case "correctAnswer":
-        correctAnswerArray[index] = e.currentTarget.value;
-        console.log(correctAnswerArray);
-        break;
-    }
+  let updateQuestion = (index, childIndex, e) => {
+    let copiedObject = [...multiTestList];
+    copiedObject[index].question[childIndex] = e.target.value;
+    setMultiTestList(copiedObject);
+    console.log(multiTestList[index].question[childIndex]);
   };
 
   return (
@@ -216,7 +192,14 @@ function Account() {
                               show == index ? "accordion show" : "accordion"
                             }
                           >
-                            Lorem ipsum dolor sit amet, consectetur
+                            {test.question.map((data, childIndex) => (
+                              <input
+                                onChange={(e) =>
+                                  updateQuestion(index, childIndex, e)
+                                }
+                                value={data}
+                              />
+                            ))}
                           </div>
                         </td>
                       </tr>

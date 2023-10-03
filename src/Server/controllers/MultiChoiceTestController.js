@@ -92,6 +92,24 @@ class MultiChoicePageController {
       }
     });
   }
+
+  async listedStudentTest(req, res, next) {
+    FinishedTests.find(
+      { student_email: req.params.student },
+      (err, results) => {
+        if (err) throw err;
+        if (results.length != 0) {
+          if (results[0].author == req.params.teacher) {
+            res.send(results);
+          } else {
+            res.send("No access");
+          }
+        } else {
+          res.send([]);
+        }
+      }
+    );
+  }
 }
 
 module.exports = new MultiChoicePageController();

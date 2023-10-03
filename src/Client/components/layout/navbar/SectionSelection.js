@@ -1,12 +1,17 @@
 import React from "react";
 import "./assets/styles/sectionSelection.css";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import pdfjs from "pdfjs-dist";
+import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
+const { base64Converter } = require("../../../util/Base64Converter");
 
 function SectionSelection() {
   const [backend, setBackend] = useState(null);
   const [removeData, setRemoveData] = useState("");
+  const [src, setSrc] = useState("");
   useEffect(() => {
     fetch("http://localhost:4000/ly-thuyet")
       .then((response) => response.json())
@@ -25,47 +30,31 @@ function SectionSelection() {
     }
   }, [backend]);
 
-  console.log(removeData);
-  return (
-    <div className="sectionSelector">
-      <h1>Toán Số</h1>
-      <div className="section">
-        {backend != null ? (
-          backend.map((chapter, i) => {
-            return (
-              <div className="sectionCard">
-                <Link to={`/ly-thuyet/${chapter.slug}`}>
-                  <img src={chapter.thumbnail} />
-                  <h1>{chapter.name}</h1>
-                  <p>{chapter.description}</p>
-                </Link>
+  let submit = () => {
+    axios({
+      method: "POST",
+      url: "http://localhost:4000/ly-thuyet/store",
+      data: src,
+    });
+  };
 
-                <form
-                  method="post"
-                  action={`http://localhost:4000/ly-thuyet/${removeData}?_method=DELETE`}
-                >
-                  <button
-                    className="btn btn-primary"
-                    type="submit"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setRemoveData(chapter.slug);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </form>
-                <Link to={`/ly-thuyet/${chapter.slug}/edit`}>
-                  <button className="btn btn-primary" type="submit">
-                    Edit
-                  </button>
-                </Link>
-              </div>
-            );
-          })
-        ) : (
-          <img src="https://howto.nsupport.asia/wp-content/uploads/2021/03/70515910726734841.jpg" />
-        )}
+  return (
+    <div className="section">
+      <h1>Toán kết nối chi thức:</h1>
+      <div className="section">
+        <a data-toggle="collapse" href="#ketnoi1">
+          SÁCH GIÁO KHOA TOÁN 4 TẬP 1 KẾT NỐI TRI THỨC
+        </a>
+        <div class="collapse" id="ketnoi1">
+          <div>Hello</div>
+        </div>
+
+        <a data-toggle="collapse" href="#ketnoi2">
+          SÁCH GIÁO KHOA TOÁN 4 TẬP 2 KẾT NỐI TRI THỨC
+        </a>
+        <div class="collapse" id="ketnoi2">
+          <div>Hello</div>
+        </div>
       </div>
     </div>
   );
