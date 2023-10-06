@@ -30,6 +30,10 @@
     width: 60%;
 }
 
+.boxBody .answerInputField input {
+    width: 500px;
+}
+
 .boxBody a {
     cursor: pointer;
 }
@@ -60,6 +64,15 @@ label {
     margin-top: 30px;
 }
 
+.accordion img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.accordion .btn.btn-primary {
+    margin: 0;
+}
 .show {
     max-height: fit-content;
     

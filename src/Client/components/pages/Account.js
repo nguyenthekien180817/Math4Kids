@@ -5,6 +5,7 @@ import "../layout/Account Pages and Pop-up/accountPage.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+const { base64Converter } = require("../../util/Base64Converter");
 
 function Account() {
   const [email, setEmail] = useState("");
@@ -15,13 +16,7 @@ function Account() {
   const [studentTestList, setStudentTestList] = useState([]);
   const [level, setLevel] = useState("student");
   const [show, setShow] = useState(null);
-  const [testName, setTestName] = useState("");
-  let questionArray = [],
-    answerAArray = [],
-    answerBArray = [],
-    answerCArray = [],
-    answerDArray = [],
-    correctAnswerArray = [];
+  const [edit, setEdit] = useState(null);
 
   useEffect(() => {
     axios({
@@ -86,13 +81,90 @@ function Account() {
       return setShow(null);
     }
     setShow(index);
+    console.log(multiTestList[index]);
   };
 
-  let updateQuestion = (index, childIndex, e) => {
+  let handleEdit = (index) => {
+    if (edit == index) {
+      return setEdit(null);
+    }
+    setEdit(index);
+  };
+
+  let editMultiQuestion = async (index, childIndex, e) => {
     let copiedObject = [...multiTestList];
-    copiedObject[index].question[childIndex] = e.target.value;
-    setMultiTestList(copiedObject);
-    console.log(multiTestList[index].question[childIndex]);
+    console.log(index, childIndex);
+    switch (e.target.name) {
+      case "question":
+        copiedObject[index].question[childIndex] = e.target.value;
+        setMultiTestList(copiedObject);
+        break;
+      case "answerA":
+        copiedObject[index].answerAArray[childIndex] = e.target.value;
+        setMultiTestList(copiedObject);
+        break;
+      case "answerB":
+        copiedObject[index].answerBArray[childIndex] = e.target.value;
+        setMultiTestList(copiedObject);
+        break;
+      case "answerC":
+        copiedObject[index].answerCArray[childIndex] = e.target.value;
+        setMultiTestList(copiedObject);
+        break;
+
+      case "answerD":
+        copiedObject[index].answerDArray[childIndex] = e.target.value;
+        setMultiTestList(copiedObject);
+        break;
+
+      case "questionImage":
+        copiedObject[index].imageArray.question[childIndex] =
+          await base64Converter(e.target.files[0]);
+        setMultiTestList(copiedObject);
+        break;
+
+      case "answerAImage":
+        copiedObject[index].imageArray.answerA[childIndex] =
+          await base64Converter(e.target.files[0]);
+        setMultiTestList(copiedObject);
+        break;
+
+      case "answerBImage":
+        copiedObject[index].imageArray.answerB[childIndex] =
+          await base64Converter(e.target.files[0]);
+        setMultiTestList(copiedObject);
+        break;
+
+      case "answerCImage":
+        copiedObject[index].imageArray.answerC[childIndex] =
+          await base64Converter(e.target.files[0]);
+        setMultiTestList(copiedObject);
+        break;
+
+      case "answerDImage":
+        copiedObject[index].imageArray.answerD[childIndex] =
+          await base64Converter(e.target.files[0]);
+        setMultiTestList(copiedObject);
+        break;
+
+      case "correctAnswer":
+        copiedObject[index].correctAnswerArray[childIndex] = e.target.value;
+        setMultiTestList(copiedObject);
+        break;
+    }
+    // copiedObject[index].question[childIndex] = e.target.value;
+    // setMultiTestList(copiedObject);
+  };
+  //update test trac nghiem
+  let updateMultiQ = (index) => {
+    axios({
+      method: "PUT",
+      withCredentials: true,
+      url: `http://localhost:4000/multi-test/${email}/${multiTestList[index]._id}/update`,
+      data: multiTestList[index],
+    }).then((response) => {
+      console.log(response);
+    });
   };
 
   return (
@@ -173,16 +245,22 @@ function Account() {
                         <td>{test.createdAt}</td>
                         <td>{test._id}</td>
                         <a
-                          style={{ color: "blue" }}
+                          style={{ color: "blue", marginTop: "20px" }}
                           id={`${index}`}
                           onClick={() => handleToggle(index)}
                         >
                           Chi tiết
                         </a>
                       </tr>
+
                       <tr>
                         <td
-                          colSpan={6}
+                          style={{
+                            padding: "0",
+                          }}
+                        ></td>
+                        <td
+                          colSpan={3}
                           style={{
                             padding: "0",
                           }}
@@ -193,13 +271,218 @@ function Account() {
                             }
                           >
                             {test.question.map((data, childIndex) => (
-                              <input
-                                onChange={(e) =>
-                                  updateQuestion(index, childIndex, e)
-                                }
-                                value={data}
-                              />
+                              <>
+                                <div
+                                  className="multiquestionCard"
+                                  key={"creationfield" + childIndex}
+                                >
+                                  <div className="answerInputField">
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      name="question"
+                                      value={data}
+                                      //Question
+                                    />
+                                    <label
+                                      className="btn"
+                                      htmlFor={`questionImage${childIndex}`}
+                                    >
+                                      <img
+                                        className="multiQImg"
+                                        src={
+                                          multiTestList[index].imageArray
+                                            .question[childIndex]
+                                        }
+                                      />
+                                    </label>
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      className={index}
+                                      type="file"
+                                      name="questionImage"
+                                      id={`questionImage${index}`}
+                                      key={index + "questionImageCreate"}
+                                    />
+                                  </div>
+
+                                  <div className="answerInputField">
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      value={
+                                        multiTestList[index].answerAArray[
+                                          childIndex
+                                        ]
+                                      }
+                                      name="answerA"
+                                      //answerA
+                                    />
+                                    <label
+                                      className="btn"
+                                      htmlFor={`answerAImage${childIndex}`}
+                                    >
+                                      <img
+                                        className="multiQImg"
+                                        src={
+                                          multiTestList[index].imageArray
+                                            .answerA[childIndex]
+                                        }
+                                      />
+                                    </label>
+
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      className={index}
+                                      type="file"
+                                      name="answerAImage"
+                                      id={`answerAImage${index}`}
+                                      key={index + "questionImageCreate"}
+                                    />
+                                  </div>
+
+                                  <div className="answerInputField">
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      name="answerB"
+                                      value={
+                                        multiTestList[index].answerBArray[
+                                          childIndex
+                                        ]
+                                      }
+                                      //B
+                                    />
+                                    <label
+                                      className="btn"
+                                      htmlFor={`answerBImage${childIndex}`}
+                                    >
+                                      <img
+                                        className="multiQImg"
+                                        src={
+                                          multiTestList[index].imageArray
+                                            .answerB[childIndex]
+                                        }
+                                      />
+                                    </label>
+
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      className={index}
+                                      type="file"
+                                      name="answerBImage"
+                                      id={`answerBImage${index}`}
+                                      key={index + "questionImageCreate"}
+                                    />
+                                  </div>
+
+                                  <div className="answerInputField">
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      name="answerC"
+                                      value={
+                                        multiTestList[index].answerCArray[
+                                          childIndex
+                                        ]
+                                      }
+                                      //C
+                                    />
+                                    <label
+                                      className="btn"
+                                      htmlFor={`answerCImage${childIndex}`}
+                                    >
+                                      <img
+                                        className="multiQImg"
+                                        src={
+                                          multiTestList[index].imageArray
+                                            .answerC[childIndex]
+                                        }
+                                      />
+                                    </label>
+
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      className={index}
+                                      type="file"
+                                      name="answerCImage"
+                                      id={`answerCImage${index}`}
+                                      key={index + "questionImageCreate"}
+                                    />
+                                  </div>
+
+                                  <div className="answerInputField">
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      name="answerD"
+                                      value={
+                                        multiTestList[index].answerDArray[
+                                          childIndex
+                                        ]
+                                      }
+                                      //D
+                                    />
+                                    <label
+                                      className="btn"
+                                      htmlFor={`answerDImage${childIndex}`}
+                                    >
+                                      <img
+                                        className="multiQImg"
+                                        src={
+                                          multiTestList[index].imageArray
+                                            .answerD[childIndex]
+                                        }
+                                      />
+                                    </label>
+
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      className={index}
+                                      type="file"
+                                      name="answerDImage"
+                                      id={`answerDImage${index}`}
+                                      key={index + "questionImageCreate"}
+                                    />
+                                  </div>
+
+                                  <div className="answerInputField">
+                                    <input
+                                      onChange={(e) =>
+                                        editMultiQuestion(index, childIndex, e)
+                                      }
+                                      name="correctAnswer"
+                                      value={
+                                        multiTestList[index].correctAnswerArray[
+                                          index
+                                        ]
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                              </>
                             ))}
+                            <button
+                              onClick={() => updateMultiQ(index)}
+                              className="btn btn-primary"
+                            >
+                              Lưu thông tin chỉnh sửa
+                            </button>
                           </div>
                         </td>
                       </tr>

@@ -57,7 +57,6 @@ function DetailedMultiChoicePage() {
 
   let handleSubmitScore = () => {
     let resultArray = [];
-    let resultImage = [];
     setDisable(true);
     let count = 0;
     for (let i = 0; i < myQuestions.question.length; i++) {

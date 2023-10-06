@@ -110,6 +110,19 @@ class MultiChoicePageController {
       }
     );
   }
+
+  async updateTest(req, res, next) {
+    MultiTests.updateOne(
+      { author: req.params.teacher, _id: req.params.id },
+      req.body
+    )
+      .then(() => {
+        res.send("Done");
+      })
+      .catch((err) => {
+        res.send(err.message);
+      });
+  }
 }
 
 module.exports = new MultiChoicePageController();

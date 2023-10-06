@@ -90,9 +90,9 @@ function CreateMultiTestPage() {
 
   //Push data into its array
   let handleInput = async (e) => {
+    //if input's className == case => set e.target.value = suitable input array
     let index = e.currentTarget.className;
     console.log(index);
-    //Convert IMG to Base64 String
     switch (e.currentTarget.name) {
       case "question":
         questionArray.current[index] = e.currentTarget.value;
@@ -134,15 +134,14 @@ function CreateMultiTestPage() {
         answerAImages.current[index] = await base64Converter(e.target.files[0]);
         setSrc((src) => ({
           ...src,
-
           answerA: answerAImages.current,
         }));
         break;
+
       case "answerBImage":
         answerBImages.current[index] = await base64Converter(e.target.files[0]);
         setSrc((src) => ({
           ...src,
-
           answerB: answerBImages.current,
         }));
         break;
@@ -151,16 +150,14 @@ function CreateMultiTestPage() {
         answerCImages.current[index] = await base64Converter(e.target.files[0]);
         setSrc((src) => ({
           ...src,
-
           answerC: answerCImages.current,
         }));
         break;
+
       case "answerDImage":
         answerDImages.current[index] = await base64Converter(e.target.files[0]);
-
         setSrc((src) => ({
           ...src,
-
           answerD: answerDImages.current,
         }));
         break;

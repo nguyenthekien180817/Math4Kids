@@ -10,7 +10,7 @@
 }
 
 .multiquestionCard > input {
-    min-width: 100px;
+    min-width: 200px;
     max-width: fit-content;
 }
 

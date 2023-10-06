@@ -29,4 +29,6 @@ router.get(
   "/:teacher/list-finished-multi/:student",
   MultiChoiceTestController.listedStudentTest
 );
+
+router.put("/:teacher/:id/update", MultiChoiceTestController.updateTest);
 module.exports = router;
