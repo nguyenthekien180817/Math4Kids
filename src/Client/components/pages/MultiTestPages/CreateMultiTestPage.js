@@ -54,6 +54,7 @@ function CreateMultiTestPage() {
 
   let handleDelete = (e) => {
     setInputList(inputList.slice(0, inputList.length - 1));
+    console.log(answerAArray.current);
     questionArray.current = questionArray.current.slice(
       0,
       inputList.length - 1
@@ -86,6 +87,14 @@ function CreateMultiTestPage() {
       0,
       inputList.length - 1
     );
+    setSrc((data) => ({
+      ...data,
+      questionImage: questionImages.current,
+      answerA: answerAImages.current,
+      answerB: answerBImages.current,
+      answerC: answerCImages.current,
+      answerD: answerDImages.current,
+    }));
   };
 
   //Push data into its array
@@ -193,7 +202,7 @@ function CreateMultiTestPage() {
         if (response.data == "Done") {
           toast.success("Tải bài thi thành công");
         } else {
-          toast.alert("Bạn đã tạo bài thi với tên này từ trước rồi!");
+          toast.warn("Bạn đã tạo bài thi với tên này từ trước rồi!");
         }
       })
       .catch((err) => {

@@ -4,6 +4,7 @@ const EssayTestController = require("../controllers/EssayTestController");
 
 //router /essay-test
 router.get("/:slug/show-essay-test", EssayTestController.show);
+router.post("/:email/store", EssayTestController.store);
 router.post(
   "/:slug/store-finished-essay",
   EssayTestController.storeFinishedTest

@@ -1,0 +1,19 @@
+.essayCreationContainer {
+    display: flex;
+    align-items: center;
+}
+
+.essayCreationContainer  input[type="file"] {
+    display: none
+}
+
+.essayCreationContainer textarea {
+    min-width: 400px;
+    min-height: 200px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.essayQImg {
+    height: 200px;
+}

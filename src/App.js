@@ -12,6 +12,7 @@ import CreateMultiTestPage from "./Client/components/pages/MultiTestPages/Create
 import Account from "./Client/components/pages/Account";
 import SubmittedTestPage from "./Client/components/pages/SubmittedTestPage";
 import DetailedMultiChoicePage from "./Client/components/pages/MultiTestPages/DetailedMultiChoicePage"; // Multi
+import CreateEssayTest from "./Client/components/pages/EssayTestPages/CreateEssayTestPage";
 import "./App.css";
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           path="/trac-nghiem/:slug"
           element={<DetailedMultiChoicePage />}
         />
+        <Route path="/:slug/create-essay" element={<CreateEssayTest />} />
       </Routes>
       <Navbar />
     </div>
