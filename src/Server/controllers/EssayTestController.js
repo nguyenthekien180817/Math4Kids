@@ -16,6 +16,19 @@ class EssayTestController {
       .catch(next);
   }
 
+  showIndividual(req, res, next) {
+    try {
+      EssayTests.findOne({ _id: req.params.id }, (err, result) => {
+        if (err) res.send(err);
+        if (result) {
+          res.json({ result });
+        }
+      });
+    } catch (err) {
+      res.send(err)({ result });
+    }
+  }
+
   store(req, res, next) {
     Accounts.findOne({ email: req.params.email }, async function (err, done) {
       if (err) res.send("NoAcc");
@@ -43,7 +56,7 @@ class EssayTestController {
   storeFinishedTest(req, res, next) {
     FinishedTests.findOne(
       {
-        student_email: req.body.student_email,
+        student_email: req.params.slug,
       },
       async function (err, done) {
         if (err) res.send(err);
@@ -56,6 +69,52 @@ class EssayTestController {
         }
       }
     );
+  }
+
+  async showAllStoredFinish(req, res, next) {
+    FinishedTests.find({ test_id: req.params.id }, (err, results) => {
+      if (err) throw err;
+      if (results.length != 0) {
+        if (results[0].author == req.params.slug) {
+          res.send(results);
+        } else {
+          res.send("No access");
+        }
+      } else {
+        res.send([]);
+      }
+    });
+  }
+
+  async listedStudentTest(req, res, next) {
+    FinishedTests.find(
+      { student_email: req.params.student, author: req.params.teacher },
+      (err, results) => {
+        if (err) throw err;
+        if (results.length != 0) {
+          if (results[0].author == req.params.teacher) {
+            res.send(results);
+          } else {
+            res.send("No access");
+          }
+        } else {
+          res.send([]);
+        }
+      }
+    );
+  }
+
+  async updateSubmittedTest(req, res, next) {
+    FinishedTests.updateOne(
+      { author: req.params.teacher, _id: req.params.id },
+      req.body
+    )
+      .then(() => {
+        res.send("Done");
+      })
+      .catch((err) => {
+        res.send(err.message);
+      });
   }
 }
 

@@ -30,6 +30,7 @@ function CreateEssayTest() {
           accountName: response.data.accountName,
           email: response.data.email,
         });
+        console.log(user);
       })
       .catch((err) => {
         console.log(err);

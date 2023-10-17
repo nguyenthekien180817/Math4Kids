@@ -5,11 +5,11 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
-import "../layout/Account Pages and Pop-up/accountPage.css";
+import "../../layout/Account Pages and Pop-up/accountPage.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function SubmittedTestPage() {
+function SubmittedMultiTestPage() {
   let params = useParams();
   const [backend, setBackend] = useState([]);
   const [user, setUser] = useState([]);
@@ -17,6 +17,7 @@ function SubmittedTestPage() {
   const [studentData, getStudentData] = useState([]);
   const studentEmail = useRef(null);
 
+  //[GET] lấy thông tin giáo viên
   useEffect(() => {
     axios({
       method: "GET",
@@ -29,6 +30,7 @@ function SubmittedTestPage() {
       .catch((err) => {});
   }, []);
 
+  // Lấy danh sách các bài thi trắc nghiệm đã nộp do GV này tạo ra
   useEffect(() => {
     axios({
       method: "GET",
@@ -42,6 +44,7 @@ function SubmittedTestPage() {
       .catch((err) => {});
   }, [user]);
 
+  //Lấy danh sách các bài nộp do GV này tạo ra từ một học sinh nhất định
   useEffect(() => {
     axios({
       method: "GET",
@@ -76,7 +79,7 @@ function SubmittedTestPage() {
     }
   };
   return (
-    <div>
+    <div className="submittedTestContainer">
       {backend.length != 0 ? (
         <div className="infoBox">
           <div className="boxHeader">
@@ -251,4 +254,4 @@ function SubmittedTestPage() {
   );
 }
 
-export default SubmittedTestPage;
+export default SubmittedMultiTestPage;

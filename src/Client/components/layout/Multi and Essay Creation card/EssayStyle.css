@@ -17,3 +17,50 @@
 .essayQImg {
     height: 200px;
 }
+
+.essayQuestionContainer {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    margin: 20px 30px 20px 30px;
+    border: black solid 6px;
+    padding: 10px;
+    border-radius:10px
+}
+
+.essayQuestionContainer h4 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.essayQuestionContainer h5 {
+    margin: 3px 0 0 10px;
+}
+
+.essayQuestionContainer img {
+    height: 300px;
+    width: auto;
+    object-fit: contain;
+}
+
+.essayQuestionContainer textarea {
+    margin-top: 20px;
+    min-width: 400px;
+    min-height: 100px;
+    width: 50vw;
+    height: fit-content;
+    padding: 10px;
+}
+
+.essayQuestionContainer input[type="file"] {
+    display: none
+}
+
+.essayQuestionContainer .hidden {
+    display: none;
+}
+
+.essayQuestionContainer .answerImage {
+    height: 100px;
+}

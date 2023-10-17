@@ -511,7 +511,7 @@ function Account() {
                       <th scope="row">{index + 1}</th>
                       <td>
                         <Link
-                          to={`/${email}/store-finished-multi/${test._id}/detail`}
+                          to={`/${email}/store-finished-essay/${test._id}/detail`}
                         >
                           {test.name}
                         </Link>

@@ -9,7 +9,6 @@ function DetailedMultiChoicePage() {
   let answersArray = [];
   let answerImage = [];
   const [disable, setDisable] = useState(false);
-  const [score, setScore] = useState(0);
   const [email, setEmail] = useState(null);
   const [accountName, setAccountName] = useState(null);
   const [myQuestions, setMyQuestions] = useState(null);

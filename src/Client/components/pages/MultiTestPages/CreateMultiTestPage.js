@@ -13,7 +13,6 @@ function CreateMultiTestPage() {
   const [testName, setTestName] = useState(null);
   const [testDescription, setTestDescription] = useState(null);
   const [inputList, setInputList] = useState([]);
-  const [testImage, setTestImage] = useState("");
   const [src, setSrc] = useState({
     questionImage: [],
     answerA: [],

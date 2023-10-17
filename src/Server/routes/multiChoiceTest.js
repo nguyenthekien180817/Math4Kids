@@ -24,7 +24,7 @@ router.get(
 //[get] Trả về nội dung test trùng với ID
 router.get("/show-detail/:id", MultiChoiceTestController.showSpecificTest);
 
-//[get] Trả về danh sách bài thi của học sinh
+//[get] Trả về danh sách bài thi của riên 1 học sinh
 router.get(
   "/:teacher/list-finished-multi/:student",
   MultiChoiceTestController.listedStudentTest

@@ -70,7 +70,11 @@ label {
     object-fit: contain;
 }
 
-.accordion .btn.btn-primary {
+.accordion .btn.btn-primary  {
+    margin: 0;
+}
+
+.accordion .btn.btn.btn-secondary {
     margin: 0;
 }
 .show {
@@ -105,5 +109,9 @@ label {
     width: auto;
     height: auto;
     object-fit: contain;
+}
+
+.submittedTestContainer .boxBody {
+    max-height: 550px;
 }
 
