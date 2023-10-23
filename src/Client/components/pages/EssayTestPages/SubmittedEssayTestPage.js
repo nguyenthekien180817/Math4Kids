@@ -16,7 +16,6 @@ function SubmittedEssayTestPage() {
   const studentEmail = useRef(null);
   const [edit, setEdit] = useState(false);
   let params = useParams();
-  let score = 0; //Lưu số điểm
 
   //[GET] lấy thông tin của giáo viên
   useEffect(() => {
@@ -70,20 +69,14 @@ function SubmittedEssayTestPage() {
   };
 
   let handleInput = (fatherIndex, i, e) => {
+    let score = 0;
     let copiedObject = [...backend];
     switch (e.currentTarget.name) {
       case "score":
         copiedObject[fatherIndex].scoreArray[i] = e.currentTarget.value;
-        if (
-          copiedObject[fatherIndex].scoreArray[i] ==
-          Number(copiedObject[fatherIndex].scoreArray[i])
-        ) {
-          copiedObject[fatherIndex].totalScore += Number(
-            copiedObject[fatherIndex].scoreArray[i]
-          );
-        }
         setBackend(copiedObject);
         console.log(backend[fatherIndex].totalScore);
+        console.log(backend[fatherIndex].scoreArray);
         break;
 
       case "note":
@@ -95,6 +88,20 @@ function SubmittedEssayTestPage() {
   };
 
   let update = (fatherIndex) => {
+    let score = 0;
+    for (
+      let index = 0;
+      index < backend[fatherIndex].scoreArray.length;
+      index++
+    ) {
+      if (
+        backend[fatherIndex].scoreArray[index] ==
+        Number(backend[fatherIndex].scoreArray[index])
+      ) {
+        score += Number(backend[fatherIndex].scoreArray[index]);
+      }
+      backend[fatherIndex].totalScore = score;
+    }
     setEdit(false);
     axios({
       method: "PUT",

@@ -56,7 +56,8 @@ class EssayTestController {
   storeFinishedTest(req, res, next) {
     FinishedTests.findOne(
       {
-        student_email: req.params.slug,
+        student_email: req.body.student_email,
+        test_name: req.body.test_name,
       },
       async function (err, done) {
         if (err) res.send(err);
@@ -106,6 +107,19 @@ class EssayTestController {
 
   async updateSubmittedTest(req, res, next) {
     FinishedTests.updateOne(
+      { author: req.params.teacher, _id: req.params.id },
+      req.body
+    )
+      .then(() => {
+        res.send("Done");
+      })
+      .catch((err) => {
+        res.send(err.message);
+      });
+  }
+
+  async updateEssayTest(req, res, next) {
+    EssayTests.updateOne(
       { author: req.params.teacher, _id: req.params.id },
       req.body
     )

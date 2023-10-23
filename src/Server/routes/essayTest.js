@@ -12,6 +12,8 @@ router.get(
   EssayTestController.showAllStoredFinish
 );
 
+router.put("/:teacher/:id/update", EssayTestController.updateEssayTest);
+
 router.post(
   "/:slug/store-finished-essay",
   EssayTestController.storeFinishedTest

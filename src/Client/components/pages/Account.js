@@ -16,7 +16,8 @@ function Account() {
   const [studentTestList, setStudentTestList] = useState([]);
   const [level, setLevel] = useState("student");
   const [show, setShow] = useState(null);
-  const [edit, setEdit] = useState(null);
+  const [showEssay, setShowEssay] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     axios({
@@ -77,6 +78,7 @@ function Account() {
   };
 
   let handleToggle = (index) => {
+    setEdit(false);
     if (show == index) {
       return setShow(null);
     }
@@ -84,11 +86,13 @@ function Account() {
     console.log(multiTestList[index]);
   };
 
-  let handleEdit = (index) => {
-    if (edit == index) {
-      return setEdit(null);
+  let handleToggleEssay = (index) => {
+    setEdit(false);
+    if (showEssay == index) {
+      return setShowEssay(null);
     }
-    setEdit(index);
+    setShowEssay(index);
+    console.log(essayTestList[index]);
   };
 
   let editMultiQuestion = async (index, childIndex, e) => {
@@ -155,16 +159,58 @@ function Account() {
     // copiedObject[index].question[childIndex] = e.target.value;
     // setMultiTestList(copiedObject);
   };
+
+  let editEssayQuestion = async (index, childIndex, e) => {
+    let copiedObject = [...essayTestList];
+    console.log(copiedObject);
+    switch (e.target.name) {
+      case "essayQuestion":
+        copiedObject[index].questionArray[childIndex] = e.target.value;
+        setEssayTestList(copiedObject);
+        break;
+      case "essayQImage":
+        copiedObject[index].imageArray[childIndex] = await base64Converter(
+          e.target.files[0]
+        );
+        setEssayTestList(copiedObject);
+        break;
+    }
+  };
   //update test trac nghiem
   let updateMultiQ = (index) => {
+    setEdit(false);
     axios({
       method: "PUT",
       withCredentials: true,
       url: `http://localhost:4000/multi-test/${email}/${multiTestList[index]._id}/update`,
       data: multiTestList[index],
-    }).then((response) => {
-      console.log(response);
-    });
+    })
+      .then((response) => {
+        if (response.data == "Done") {
+          toast.success("Cập nhật bài thi thành công");
+        } else {
+          toast.warn("Bài thi chưa được cập nhật");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  let updateEssayQ = (index) => {
+    setEdit(false);
+    axios({
+      method: "PUT",
+      withCredentials: true,
+      url: `http://localhost:4000/essay-test/${email}/${essayTestList[index]._id}/update`,
+      data: essayTestList[index],
+    })
+      .then((response) => {
+        if (response.data == "Done") {
+          toast.success("Cập nhật bài thi thành công");
+        } else {
+          toast.warn("Bài thi chưa được cập nhật");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -270,6 +316,23 @@ function Account() {
                               show == index ? "accordion show" : "accordion"
                             }
                           >
+                            <button
+                              style={{ width: "150px" }}
+                              className={
+                                edit == false
+                                  ? "btn btn-primary"
+                                  : "btn btn-secondary"
+                              }
+                              onClick={() => {
+                                if (edit == true) {
+                                  setEdit(false);
+                                } else {
+                                  setEdit(true);
+                                }
+                              }}
+                            >
+                              {edit == true ? "Tắt chỉnh sửa" : "Chỉnh sửa"}
+                            </button>
                             {test.question.map((data, childIndex) => (
                               <>
                                 <div
@@ -278,6 +341,11 @@ function Account() {
                                 >
                                   <div className="answerInputField">
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
@@ -287,7 +355,7 @@ function Account() {
                                     />
                                     <label
                                       className="btn"
-                                      htmlFor={`questionImage${childIndex}`}
+                                      htmlFor={`questionImage${index}${childIndex}`}
                                     >
                                       <img
                                         className="multiQImg"
@@ -298,19 +366,29 @@ function Account() {
                                       />
                                     </label>
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
                                       className={index}
                                       type="file"
                                       name="questionImage"
-                                      id={`questionImage${index}`}
+                                      id={`questionImage${index}${childIndex}`}
                                       key={index + "questionImageCreate"}
                                     />
                                   </div>
 
                                   <div className="answerInputField">
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
@@ -324,7 +402,7 @@ function Account() {
                                     />
                                     <label
                                       className="btn"
-                                      htmlFor={`answerAImage${childIndex}`}
+                                      htmlFor={`answerAImage${index}${childIndex}`}
                                     >
                                       <img
                                         className="multiQImg"
@@ -336,19 +414,29 @@ function Account() {
                                     </label>
 
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
                                       className={index}
                                       type="file"
                                       name="answerAImage"
-                                      id={`answerAImage${index}`}
+                                      id={`answerAImage${index}${childIndex}`}
                                       key={index + "questionImageCreate"}
                                     />
                                   </div>
 
                                   <div className="answerInputField">
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
@@ -362,7 +450,7 @@ function Account() {
                                     />
                                     <label
                                       className="btn"
-                                      htmlFor={`answerBImage${childIndex}`}
+                                      htmlFor={`answerBImage${index}${childIndex}`}
                                     >
                                       <img
                                         className="multiQImg"
@@ -374,19 +462,29 @@ function Account() {
                                     </label>
 
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
                                       className={index}
                                       type="file"
                                       name="answerBImage"
-                                      id={`answerBImage${index}`}
+                                      id={`answerBImage${index}${childIndex}`}
                                       key={index + "questionImageCreate"}
                                     />
                                   </div>
 
                                   <div className="answerInputField">
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
@@ -400,7 +498,7 @@ function Account() {
                                     />
                                     <label
                                       className="btn"
-                                      htmlFor={`answerCImage${childIndex}`}
+                                      htmlFor={`answerCImage${index}${childIndex}`}
                                     >
                                       <img
                                         className="multiQImg"
@@ -412,19 +510,29 @@ function Account() {
                                     </label>
 
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
                                       className={index}
                                       type="file"
                                       name="answerCImage"
-                                      id={`answerCImage${index}`}
+                                      id={`answerCImage${index}${childIndex}`}
                                       key={index + "questionImageCreate"}
                                     />
                                   </div>
 
                                   <div className="answerInputField">
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
@@ -438,7 +546,7 @@ function Account() {
                                     />
                                     <label
                                       className="btn"
-                                      htmlFor={`answerDImage${childIndex}`}
+                                      htmlFor={`answerDImage${index}${childIndex}`}
                                     >
                                       <img
                                         className="multiQImg"
@@ -450,26 +558,40 @@ function Account() {
                                     </label>
 
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
                                       className={index}
                                       type="file"
                                       name="answerDImage"
-                                      id={`answerDImage${index}`}
-                                      key={index + "questionImageCreate"}
+                                      id={`answerDImage${index}${childIndex}`}
+                                      key={
+                                        "questionImageCreate" +
+                                        index +
+                                        childIndex
+                                      }
                                     />
                                   </div>
 
                                   <div className="answerInputField">
                                     <input
+                                      disabled={
+                                        show == index && edit == true
+                                          ? false
+                                          : true
+                                      }
                                       onChange={(e) =>
                                         editMultiQuestion(index, childIndex, e)
                                       }
                                       name="correctAnswer"
                                       value={
                                         multiTestList[index].correctAnswerArray[
-                                          index
+                                          childIndex
                                         ]
                                       }
                                     />
@@ -478,6 +600,9 @@ function Account() {
                               </>
                             ))}
                             <button
+                              disabled={
+                                show == index && edit == true ? false : true
+                              }
                               onClick={() => updateMultiQ(index)}
                               className="btn btn-primary"
                             >
@@ -492,6 +617,8 @@ function Account() {
               </table>
             </div>
 
+            {/*====================================================================Tự luận===========================================================================*/}
+
             <div className="boxHeader">
               <h2>Danh sách bài thi tự luận của bạn</h2>
             </div>
@@ -503,22 +630,142 @@ function Account() {
                     <th scope="col">Tên Test</th>
                     <th scope="col">Ngày Đăng</th>
                     <th scope="col">ID</th>
+                    <th scope="col"> </th>
                   </tr>
                 </thead>
                 <tbody>
                   {essayTestList.map((test, index) => (
-                    <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>
-                        <Link
-                          to={`/${email}/store-finished-essay/${test._id}/detail`}
+                    <>
+                      <tr key={index}>
+                        <th scope="row">{index + 1}</th>
+                        <td>
+                          <Link
+                            to={`/${email}/store-finished-essay/${test._id}/detail`}
+                          >
+                            {test.name}
+                          </Link>
+                        </td>
+                        <td>{test.createdAt}</td>
+                        <td>{test._id}</td>
+                        <td>
+                          <a
+                            style={{ color: "blue", marginTop: "20px" }}
+                            id={`${index}`}
+                            onClick={() => handleToggleEssay(index)}
+                          >
+                            Chi tiết
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          style={{
+                            padding: "0",
+                          }}
+                        ></td>
+                        <td
+                          colSpan={3}
+                          style={{
+                            padding: "0",
+                          }}
                         >
-                          {test.name}
-                        </Link>
-                      </td>
-                      <td>{test.createdAt}</td>
-                      <td>{test._id}</td>
-                    </tr>
+                          <div
+                            className={
+                              showEssay == index
+                                ? "accordion show"
+                                : "accordion"
+                            }
+                          >
+                            <button
+                              style={{ width: "150px" }}
+                              className={
+                                edit == false
+                                  ? "btn btn-primary"
+                                  : "btn btn-secondary"
+                              }
+                              onClick={() => {
+                                if (edit == true) {
+                                  setEdit(false);
+                                } else {
+                                  setEdit(true);
+                                }
+                              }}
+                            >
+                              {edit == true ? "Tắt chỉnh sửa" : "Chỉnh sửa"}
+                            </button>
+                            {test.questionArray.map((question, childIndex) => (
+                              <>
+                                <div className="testDataContainer">
+                                  <h4>
+                                    <b style={{ color: "green" }}>
+                                      Câu {childIndex + 1}:
+                                    </b>{" "}
+                                  </h4>
+                                  <textarea
+                                    disabled={
+                                      showEssay == index && edit == true
+                                        ? false
+                                        : true
+                                    }
+                                    name="essayQuestion"
+                                    onChange={(e) =>
+                                      editEssayQuestion(index, childIndex, e)
+                                    }
+                                    value={question}
+                                    id={`essayQuestion${index}${childIndex}`}
+                                    className={index}
+                                  />
+
+                                  <label
+                                    className="btn"
+                                    htmlFor={`essayQImage${index}${childIndex}`}
+                                  >
+                                    <img
+                                      className={
+                                        test.imageArray[childIndex] == undefined
+                                          ? "hidden"
+                                          : "essayImage"
+                                      }
+                                      src={test.imageArray[childIndex]}
+                                    />
+                                  </label>
+
+                                  <input
+                                    disabled={
+                                      showEssay == index && edit == true
+                                        ? false
+                                        : true
+                                    }
+                                    onChange={(e) =>
+                                      editEssayQuestion(index, childIndex, e)
+                                    }
+                                    className={index}
+                                    type="file"
+                                    name="essayQImage"
+                                    id={`essayQImage${index}${childIndex}`}
+                                    key={
+                                      "questionImageCreate" + index + childIndex
+                                    }
+                                  />
+                                </div>
+                                ;
+                              </>
+                            ))}
+                            <button
+                              disabled={
+                                showEssay == index && edit == true
+                                  ? false
+                                  : true
+                              }
+                              onClick={() => updateEssayQ(index)}
+                              className="btn btn-primary"
+                            >
+                              Lưu thông tin chỉnh sửa
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </>
                   ))}
                 </tbody>
               </table>

@@ -55,7 +55,7 @@ class MultiChoicePageController {
     FinishedTests.findOne(
       {
         student_email: req.body.student_email,
-        test_id: req.body.test_id,
+        test_name: req.body.test_name,
       },
       async function (err, done) {
         if (err) res.send(err);
