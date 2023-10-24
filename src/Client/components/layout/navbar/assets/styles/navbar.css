@@ -17,6 +17,7 @@
 #nav ul {
     padding: 0;
     margin: 0;
+    
 }
 
 #nav,
@@ -36,7 +37,6 @@
     line-height: 46px;
     padding: 15.5px 24px;
     cursor: pointer;
-
 }
 
 #nav .subnav {
@@ -47,14 +47,23 @@
 
 #nav .subnav a {
     padding: 0px 24px;
-    width: 180px;
+    min-width: 100px;
+    width: fit-content;
     color: black;
     display: block;
+    box-sizing: content-box;
 }
 
- .subnav ul {
+.subnav ul {
     padding: 0;
+    min-width: 100px;
 }
+
+#nav .subnav li {
+  
+    width: 254px;
+}
+
 
 #nav .subnav li:hover,
 #nav>li:hover {

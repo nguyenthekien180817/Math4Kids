@@ -36,6 +36,7 @@ class AccountController {
             email: req.body.email,
             password: hashedPassword,
             accountName: req.body.accountName,
+            level: req.body.level,
           });
           account.save().then(res.send("Done"));
         } catch (err) {}

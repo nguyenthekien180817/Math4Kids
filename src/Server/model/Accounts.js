@@ -9,11 +9,7 @@ const Accounts = new Schema({
   email: { type: String, unique: true },
   password: { type: String },
   accountName: { type: String },
-  level: { type: String, default: "student" },
-  thumbnail: {
-    type: String,
-    default: "https://media.gametora.com/umamusume/characters/profile/1032.png",
-  },
+  level: { type: String },
   userName: { type: String, slug: "email", unique: true },
   createdAt: { type: Date, default: dateHanoi },
   updatedAt: { type: Date, default: dateHanoi },

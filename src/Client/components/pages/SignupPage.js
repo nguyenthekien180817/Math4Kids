@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,6 +11,22 @@ function SignupPage(props) {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [accountName, setAccountName] = useState("");
+  const [level, setLevel] = useState("student");
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:4000/account/get-user",
+    })
+      .then((response) => {
+        if (response.data.level == "admin") {
+          setLevel("teacher");
+        }
+        console.log(level);
+      })
+      .catch((err) => {});
+  }, []);
 
   let register = () => {
     if (email == "") {
@@ -35,6 +51,7 @@ function SignupPage(props) {
       axios({
         method: "POST",
         data: {
+          level: level,
           email: email,
           password: password,
           accountName: accountName,
@@ -42,20 +59,23 @@ function SignupPage(props) {
         withCredentials: true,
         url: "http://localhost:4000/account/create",
       }).then((response) => {
-        if (response.data == "Done") {
+        if (response.data == "Done" && level != "teacher") {
           toast.loading(
             "Tạo tài khoản thành công, đang chuyển hướng tới trang đăng nhập",
             {
               pauseOnFocusLoss: false,
             }
           );
-          setTimeout(() => {
-            window.location.replace("http://localhost:3000/login");
-          }, 4000);
+          // setTimeout(() => {
+          //   window.location.replace("http://localhost:3000/login");
+          // }, 4000);
         } else {
-          toast.warn(`${response.data}`, {
+          toast.success("Tạo tài khoản giáo viên thành công", {
             pauseOnFocusLoss: false,
           });
+          setTimeout(() => {
+            window.location.replace("http://localhost:3000");
+          }, 4000);
         }
       });
     }
@@ -65,9 +85,11 @@ function SignupPage(props) {
       <div className="loginBackground">
         <div className="loginFormContainer">
           <div className="popupHeader">
-            <h1 style={{}}>Sign Up</h1>
+            <h1>
+              Đăng ký tài khoản {level == "teacher" ? "Giáo Viên" : "Học Sinh"}
+            </h1>
           </div>
-          {/* <form method="post" action="http://localhost:4000/account/create"> */}
+          {console.log(level)}
           <label className="formLabel" htmlFor="email">
             Email
           </label>

@@ -72,6 +72,7 @@ class EssayTestController {
     );
   }
 
+  //[GET] trả về tất cả các test học sinh đã nộp từ 1 bài thi này
   async showAllStoredFinish(req, res, next) {
     FinishedTests.find({ test_id: req.params.id }, (err, results) => {
       if (err) throw err;
@@ -85,6 +86,20 @@ class EssayTestController {
         res.send([]);
       }
     });
+  }
+
+  async showAllStudentSubmissions(req, res, next) {
+    FinishedTests.find(
+      { student_email: req.params.student },
+      (err, results) => {
+        if (err) throw err;
+        if (results.length != 0) {
+          res.send(results);
+        } else {
+          res.send([]);
+        }
+      }
+    );
   }
 
   async listedStudentTest(req, res, next) {

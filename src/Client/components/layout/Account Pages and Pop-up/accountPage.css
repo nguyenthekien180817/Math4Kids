@@ -4,14 +4,17 @@
     box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.3);
     margin: auto;
     margin-top: 70px;
-
+    margin-bottom: 10px;
 }
+
+
 
 .boxHeader {
     padding: 20px;
     background-color: #324f90;
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
     color: white;
+    margin-top: 20px;
 }
 
 .boxBody {
@@ -91,6 +94,10 @@ label {
     padding: 5px;
     transition: 0.5s ease-in;
     height: fit-content;
+}
+
+.boxBody .textAnswerWrapper {
+    max-width: 1100px;
 }
 
 .textAnswerWrapper {

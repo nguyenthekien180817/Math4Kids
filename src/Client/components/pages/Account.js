@@ -5,6 +5,8 @@ import "../layout/Account Pages and Pop-up/accountPage.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
 const { base64Converter } = require("../../util/Base64Converter");
 
 function Account() {
@@ -13,10 +15,13 @@ function Account() {
   const [editName, setEditName] = useState(true);
   const [multiTestList, setMultiTestList] = useState([]);
   const [essayTestList, setEssayTestList] = useState([]);
-  const [studentTestList, setStudentTestList] = useState([]);
+  const [studentMultiTestList, setStudentMultiTestList] = useState([]);
+  const [studentEssayTestList, setStudentEssayTestList] = useState([]);
   const [level, setLevel] = useState("student");
-  const [show, setShow] = useState(null);
-  const [showEssay, setShowEssay] = useState(null);
+  const [show, setShow] = useState({
+    essay: null,
+    multi: null,
+  });
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
@@ -33,6 +38,7 @@ function Account() {
       .catch((err) => {});
   }, []);
 
+  //[GET] lấy về các bài thi đã được nộp
   useEffect(() => {
     axios({
       method: "GET",
@@ -40,7 +46,6 @@ function Account() {
       url: `http://localhost:4000/multi-test/${email}/show-multi-test`,
     })
       .then((response) => {
-        console.log(response.data);
         setMultiTestList(response.data.tests);
       })
       .catch((err) => {});
@@ -52,6 +57,27 @@ function Account() {
     })
       .then((response) => {
         setEssayTestList(response.data.tests);
+      })
+      .catch((err) => {});
+
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: `http://localhost:4000/essay-test/${email}/show-student-finished-essay`,
+    })
+      .then((response) => {
+        setStudentEssayTestList(response.data);
+      })
+      .catch((err) => {});
+
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: `http://localhost:4000/multi-test/${email}/show-student-finished-multi`,
+    })
+      .then((response) => {
+        setStudentMultiTestList(response.data);
+        console.log(response.data);
       })
       .catch((err) => {});
   }, [email]);
@@ -77,22 +103,52 @@ function Account() {
     });
   };
 
-  let handleToggle = (index) => {
-    setEdit(false);
-    if (show == index) {
-      return setShow(null);
+  let handleToggle = (e, index) => {
+    console.log(e.currentTarget.name);
+    switch (e.currentTarget.name) {
+      case "essay":
+        setEdit(false);
+        if (show.essay == index) {
+          return setShow((data) => ({
+            ...data,
+            essay: null,
+          }));
+        }
+        setShow((data) => ({
+          ...data,
+          essay: index,
+          multi: null,
+        }));
+        break;
+
+      case "multi":
+        setEdit(false);
+        if (show.multi == index) {
+          return setShow((data) => ({
+            ...data,
+            multi: null,
+          }));
+        }
+        setShow((data) => ({
+          ...data,
+          multi: index,
+          essay: null,
+        }));
+        break;
     }
-    setShow(index);
-    console.log(multiTestList[index]);
   };
 
-  let handleToggleEssay = (index) => {
-    setEdit(false);
-    if (showEssay == index) {
-      return setShowEssay(null);
+  let setSrc = (i, index) => {
+    switch (studentMultiTestList[index].answerImage[i]) {
+      case "A":
+        return studentMultiTestList[index].imageArray.answerA[i];
+      case "B":
+        return studentMultiTestList[index].imageArray.answerB[i];
+      case "C":
+        return studentMultiTestList[index].imageArray.answerC[i];
+      case "D":
+        return studentMultiTestList[index].imageArray.answerD[i];
     }
-    setShowEssay(index);
-    console.log(essayTestList[index]);
   };
 
   let editMultiQuestion = async (index, childIndex, e) => {
@@ -291,9 +347,10 @@ function Account() {
                         <td>{test.createdAt}</td>
                         <td>{test._id}</td>
                         <a
+                          name="multi"
                           style={{ color: "blue", marginTop: "20px" }}
                           id={`${index}`}
-                          onClick={() => handleToggle(index)}
+                          onClick={(e) => handleToggle(e, index)}
                         >
                           Chi tiết
                         </a>
@@ -313,7 +370,9 @@ function Account() {
                         >
                           <div
                             className={
-                              show == index ? "accordion show" : "accordion"
+                              show.multi == index
+                                ? "accordion show"
+                                : "accordion"
                             }
                           >
                             <button
@@ -342,7 +401,7 @@ function Account() {
                                   <div className="answerInputField">
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -367,7 +426,7 @@ function Account() {
                                     </label>
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -385,7 +444,7 @@ function Account() {
                                   <div className="answerInputField">
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -415,7 +474,7 @@ function Account() {
 
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -433,7 +492,7 @@ function Account() {
                                   <div className="answerInputField">
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -463,7 +522,7 @@ function Account() {
 
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -481,7 +540,7 @@ function Account() {
                                   <div className="answerInputField">
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -511,7 +570,7 @@ function Account() {
 
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -529,7 +588,7 @@ function Account() {
                                   <div className="answerInputField">
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -559,7 +618,7 @@ function Account() {
 
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -581,7 +640,7 @@ function Account() {
                                   <div className="answerInputField">
                                     <input
                                       disabled={
-                                        show == index && edit == true
+                                        show.multi == index && edit == true
                                           ? false
                                           : true
                                       }
@@ -601,7 +660,9 @@ function Account() {
                             ))}
                             <button
                               disabled={
-                                show == index && edit == true ? false : true
+                                show.multi == index && edit == true
+                                  ? false
+                                  : true
                               }
                               onClick={() => updateMultiQ(index)}
                               className="btn btn-primary"
@@ -649,9 +710,10 @@ function Account() {
                         <td>{test._id}</td>
                         <td>
                           <a
+                            name="essay"
                             style={{ color: "blue", marginTop: "20px" }}
                             id={`${index}`}
-                            onClick={() => handleToggleEssay(index)}
+                            onClick={(e) => handleToggle(e, index)}
                           >
                             Chi tiết
                           </a>
@@ -671,7 +733,7 @@ function Account() {
                         >
                           <div
                             className={
-                              showEssay == index
+                              show.essay == index
                                 ? "accordion show"
                                 : "accordion"
                             }
@@ -703,7 +765,7 @@ function Account() {
                                   </h4>
                                   <textarea
                                     disabled={
-                                      showEssay == index && edit == true
+                                      show.essay == index && edit == true
                                         ? false
                                         : true
                                     }
@@ -732,7 +794,7 @@ function Account() {
 
                                   <input
                                     disabled={
-                                      showEssay == index && edit == true
+                                      show.essay == index && edit == true
                                         ? false
                                         : true
                                     }
@@ -753,7 +815,7 @@ function Account() {
                             ))}
                             <button
                               disabled={
-                                showEssay == index && edit == true
+                                show.essay == index && edit == true
                                   ? false
                                   : true
                               }
@@ -772,36 +834,215 @@ function Account() {
             </div>
           </div>
         ) : (
-          <div>
-            <div className="boxHeader">
-              <h2>Danh sách bài thi trắc nghiệm đã làm của bạn</h2>
-            </div>
-            <div className="boxBody" style={{ width: "100%" }}>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Tên Test</th>
-                    <th scope="col">Ngày Đăng</th>
-                    <th scope="col">ID</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {studentTestList.map((test, index) => (
-                    <tr key={index}>
-                      <th scope="row">{index + 1}</th>
-                      <td>
-                        <Link to={`/${email}/${test.name}/submited-test`}>
-                          {test.name}
-                        </Link>
-                      </td>
-                      <td>{test.createdAt}</td>
+          <>
+            <div>
+              <div className="boxHeader">
+                <h2>Danh sách bài thi trắc nghiệm đã làm của bạn</h2>
+              </div>
+              <div className="boxBody" style={{ width: "100%" }}>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Tên Test</th>
+                      <th scope="col">Ngày Đăng</th>
+                      <th scope="col">ID</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {studentMultiTestList.length > 0 &&
+                      studentMultiTestList.map((test, index) => (
+                        <>
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td>
+                              <Link to={`/${email}/${test.name}/submited-test`}>
+                                {test.test_name}
+                              </Link>
+                            </td>
+                            <td>{test.createdAt}</td>
+                            <td>{test.author}</td>
+                            <td>
+                              <a
+                                name="multi"
+                                style={{ color: "blue", marginTop: "20px" }}
+                                id={`${index}`}
+                                onClick={(e) => handleToggle(e, index)}
+                              >
+                                Chi tiết
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              style={{
+                                padding: "0",
+                              }}
+                            ></td>
+                            <td
+                              colSpan={3}
+                              style={{
+                                padding: "0",
+                              }}
+                            >
+                              <div
+                                className={
+                                  show.multi == index
+                                    ? "accordion show"
+                                    : "accordion"
+                                }
+                              >
+                                {test.answersArray.map((answer, i) => (
+                                  <div className="detailWrapper">
+                                    {test.resultArray[i] == "true" ? (
+                                      <FontAwesomeIcon
+                                        style={{
+                                          fontSize: "73px",
+                                          color: "green",
+                                          paddingRight: "16px",
+                                          paddingLeft: "16px",
+                                        }}
+                                        icon={faCheck}
+                                      />
+                                    ) : (
+                                      <FontAwesomeIcon
+                                        style={{
+                                          fontSize: "80px",
+                                          color: "red",
+                                          paddingRight: "20px",
+                                          paddingLeft: "16px",
+                                        }}
+                                        icon={faXmark}
+                                      />
+                                    )}
+
+                                    <h5 className="textAnswerWrapper">
+                                      Câu hỏi {i + 1}: {test.questionArray[i]}{" "}
+                                      <img src={test.imageArray.question[1]} />
+                                      <br />
+                                      Câu trả lời {i + 1}: {answer}
+                                      <img src={setSrc(i, index)} />
+                                    </h5>
+                                  </div>
+                                ))}
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+
+            <div>
+              <div className="boxHeader">
+                <h2>Danh sách bài thi tự Luận đã làm của bạn</h2>
+              </div>
+              <div className="boxBody" style={{ width: "100%" }}>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Tên Test</th>
+                      <th scope="col">Ngày Đăng</th>
+                      <th scope="col">Giáo viên</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {studentEssayTestList.length > 0 &&
+                      studentEssayTestList.map((test, index) => (
+                        <>
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td>
+                              <Link to={`/${email}/${test.name}/submited-test`}>
+                                {test.test_name}
+                              </Link>
+                            </td>
+                            <td>{test.createdAt}</td>
+                            <td>{test.author}</td>
+                            <td>
+                              <a
+                                name="essay"
+                                style={{ color: "blue", marginTop: "20px" }}
+                                id={`${index}`}
+                                onClick={(e) => handleToggle(e, index)}
+                              >
+                                Chi tiết
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              style={{
+                                padding: "0",
+                              }}
+                            ></td>
+                            <td
+                              colSpan={3}
+                              style={{
+                                padding: "0",
+                              }}
+                            >
+                              <div
+                                className={
+                                  show.essay == index
+                                    ? "accordion show"
+                                    : "accordion"
+                                }
+                              >
+                                {test.answersArray.map((answer, i) => (
+                                  <div className="detailWrapper">
+                                    <h5 className="textAnswerWrapper">
+                                      Câu hỏi {i + 1}: {test.questionArray[i]}{" "}
+                                      <img src={test.questionImages[i]} />
+                                      <br />
+                                      Câu trả lời {i + 1}: {answer}
+                                      <img src={test.answerImages[i]} />
+                                      <label htmlFor={`scoreInput${i}`}>
+                                        Điểm:{" "}
+                                        <input
+                                          disabled
+                                          name="score"
+                                          id={`scoreInput${i}`}
+                                          type="text"
+                                          value={
+                                            test.scoreArray[i] == null ||
+                                            test.scoreArray[i] ==
+                                              "Chưa được chấm điểm"
+                                              ? "Chưa được chấm điểm"
+                                              : test.scoreArray[i]
+                                          }
+                                        />
+                                      </label>
+                                      <label htmlFor={`noteInput${i}`}>
+                                        Nhận xét:{" "}
+                                        <input
+                                          disabled
+                                          name="note"
+                                          id={`noteInput${i}`}
+                                          type="text"
+                                          value={
+                                            test.noteArray[i] == null
+                                              ? "Chưa có nhận xét"
+                                              : test.noteArray[i]
+                                          }
+                                        />
+                                      </label>
+                                    </h5>
+                                  </div>
+                                ))}
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>

@@ -29,7 +29,7 @@ function App() {
         <Route path="/quiz" element={<QuizPage />} />
         <Route path="/ly-thuyet" element={<TheoryPage />} />
 
-        <Route path="/ly-thuyet/:slug" element={<TheoryDetailPage />} />
+        <Route path="/ly-thuyet/:name/:slug" element={<TheoryDetailPage />} />
 
         <Route
           path="/:slug/create-multichoice"

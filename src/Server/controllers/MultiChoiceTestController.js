@@ -93,6 +93,20 @@ class MultiChoicePageController {
     });
   }
 
+  async showAllStudentSubmissions(req, res, next) {
+    FinishedTests.find(
+      { student_email: req.params.student },
+      (err, results) => {
+        if (err) throw err;
+        if (results.length != 0) {
+          res.send(results);
+        } else {
+          res.send([]);
+        }
+      }
+    );
+  }
+
   async listedStudentTest(req, res, next) {
     FinishedTests.find(
       { student_email: req.params.student, author: req.params.teacher },

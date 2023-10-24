@@ -11,9 +11,14 @@ export const TypeContext = createContext();
 export const SetSignUpContext = createContext();
 
 function Navbar() {
-  const [account, setAccount] = useState(null);
+  const [account, setAccount] = useState({
+    level: "",
+    email: "",
+  });
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
+  const [level, setLevel] = useState("student");
   useEffect(() => {
     axios({
       method: "GET",
@@ -40,12 +45,16 @@ function Navbar() {
   return (
     <div>
       <div className="navbarContainer">
-        {account ? (
+        {account.level != "" ? (
           <div>
             <button className="signupButton" onClick={logout}>
               Logout
             </button>
-            <Link className="userWelcome" to={account.email}>
+            <Link
+              style={{ color: "white" }}
+              className="userWelcome"
+              to={account.email}
+            >
               Xin chào {account.accountName}
             </Link>
           </div>
@@ -73,10 +82,15 @@ function Navbar() {
             onMouseOut={() => setVisible(false)}
             onMouseOver={() => setVisible(true)}
           >
-            <a>
-              Kiểm Tra <span />
-              <FontAwesomeIcon icon={faCaretDown} />
-            </a>
+            {account.level != "" ? (
+              <a>
+                Kiểm Tra <span />
+                <FontAwesomeIcon icon={faCaretDown} />
+              </a>
+            ) : (
+              <></>
+            )}
+
             {visible && (
               <ul className="subnav">
                 <li key={window.crypto.randomUUID()}>
@@ -85,15 +99,8 @@ function Navbar() {
                 <li key={window.crypto.randomUUID()}>
                   <Link to="/tu-luan">Tự luận</Link>
                 </li>
-                <li key={window.crypto.randomUUID()}>
-                  <Link to="/combined">Tổng Hợp</Link>
-                </li>
               </ul>
             )}
-          </li>
-
-          <li key={window.crypto.randomUUID()}>
-            <Link to="/practice">Ôn Luyện</Link>
           </li>
 
           <li
@@ -101,10 +108,15 @@ function Navbar() {
             onMouseOut={() => setVisible2(false)}
             onMouseOver={() => setVisible2(true)}
           >
-            <a>
-              Tạo bài kiểm tra <span />
-              <FontAwesomeIcon icon={faCaretDown} />
-            </a>
+            {account.level == "teacher" || account.level == "admin" ? (
+              <a>
+                Tạo bài kiểm tra <span />
+                <FontAwesomeIcon icon={faCaretDown} />
+              </a>
+            ) : (
+              <></>
+            )}
+
             {visible2 && (
               <ul className="subnav">
                 {account == null ? (
@@ -130,6 +142,31 @@ function Navbar() {
                     </li>
                   </li>
                 )}
+              </ul>
+            )}
+          </li>
+          <li
+            key={window.crypto.randomUUID()}
+            onMouseOut={() => setVisible3(false)}
+            onMouseOver={() => setVisible3(true)}
+          >
+            {account.level == "admin" ? (
+              <a>
+                Admin <span />
+                <FontAwesomeIcon icon={faCaretDown} />
+              </a>
+            ) : (
+              <></>
+            )}
+
+            {visible3 && (
+              <ul className="subnav">
+                <li key={window.crypto.randomUUID()}>
+                  <Link to="/signup">Tạo tài khoản giáo viên</Link>
+                </li>
+                <li key={window.crypto.randomUUID()}>
+                  <Link to="/tu-luan">Đăng nội dung sách giáo khoa</Link>
+                </li>
               </ul>
             )}
           </li>

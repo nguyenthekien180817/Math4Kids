@@ -21,6 +21,12 @@ router.get(
   MultiChoiceTestController.showAllStoredFinish
 );
 
+//[get] Trả về tất cả các test đã nộp của học sinh có email trùng với student
+router.get(
+  "/:student/show-student-finished-multi",
+  MultiChoiceTestController.showAllStudentSubmissions
+);
+
 //[get] Trả về nội dung test trùng với ID
 router.get("/show-detail/:id", MultiChoiceTestController.showSpecificTest);
 
