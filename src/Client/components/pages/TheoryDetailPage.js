@@ -11,6 +11,10 @@ function TheoryDetailPage() {
   const params = useParams();
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+  let offset = {
+    ketnoi: 2,
+    chantroi: 1,
+  };
   console.log(params.name);
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
@@ -49,6 +53,19 @@ function TheoryDetailPage() {
       >
         <Page overflow-y="scroll" height="700" pageNumber={pageNumber}></Page>
       </Document>
+      {pageNumber + 1 <= numPages && (
+        <Document
+          onLoadError={console.error}
+          file={selectTextBook()}
+          onLoadSuccess={onDocumentLoadSuccess}
+        >
+          <Page
+            overflow-y="scroll"
+            height="700"
+            pageNumber={pageNumber + 1}
+          ></Page>
+        </Document>
+      )}
 
       <div className="buttonField">
         <p>

@@ -165,7 +165,9 @@ function Navbar() {
                   <Link to="/signup">Tạo tài khoản giáo viên</Link>
                 </li>
                 <li key={window.crypto.randomUUID()}>
-                  <Link to="/tu-luan">Đăng nội dung sách giáo khoa</Link>
+                  <Link to="/ly-thuyet/create">
+                    Đăng nội dung sách giáo khoa
+                  </Link>
                 </li>
               </ul>
             )}

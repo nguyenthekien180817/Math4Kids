@@ -1,8 +1,12 @@
 .section {
     /* padding-left: 70px; */
     display: flex;
-        flex-direction: column;
+    flex-direction: column;
     grid-template-columns: auto auto auto auto;
+}
+
+.section h3 {
+    cursor: pointer;
 }
 
 .section > a {
@@ -13,6 +17,15 @@
 .section > .collapse {
     width: 90vw;
  
+}
+
+.section .collapse.show {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapse.show a {
+    color: black;
 }
 
 .sectionCard {

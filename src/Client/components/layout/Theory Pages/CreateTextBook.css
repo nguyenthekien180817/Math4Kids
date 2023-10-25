@@ -1,0 +1,34 @@
+.createTextBookContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px 0px 80px;
+}
+
+.createTextBookContainer input {
+    width: 30vw;
+    padding: 10px;
+}
+
+.createTextBookContainer textarea {
+    height: 250px;
+    width: 90vw;
+    padding: 10px;
+}
+
+.createTextBookContainer label {
+    border: 2px solid rgb(218, 211, 211);
+    width: fit-content;
+    max-width: 91.5vw;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px ;
+    background-color: rgba(215, 214, 214, 0.5);
+}
+
+.createTextBookContainer button {
+    width: fit-content;
+}
+
+.createTextBookContainer .smallerTextArea {
+    height: 80px;
+}

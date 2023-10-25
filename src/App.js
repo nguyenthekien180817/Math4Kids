@@ -15,6 +15,7 @@ import CreateEssayTest from "./Client/components/pages/EssayTestPages/CreateEssa
 import EssayPage from "./Client/components/pages/EssayTestPages/EssayPage";
 import DetailedEssayPage from "./Client/components/pages/EssayTestPages/DetailedEssayTestPage";
 import SubmittedEssayTestPage from "./Client/components/pages/EssayTestPages/SubmittedEssayTestPage";
+import CreateTextBookData from "./Client/components/pages/CreateNewTextBookData";
 
 import "./App.css";
 function App() {
@@ -30,7 +31,7 @@ function App() {
         <Route path="/ly-thuyet" element={<TheoryPage />} />
 
         <Route path="/ly-thuyet/:name/:slug" element={<TheoryDetailPage />} />
-
+        <Route path="/ly-thuyet/create" element={<CreateTextBookData />} />
         <Route
           path="/:slug/create-multichoice"
           element={<CreateMultiTestPage />}
