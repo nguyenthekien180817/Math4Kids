@@ -19,3 +19,21 @@
     width: 50px;
     text-align: center;
 }
+
+.buttonField {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.buttonField button {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.buttonField input {
+    width: 150px;
+    margin-bottom: 10px;
+}

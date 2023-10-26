@@ -5,7 +5,7 @@
 }
 
 .createTextBookContainer input {
-    width: 30vw;
+    width: 20vw;
     padding: 10px;
 }
 
@@ -23,6 +23,11 @@
     padding: 10px;
     border-radius: 10px ;
     background-color: rgba(215, 214, 214, 0.5);
+    
+}
+
+.createTextBookContainer #bookname {
+    margin-left: 10px;
 }
 
 .createTextBookContainer button {
@@ -31,4 +36,38 @@
 
 .createTextBookContainer .smallerTextArea {
     height: 80px;
+}
+
+.smallInputFieldContainer {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.smallInputFieldContainer img {
+    margin-left: 10px;
+    height: 100px;
+}
+
+
+.createTextBookContainer .smallInputField {
+    margin-left: 10px;
+    width: 10vw;
+}
+
+.smallInputLabel {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.smallInputLabel input[type="file"] {
+    display: none;
+}
+
+.bigInputLabel {
+    display: flex;
+    align-items: center;
+    color: black;
 }

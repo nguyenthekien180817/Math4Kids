@@ -8,6 +8,9 @@ const Textbook = new Schema({
   lessons: { type: [String], required: true },
   pageNumber: { type: [Number], required: true },
   slug: { type: String, slug: "name", unique: true },
+  thumbnail: { type: String },
+  tableOfContents: { type: Number },
+  numberOfCover: { type: Number },
   createdAt: { type: Date, default: Date.now() },
   updatedAt: { type: Date, default: Date.now() },
 });

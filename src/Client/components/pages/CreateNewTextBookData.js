@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../layout/Theory Pages/CreateTextBook.css";
 import { ToastContainer, toast } from "react-toastify";
+
+const { base64Converter } = require("../../util/Base64Converter");
+
 function CreateTextBookData() {
   const [account, setAccount] = useState({
     name: "",
@@ -28,6 +31,9 @@ function CreateTextBookData() {
     name: "",
     lessons: [],
     pageNumber: [],
+    thumbnail: "",
+    tableOfContents: 0,
+    numberOfCover: 0,
   });
 
   let submit = () => {
@@ -38,6 +44,9 @@ function CreateTextBookData() {
         name: data.name,
         lessons: data.lessons,
         pageNumber: data.pageNumber,
+        thumbnail: data.thumbnail,
+        tableOfContents: data.tableOfContents,
+        numberOfCover: data.numberOfCover,
       },
       url: `http://localhost:4000/textbook/${account.level}/store`,
     })
@@ -64,18 +73,74 @@ function CreateTextBookData() {
         style={{ marginTop: "30px" }}
       />
       <h1>Tạo thông tin sách giáo khoa</h1>
-      <label htmlFor="bookname">
-        Nhập Tên sách{" "}
-        <input
-          onChange={(e) =>
-            setData((data) => ({
-              ...data,
-              name: e.target.value,
-            }))
-          }
-          id="bookname"
-        />
-      </label>
+      <div className="smallInputFieldContainer">
+        <label className="bigInputLabel" htmlFor="bookname">
+          Nhập Tên sách{" "}
+          <input
+            onChange={(e) =>
+              setData((data) => ({
+                ...data,
+                name: e.target.value,
+              }))
+            }
+            id="bookname"
+          />
+        </label>
+
+        <label className="smallInputLabel" htmlFor="numberOfCover">
+          Nhập số trang bìa{" "}
+          <input
+            className="smallInputField"
+            onChange={(e) =>
+              setData((data) => ({
+                ...data,
+                numberOfCover: e.target.value,
+              }))
+            }
+            id="numberOfCover"
+          />
+        </label>
+
+        <label className="smallInputLabel" htmlFor="tableOfContents">
+          Nhập vị trí của trang mục lục{" "}
+          <input
+            className="smallInputField"
+            onChange={(e) =>
+              setData((data) => ({
+                ...data,
+                tableOfContents: e.target.value,
+              }))
+            }
+            id="tableOfContents"
+          />
+        </label>
+
+        <label
+          className=" btn btn-secondary smallInputLabel"
+          htmlFor="thumbnail"
+        >
+          Chọn ảnh bìa{" "}
+          <input
+            type="file"
+            className="smallInputField"
+            onChange={async (e) => {
+              if (e.target.files[0]) {
+                let image = await base64Converter(e.target.files[0]);
+                console.log(e.target.files[0].name);
+                setData((data) => ({
+                  ...data,
+                  thumbnail: image,
+                }));
+                console.log(data);
+              }
+            }}
+            id="thumbnail"
+          />
+        </label>
+        <a target="_blank" href={data.thumbnail}>
+          <img src={data.thumbnail} />
+        </a>
+      </div>
 
       <label htmlFor="lessons">
         {" "}
@@ -89,6 +154,7 @@ function CreateTextBookData() {
           }
           id="lessons"
         />
+        <p>Có tổng số {data.lessons.length} bài học</p>
       </label>
 
       <label htmlFor="pageNumber">
@@ -104,6 +170,9 @@ function CreateTextBookData() {
           }
           id="pageNumber"
         />
+        {data.pageNumber.length > 0 && (
+          <p>Có tổng số {data.pageNumber.length} trang đánh số</p>
+        )}
       </label>
 
       <button onClick={() => submit()} className="btn btn-primary">

@@ -7,6 +7,13 @@ class TextBookController {
     });
   }
 
+  async showOne(req, res, next) {
+    textBooks.find({ slug: req.params.bookname }, (err, data) => {
+      if (err) res.send(err);
+      if (data) res.send(data);
+    });
+  }
+
   async store(req, res, next) {
     textBooks.findOne(
       {

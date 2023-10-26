@@ -5,6 +5,10 @@ import { Document, Page, pdfjs } from "react-pdf";
 import "../layout/Theory Pages/DetailPage.css";
 import ToanKetNoi1 from "../../../Textbook/ToanKetNoi1.pdf";
 import ToanKetNoi2 from "../../../Textbook/ToanKetNoi2.pdf";
+import CanhDieu1 from "../../../Textbook/CanhDieu1.pdf";
+import CanhDieu2 from "../../../Textbook/CanhDieu2.pdf";
+import ChanTroi1 from "../../../Textbook/ChanTroi1.pdf";
+import ChanTroi2 from "../../../Textbook/ChanTroi2.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 function TheoryDetailPage() {
@@ -15,10 +19,10 @@ function TheoryDetailPage() {
     ketnoi: 2,
     chantroi: 1,
   };
-  console.log(params.name);
+  console.log(params.pageNumber);
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
-    setPageNumber(Number(params.slug) + 2);
+    setPageNumber(Number(params.pageNumber) + Number(params.bonus));
   }
 
   function changePage(offSet) {
@@ -35,12 +39,29 @@ function TheoryDetailPage() {
 
   let selectTextBook = () => {
     switch (params.name) {
-      case "ToanKetNoi1": {
+      case "sach-toan-ket-noi-tri-thuc-voi-cuoc-song-tap-1": {
+        console.log("ToanKetNoi1");
         return ToanKetNoi1;
       }
 
-      case "ToanKetNoi2": {
+      case "sach-toan-ket-noi-tri-thuc-voi-cuoc-song-tap-2": {
         return ToanKetNoi2;
+      }
+
+      case "sach-toan-canh-dieu-tap-1": {
+        return CanhDieu1;
+      }
+
+      case "sach-toan-canh-dieu-tap-2": {
+        return CanhDieu2;
+      }
+
+      case "sach-toan-chan-troi-sang-tao-tap-1": {
+        return ChanTroi1;
+      }
+
+      case "sach-toan-chan-troi-sang-tao-tap-2": {
+        return ChanTroi2;
       }
     }
   };
@@ -70,7 +91,8 @@ function TheoryDetailPage() {
       <div className="buttonField">
         <p>
           {" "}
-          Trang số {pageNumber - 2} trên tổng số {numPages - 2} trang
+          Trang số {pageNumber - Number(params.bonus)} trên tổng số{" "}
+          {numPages - Number(params.bonus)} trang
         </p>
         {pageNumber > 1 && (
           <button className="btn btn-primary" onClick={changePageBack}>
@@ -80,16 +102,27 @@ function TheoryDetailPage() {
         <input
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              setPageNumber(Number(e.currentTarget.value) + 2);
+              setPageNumber(
+                Number(e.currentTarget.value) + Number(params.bonus)
+              );
             }
           }}
           className="textbookGuide"
         />
+
         {pageNumber < numPages && (
           <button className="btn btn-secondary" onClick={changePageNext}>
             Next Page
           </button>
         )}
+        <button
+          className="btn btn-info"
+          onClick={() =>
+            setPageNumber(Number(params.ToC) + Number(params.bonus))
+          }
+        >
+          Mục lục
+        </button>
       </div>
     </div>
   );

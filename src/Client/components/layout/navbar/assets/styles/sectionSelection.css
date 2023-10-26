@@ -1,12 +1,16 @@
 .section {
     /* padding-left: 70px; */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     grid-template-columns: auto auto auto auto;
+    margin-left: 100px;
+    overflow: hidden;
+    justify-content: space-between;
 }
 
 .section h3 {
-    cursor: pointer;
+    font-weight: bold;
+    color: rgb(25, 25, 96);
 }
 
 .section > a {
@@ -19,9 +23,16 @@
  
 }
 
+.section img {
+    height: 120vh;
+    object-fit: contain;
+    margin-right: 50px;
+}
+
 .section .collapse.show {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    /* justify-content: center; */
 }
 
 .collapse.show a {
@@ -30,8 +41,8 @@
 
 .sectionCard {
     display: flex;
-    flex-direction: row;
-    width: 20vw;
+    flex-direction: column;
+    width: fit-content;
     height: fit-content;
     border: solid 1px black;
     justify-content: center;
@@ -54,9 +65,16 @@
 }
 
 .sectionCard img {
-    width: 20vw;
+
+    height: 50vh;
 }
 
 .sectionCard button {
     flex-direction: row;
+}
+
+
+.lessonSection {
+    display: flex;
+    flex-direction: column;
 }
