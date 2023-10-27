@@ -18,17 +18,20 @@
     justify-content: center;
     flex-direction: column;
     background-color: white;
-    height: 70vh;
-    width: 40vw;
+    height: fit-content;
+    width: 40vw;;
     padding: 20px;
     border-radius: 10px;
     border: 1px solid black;
 }
 
-form {
-    width: 29vw;
+.loginFormContainer h1 {
+    margin-bottom: 20px;
 }
 
+.loginFormContainer input {
+    margin-bottom: 10px;
+}
 .formLabel {
     float: left;
     text-align: left;

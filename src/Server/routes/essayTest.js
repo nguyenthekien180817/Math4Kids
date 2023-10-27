@@ -46,4 +46,6 @@ router.put(
   EssayTestController.updateSubmittedTest
 );
 
+router.delete("/:level/:id/delete", EssayTestController.deleteTest);
+
 module.exports = router;

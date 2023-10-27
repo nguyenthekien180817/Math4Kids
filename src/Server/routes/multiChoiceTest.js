@@ -36,5 +36,7 @@ router.get(
   MultiChoiceTestController.listedStudentTest
 );
 
+router.delete("/:level/:id/delete", MultiChoiceTestController.deleteTest);
+
 router.put("/:teacher/:id/update", MultiChoiceTestController.updateTest);
 module.exports = router;

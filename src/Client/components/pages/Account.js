@@ -21,8 +21,14 @@ function Account() {
   const [show, setShow] = useState({
     essay: null,
     multi: null,
+    warning: false,
   });
   const [edit, setEdit] = useState(false);
+  const [deleteData, setDeleteData] = useState({
+    name: "",
+    id: "",
+    type: "",
+  });
 
   useEffect(() => {
     axios({
@@ -269,6 +275,23 @@ function Account() {
       .catch((err) => console.log(err));
   };
 
+  let deleteTest = () => {
+    axios({
+      method: "DELETE",
+      withCredentials: true,
+      url: `http://localhost:4000/${deleteData.type}/${level}/${deleteData.id}/delete`,
+    }).then((response) => {
+      if (response.data == "Done") {
+        toast.success("Xoá bài thi thành công");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        toast.warn("Bạn không có quyền xoá bài thi");
+      }
+    });
+  };
+
   return (
     <div>
       <div className="infoBox">
@@ -375,23 +398,45 @@ function Account() {
                                 : "accordion"
                             }
                           >
-                            <button
-                              style={{ width: "150px" }}
-                              className={
-                                edit == false
-                                  ? "btn btn-primary"
-                                  : "btn btn-secondary"
-                              }
-                              onClick={() => {
-                                if (edit == true) {
-                                  setEdit(false);
-                                } else {
-                                  setEdit(true);
+                            <div className="buttonField">
+                              <button
+                                style={{ width: "150px" }}
+                                className={
+                                  edit == false
+                                    ? "btn btn-primary"
+                                    : "btn btn-secondary"
                                 }
-                              }}
-                            >
-                              {edit == true ? "Tắt chỉnh sửa" : "Chỉnh sửa"}
-                            </button>
+                                onClick={() => {
+                                  if (edit == true) {
+                                    setEdit(false);
+                                  } else {
+                                    setEdit(true);
+                                  }
+                                }}
+                              >
+                                {edit == true ? "Tắt chỉnh sửa" : "Chỉnh sửa"}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setShow((data) => ({
+                                    ...data,
+                                    warning: true,
+                                  }));
+
+                                  setDeleteData((data) => ({
+                                    ...data,
+                                    name: test.name,
+                                    id: test._id,
+                                    type: "multi-test",
+                                  }));
+                                }}
+                                style={{ width: "150px", float: "left" }}
+                                className="btn btn-danger"
+                              >
+                                Xoá bài thi
+                              </button>
+                            </div>
+
                             {test.question.map((data, childIndex) => (
                               <>
                                 <div
@@ -738,23 +783,46 @@ function Account() {
                                 : "accordion"
                             }
                           >
-                            <button
-                              style={{ width: "150px" }}
-                              className={
-                                edit == false
-                                  ? "btn btn-primary"
-                                  : "btn btn-secondary"
-                              }
-                              onClick={() => {
-                                if (edit == true) {
-                                  setEdit(false);
-                                } else {
-                                  setEdit(true);
+                            <div className="buttonField">
+                              <button
+                                style={{ width: "150px" }}
+                                className={
+                                  edit == false
+                                    ? "btn btn-primary"
+                                    : "btn btn-secondary"
                                 }
-                              }}
-                            >
-                              {edit == true ? "Tắt chỉnh sửa" : "Chỉnh sửa"}
-                            </button>
+                                onClick={() => {
+                                  if (edit == true) {
+                                    setEdit(false);
+                                  } else {
+                                    setEdit(true);
+                                  }
+                                }}
+                              >
+                                {edit == true ? "Tắt chỉnh sửa" : "Chỉnh sửa"}
+                              </button>
+
+                              <button
+                                onClick={() => {
+                                  setShow((data) => ({
+                                    ...data,
+                                    warning: true,
+                                  }));
+
+                                  setDeleteData((data) => ({
+                                    ...data,
+                                    name: test.name,
+                                    id: test._id,
+                                    type: "essay-test",
+                                  }));
+                                }}
+                                style={{ width: "150px", float: "left" }}
+                                className="btn btn-danger"
+                              >
+                                Xoá bài thi
+                              </button>
+                            </div>
+
                             {test.questionArray.map((question, childIndex) => (
                               <>
                                 <div className="testDataContainer">
@@ -1044,6 +1112,37 @@ function Account() {
             </div>
           </>
         )}
+      </div>
+      <div
+        className={show.warning == true ? "warningPopup show" : "warningPopup"}
+      >
+        <div className="confirmBox">
+          <h3>
+            Bạn có chắc chắn muốn xoá bài thi: <b>{deleteData.name}</b>?
+          </h3>
+          <p>Nhấn có để xác nhận xoá, nhấn không để huỷ</p>
+          <div className="buttonField">
+            <button
+              onClick={() => {
+                setShow((data) => ({
+                  ...data,
+                  warning: false,
+                }));
+                setDeleteData({
+                  name: "",
+                  id: "",
+                  type: "",
+                });
+              }}
+              className="btn btn-secondary"
+            >
+              Không
+            </button>
+            <button onClick={() => deleteTest()} className="btn btn-danger">
+              Có
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -137,6 +137,18 @@ class MultiChoicePageController {
         res.send(err.message);
       });
   }
+
+  async deleteTest(req, res, next) {
+    if (req.params.level == "admin" || req.params.level == "teacher") {
+      MultiTests.deleteOne({ _id: req.params.id })
+        .then(res.send("Done"))
+        .catch((err) => {
+          res.send(err);
+        });
+    } else {
+      res.send("Not An Admin");
+    }
+  }
 }
 
 module.exports = new MultiChoicePageController();

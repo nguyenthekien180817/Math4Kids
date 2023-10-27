@@ -35,6 +35,12 @@ class TextBookController {
       }
     );
   }
+
+  async deleteBook(req, res, next) {
+    req.params.level = "admin"
+      ? textBooks.deleteOne({ slug: req.params.slug }).then(res.send("Done"))
+      : res.send("Not An Admin");
+  }
 }
 
 module.exports = new TextBookController();

@@ -85,6 +85,22 @@ label {
     
 }
 
+.accordion.show .buttonField {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+   
+}
+
+.accordion.show .buttonField .btn.btn-danger {
+    margin: 0;
+}
+
+.accordion.show btn {
+    z-index: -1;
+}
+
 .detailWrapper {
     display: flex;
     flex-direction: row;

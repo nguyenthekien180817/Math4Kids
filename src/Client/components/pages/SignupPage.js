@@ -89,7 +89,7 @@ function SignupPage(props) {
               Đăng ký tài khoản {level == "teacher" ? "Giáo Viên" : "Học Sinh"}
             </h1>
           </div>
-          {console.log(level)}
+
           <label className="formLabel" htmlFor="email">
             Email
           </label>
@@ -139,12 +139,11 @@ function SignupPage(props) {
           <p className="registration">
             Bạn đã có tài khoản?
             <div>
-              <Link to="/signup" style={{ cursor: "pointer" }}>
+              <Link to="/login" style={{ cursor: "pointer" }}>
                 Đăng nhập ngay!
               </Link>
             </div>
           </p>
-          {/* </form> */}
         </div>
       </div>
     </div>
