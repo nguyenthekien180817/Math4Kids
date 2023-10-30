@@ -99,54 +99,59 @@ function DetailedEssayPage() {
     <div>
       <ToastContainer style={{ marginTop: "40px" }} />
       {test != null ? (
-        <div style={{ marginTop: "50px" }}>
-          <p>
-            Xin chào <b>{user.student_name}</b>{" "}
-          </p>
-          <h1>{test.name}</h1>
-          {test.questionArray.map((execise, index) => (
-            <div className="essayQuestionContainer">
-              <div className="header">
-                <h4>
-                  <b style={{ color: "green" }}>Câu {index + 1}:</b>{" "}
-                  <h5>{execise}</h5>
-                </h4>
+        <div style={{ marginTop: "40px" }}>
+          <div className="testHeader">
+            <p>
+              Xin chào <b>{user.student_name}</b>{" "}
+            </p>
+            <h1>{test.name}</h1>
+            <p>{test.description}</p>
+          </div>
+          <div className="testBody">
+            {test.questionArray.map((execise, index) => (
+              <div className="essayQuestionContainer">
+                <div className="header">
+                  <h4>
+                    <b style={{ color: "green" }}>Câu {index + 1}:</b>{" "}
+                    <h5>{execise}</h5>
+                  </h4>
+                </div>
+                <img
+                  className={
+                    test.imageArray[index] == undefined
+                      ? "hidden"
+                      : "essayTestImage"
+                  }
+                  src={test.imageArray[index]}
+                />
+                <textarea
+                  className={index}
+                  onChange={handleInput}
+                  name="answerText"
+                  placeholder="Nhập câu trả lời ở đây"
+                />
+                <input
+                  className={index}
+                  onChange={handleInput}
+                  name="answerImages"
+                  type="file"
+                  id={`image${index}`}
+                />
+                <label htmlFor={`image${index}`}>Chọn ảnh đính kèm</label>
+                <img
+                  className={
+                    submitData.answerImages[index] == null
+                      ? "hidden"
+                      : "answerImage"
+                  }
+                  src={submitData.answerImages[index]}
+                />
               </div>
-              <img
-                className={
-                  test.imageArray[index] == undefined
-                    ? "hidden"
-                    : "essayTestImage"
-                }
-                src={test.imageArray[index]}
-              />
-              <textarea
-                className={index}
-                onChange={handleInput}
-                name="answerText"
-                placeholder="Nhập câu trả lời ở đây"
-              />
-              <input
-                className={index}
-                onChange={handleInput}
-                name="answerImages"
-                type="file"
-                id={`image${index}`}
-              />
-              <label htmlFor={`image${index}`}>Chọn ảnh đính kèm</label>
-              <img
-                className={
-                  submitData.answerImages[index] == null
-                    ? "hidden"
-                    : "answerImage"
-                }
-                src={submitData.answerImages[index]}
-              />
-            </div>
-          ))}
-          <button onClick={submit} className="btn btn-primary">
-            Nộp bài
-          </button>
+            ))}
+            <button onClick={submit} className="btn btn-primary">
+              Nộp bài
+            </button>
+          </div>
         </div>
       ) : (
         <p></p>

@@ -4,6 +4,7 @@ import EssayCreationCard from "../../layout/Multi and Essay Creation card/EssayC
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../../layout/Multi and Essay Creation card/TestPage.css";
 const { base64Converter } = require("../../../util/Base64Converter");
 function CreateEssayTest() {
   const [inputList, setInputList] = useState([]);
@@ -133,47 +134,61 @@ function CreateEssayTest() {
   return (
     <div>
       <ToastContainer style={{ marginTop: "40px" }} />
-      <h1>Tạo bài kiểm tra tự luận</h1>
-      <textarea
-        name="EssayName"
-        placeholder="Nhập tên bài kiểm tra ở đây"
-        onChange={handleInput}
-      />
-      <textarea
-        name="EssayDes"
-        placeholder="Nhập nội dung bài kiểm tra ở đây"
-        onChange={handleInput}
-      />
-      <input
-        name="timeLimit"
-        placeholder="Nhập số phút của bài thi"
-        onChange={handleInput}
-      />
-      <br></br>
-      <button onClick={handleAdd} style={{ marginBottom: "10px" }}>
-        Thêm Câu hỏi
-      </button>
+      <div className="createHeader">
+        <h1>Tạo bài kiểm tra tự luận</h1>
+        <div className="textAreaInputField">
+          <label className="textAreaInputSmall" htmlFor="EssayName">
+            Nhập tên bài kiểm tra ở đây
+            <textarea name="EssayName" id="EssayName" onChange={handleInput} />
+          </label>
 
-      <button
-        onClick={handleDelete}
-        style={{ marginLeft: "10px", marginBottom: "10px" }}
-      >
-        Xóa Câu Hỏi Cuối
-      </button>
+          <label className="textAreaInputSmall" htmlFor="EssayDes">
+            Nhập nội dung bài kiểm tra ở đây
+            <textarea
+              name="EssayDes"
+              id="EssayDes"
+              placeholder=""
+              onChange={handleInput}
+            />
+          </label>
+        </div>
+
+        <div className="buttonField">
+          <button
+            className="btn btn-primary"
+            onClick={handleAdd}
+            style={{ marginBottom: "10px" }}
+          >
+            Thêm Câu hỏi
+          </button>
+
+          <button
+            className="btn btn-secondary"
+            onClick={handleDelete}
+            style={{ marginLeft: "10px", marginBottom: "10px" }}
+          >
+            Xóa Câu Hỏi Cuối
+          </button>
+        </div>
+      </div>
 
       {inputList.length > 0 ? (
-        <div>
+        <div className="createBody">
           {inputList.map((component, index) => (
             <IndexContext.Provider value={index}>
               <handleInputContext.Provider value={handleInput}>
                 <imageSrcContext.Provider value={examData}>
-                  <p>Câu hỏi số {index + 1}</p>
-                  {component}
+                  <div className="textAreaInputBig">
+                    <h4>Câu hỏi số {index + 1}</h4>
+                    {component}
+                  </div>
                 </imageSrcContext.Provider>
               </handleInputContext.Provider>
             </IndexContext.Provider>
           ))}
-          <button onClick={submit}>Lưu bài</button>
+          <button className="btn btn-primary" onClick={submit}>
+            Lưu bài
+          </button>
         </div>
       ) : (
         <p>

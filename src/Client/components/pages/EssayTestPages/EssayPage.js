@@ -6,14 +6,18 @@ function EssayPage() {
   const [id, setId] = useState("");
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div className="essayIdInputField">
+      <h1 style={{ fontWeight: "bold" }}>KIỂM TRA TỰ LUẬN</h1>
+
       <input
         placeholder="Nhập mã bài thi của bạn"
         onChange={(e) => setId(e.target.value)}
+        id="id"
       />
-      <button>
-        <Link to={id}>Làm bài thi</Link>
-      </button>
+
+      <Link className="btn btn-primary" to={id}>
+        Làm bài thi
+      </Link>
     </div>
   );
 }

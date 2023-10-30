@@ -210,39 +210,57 @@ function CreateMultiTestPage() {
   };
 
   return (
-    <div style={{ paddingLeft: "10px" }}>
+    <div>
       <ToastContainer style={{ marginTop: "40px" }} />
-      <h1>Tạo bài kiểm tra trắc nghiệm</h1>
-      <input
-        onChange={(e) => setTestName(e.target.value)}
-        placeholder="Nhập tên bài kiểm tra"
-        name="name"
-      />
-      <textarea
-        onChange={(e) => setTestDescription(e.target.value)}
-        name="description"
-        placeholder="Nhập mô tả bài kiểm tra"
-      ></textarea>
+      <div className="createHeader">
+        <h1>Tạo bài kiểm tra trắc nghiệm</h1>
+        <div className="textAreaInputField">
+          <label className="textAreaInputSmall" htmlFor="name">
+            Nhập tên bài kiểm tra
+            <input
+              onChange={(e) => setTestName(e.target.value)}
+              id="name"
+              name="name"
+            />
+          </label>
 
-      <button style={{ marginBottom: "10px" }} onClick={handleAdd}>
-        Thêm Câu hỏi
-      </button>
+          <label className="textAreaInputSmall" htmlFor="description">
+            Nhập mô tả bài kiểm tra
+            <textarea
+              onChange={(e) => setTestDescription(e.target.value)}
+              id="description"
+              name="description"
+            ></textarea>
+          </label>
+        </div>
 
-      <button
-        style={{ marginLeft: "10px", marginBottom: "10px" }}
-        onClick={handleDelete}
-      >
-        Xóa Câu Hỏi Cuối
-      </button>
+        <div className="buttonField">
+          <button
+            className="btn btn-primary"
+            style={{ marginBottom: "10px" }}
+            onClick={handleAdd}
+          >
+            Thêm Câu hỏi
+          </button>
+
+          <button
+            className="btn btn-secondary"
+            style={{ marginLeft: "10px", marginBottom: "10px" }}
+            onClick={handleDelete}
+          >
+            Xóa Câu Hỏi Cuối
+          </button>
+        </div>
+      </div>
 
       {inputList.length > 0 ? (
-        <div>
+        <div className="createBody">
           {inputList.map((component, index) => {
             return (
               <handleInputContext.Provider value={handleInput}>
                 <IndexContext.Provider value={index}>
                   <imageSrcContext.Provider value={src}>
-                    <div>
+                    <div className="textAreaInputBig">
                       <p style={{ marginBottom: "5px" }}>
                         Câu hỏi số {index + 1}
                       </p>
@@ -253,7 +271,9 @@ function CreateMultiTestPage() {
               </handleInputContext.Provider>
             );
           })}
-          <button onClick={submit}>submit</button>
+          <button className="btn btn-primary" onClick={submit}>
+            submit
+          </button>
         </div>
       ) : (
         <p>

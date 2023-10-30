@@ -924,9 +924,7 @@ function Account() {
                           <tr key={index}>
                             <th scope="row">{index + 1}</th>
                             <td>
-                              <Link to={`/${email}/${test.name}/submited-test`}>
-                                {test.test_name}
-                              </Link>
+                              <p>{test.test_name}</p>
                             </td>
                             <td>{test.createdAt}</td>
                             <td>{test.author}</td>
@@ -1024,9 +1022,7 @@ function Account() {
                           <tr key={index}>
                             <th scope="row">{index + 1}</th>
                             <td>
-                              <Link to={`/${email}/${test.name}/submited-test`}>
-                                {test.test_name}
-                              </Link>
+                              <p>{test.test_name}</p>
                             </td>
                             <td>{test.createdAt}</td>
                             <td>{test.author}</td>

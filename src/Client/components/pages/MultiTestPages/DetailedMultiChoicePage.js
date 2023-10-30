@@ -101,108 +101,146 @@ function DetailedMultiChoicePage() {
 
   return (
     <div>
-      {myQuestions != null ? <h1>{myQuestions.name}</h1> : <p></p>}
+      {myQuestions != null ? (
+        <div style={{ marginTop: "40px" }}>
+          <div className="testHeader">
+            <p>
+              Xin chào <b>{accountName}</b>{" "}
+            </p>
+            <h1>{myQuestions.name}</h1>
+            <p>{myQuestions.description}</p>
+          </div>
+        </div>
+      ) : (
+        <p></p>
+      )}
       <ToastContainer style={{ marginTop: "40px" }} />
       {myQuestions == null ? (
         <p></p>
       ) : (
-        <div>
+        <div className="testBody">
           {myQuestions.question.map((question, index) => {
             return (
-              <div style={{ marginLeft: "40px" }}>
+              <div className="multiQuestionContainer">
                 <br />
-                <p>
+                <h3>
                   Câu hỏi {index + 1}: {question}{" "}
                   <img
-                    className="multiQImg"
+                    className={
+                      myQuestions.imageArray.question[index] == null
+                        ? "multiQImg hidden"
+                        : "multiQImg"
+                    }
                     src={myQuestions.imageArray.question[index]}
                   />
-                </p>
+                </h3>
+                <div className="answerField">
+                  {/* Question A */}
 
-                {/* Question A */}
-                <input
-                  disabled={disable}
-                  type="radio"
-                  name={`${index}`}
-                  value={myQuestions.answerAArray[index]}
-                  id={"A" + index}
-                  onClick={(e) => handleRadioSelect(e)}
-                  key={index + "questionA"}
-                ></input>
-                <label htmlFor={"A" + index}>
-                  A:{" "}
-                  {myQuestions.answerAArray[index].toLowerCase() == "a"
-                    ? ""
-                    : myQuestions.answerAArray[index]}
-                </label>
-                <img
-                  className="multiQImg"
-                  src={myQuestions.imageArray.answerA[index]}
-                />
-                <br />
-                {/* Question B */}
-                <input
-                  disabled={disable}
-                  type="radio"
-                  name={`${index}`}
-                  value={myQuestions.answerBArray[index]}
-                  id={"B" + index}
-                  onClick={(e) => handleRadioSelect(e)}
-                  key={index + "questionB"}
-                ></input>
-                <label htmlFor={"B" + index}>
-                  B:{" "}
-                  {myQuestions.answerBArray[index].toLowerCase() == "b"
-                    ? ""
-                    : myQuestions.answerBArray[index]}
-                  <img
-                    className="multiQImg"
-                    src={myQuestions.imageArray.answerB[index]}
-                  />
-                </label>
-                <br />
-                {/* Question C */}
-                <input
-                  disabled={disable}
-                  type="radio"
-                  name={`${index}`}
-                  value={myQuestions.answerCArray[index]}
-                  id={"C" + index}
-                  onClick={(e) => handleRadioSelect(e)}
-                  key={index + "questionC"}
-                ></input>
-                <label htmlFor={"C" + index}>
-                  C:{" "}
-                  {myQuestions.answerCArray[index].toLowerCase() == "c"
-                    ? ""
-                    : myQuestions.answerCArray[index]}
-                  <img
-                    className="multiQImg"
-                    src={myQuestions.imageArray.answerC[index]}
-                  />
-                </label>
-                <br />
-                {/* Question D */}
-                <input
-                  disabled={disable}
-                  type="radio"
-                  name={`${index}`}
-                  value={myQuestions.answerDArray[index]}
-                  id={"D" + index}
-                  onClick={(e) => handleRadioSelect(e)}
-                  key={index + "questionD"}
-                ></input>
-                <label htmlFor={"D" + index}>
-                  D:{" "}
-                  {myQuestions.answerDArray[index].toLowerCase() == "d"
-                    ? ""
-                    : myQuestions.answerDArray[index]}
-                  <img
-                    className="multiQImg"
-                    src={myQuestions.imageArray.answerD[index]}
-                  />
-                </label>
-                <br />
+                  <label htmlFor={"A" + index}>
+                    <input
+                      disabled={disable}
+                      type="radio"
+                      name={`${index}`}
+                      value={myQuestions.answerAArray[index]}
+                      id={"A" + index}
+                      onClick={(e) => handleRadioSelect(e)}
+                      key={index + "questionA"}
+                    />
+                    A:{" "}
+                    {myQuestions.answerAArray[index].toLowerCase() == "a"
+                      ? ""
+                      : myQuestions.answerAArray[index]}
+                    <img
+                      className={
+                        myQuestions.imageArray.answerA[index] == null
+                          ? "multiQImg hidden"
+                          : "multiQImg"
+                      }
+                      src={myQuestions.imageArray.answerA[index]}
+                    />
+                  </label>
+
+                  <br />
+                  {/* Question B */}
+
+                  <label htmlFor={"B" + index}>
+                    <input
+                      disabled={disable}
+                      type="radio"
+                      name={`${index}`}
+                      value={myQuestions.answerBArray[index]}
+                      id={"B" + index}
+                      onClick={(e) => handleRadioSelect(e)}
+                      key={index + "questionB"}
+                    />
+                    B:{" "}
+                    {myQuestions.answerBArray[index].toLowerCase() == "b"
+                      ? ""
+                      : myQuestions.answerBArray[index]}
+                    <img
+                      className={
+                        myQuestions.imageArray.answerB[index] == null
+                          ? "multiQImg hidden"
+                          : "multiQImg"
+                      }
+                      src={myQuestions.imageArray.answerB[index]}
+                    />
+                  </label>
+                  <br />
+                  {/* Question C */}
+
+                  <label htmlFor={"C" + index}>
+                    <input
+                      disabled={disable}
+                      type="radio"
+                      name={`${index}`}
+                      value={myQuestions.answerCArray[index]}
+                      id={"C" + index}
+                      onClick={(e) => handleRadioSelect(e)}
+                      key={index + "questionC"}
+                    ></input>
+                    C:{" "}
+                    {myQuestions.answerCArray[index].toLowerCase() == "c"
+                      ? ""
+                      : myQuestions.answerCArray[index]}
+                    <img
+                      className={
+                        myQuestions.imageArray.answerC[index] == null
+                          ? "multiQImg hidden"
+                          : "multiQImg"
+                      }
+                      src={myQuestions.imageArray.answerC[index]}
+                    />
+                  </label>
+                  <br />
+                  {/* Question D */}
+
+                  <label htmlFor={"D" + index}>
+                    <input
+                      disabled={disable}
+                      type="radio"
+                      name={`${index}`}
+                      value={myQuestions.answerDArray[index]}
+                      id={"D" + index}
+                      onClick={(e) => handleRadioSelect(e)}
+                      key={index + "questionD"}
+                    ></input>
+                    D:{" "}
+                    {myQuestions.answerDArray[index].toLowerCase() == "d"
+                      ? ""
+                      : myQuestions.answerDArray[index]}
+                    <img
+                      className={
+                        myQuestions.imageArray.answerD[index] == null
+                          ? "multiQImg hidden"
+                          : "multiQImg"
+                      }
+                      src={myQuestions.imageArray.answerD[index]}
+                    />
+                  </label>
+                  <br />
+                </div>
               </div>
             );
           })}
@@ -222,8 +260,12 @@ function DetailedMultiChoicePage() {
               </Link>
             </p>
           ) : (
-            <button disabled={disable} onClick={handleSubmitScore}>
-              Submit
+            <button
+              className="btn btn-primary"
+              disabled={disable}
+              onClick={handleSubmitScore}
+            >
+              Nộp bài
             </button>
           )}
         </div>

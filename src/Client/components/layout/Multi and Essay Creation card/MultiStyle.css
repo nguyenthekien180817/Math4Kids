@@ -28,9 +28,51 @@
 }
 
 .multiQImg  {
-    height: 50px;
+    height: 200px;
+    object-fit: contain;
 }
 
 label {
     color: black;
+}
+
+.testBody {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.testBody button {
+    left: 0;
+}
+
+.multiQuestionContainer {
+    width: 80%;
+    min-width: 500px;
+    margin: 20px 30px 20px 30px;
+    border: black solid 6px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.multiQuestionContainer h3 {
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none;
+}
+
+.answerField {
+    padding: 10px;
+    border: 2px solid rgb(228, 228, 221);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.answerField label {
+    flex: 50%;
 }

@@ -1,0 +1,70 @@
+.createHeader {
+    /* background-color: #c5c1c1; */
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    background-color: antiquewhite;
+}
+
+.createBody {
+    border-top: black solid;
+    border-bottom: black solid;
+    padding: 10px 0 10px 0;
+    background-color: rgb(163, 194, 222);
+}
+
+.createBody button {
+    width: fit-content;
+    margin-top: 10px;
+}
+
+.createBody .textAreaInputBig {
+    margin-top: 10px;
+    margin-left: 20px;
+    background-color: #c5c1c1;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(218, 211, 211);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(215, 214, 214, 0.5);
+    min-width: 300px;
+    margin-right: 10px;
+}
+
+.createHeader .textAreaInputSmall {
+    background-color: #c5c1c1;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(218, 211, 211);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(215, 214, 214, 0.5);
+    min-width: 300px;
+    margin-right: 10px;
+
+}
+
+.createHeader .textAreaInputField {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0;
+}
+
+.createHeader .buttonField {
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+    margin: 0;
+}
+
+.createHeader input {
+    height: 55px;
+}
+
+.createBody .btn-primary {
+    margin-left: 10px;
+}

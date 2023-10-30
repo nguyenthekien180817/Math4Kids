@@ -18,6 +18,13 @@
     height: 200px;
 }
 
+.testBody {
+    background-color: rgb(164, 202, 226);
+    padding: 20px;
+    border-top: black solid 6px;
+    border-bottom: black solid 6px;
+}
+
 .essayQuestionContainer {
     display: flex;
     width: fit-content;
@@ -25,7 +32,9 @@
     margin: 20px 30px 20px 30px;
     border: black solid 6px;
     padding: 10px;
-    border-radius:10px
+    border-radius:10px;
+    background-color: white;
+    
 }
 
 .essayQuestionContainer h4 {
@@ -64,3 +73,34 @@
 .essayQuestionContainer .answerImage {
     height: 100px;
 }
+
+.essayIdInputField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 94vh;
+    background-color: rgb(218, 211, 211);
+    overflow: hidden;
+}
+
+.essayIdInputField input {
+    width: 50vw;
+    height: 8vh;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 35px;
+}
+
+.essayIdInputField a {
+    color: white;
+}
+
+.testHeader {
+    background-color: rgb(222, 222, 216);
+    padding: 10px;
+}
+
+
+
