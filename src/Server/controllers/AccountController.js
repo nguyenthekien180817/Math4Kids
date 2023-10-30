@@ -88,6 +88,20 @@ class AccountController {
       finishedTest.save().then(res.send("Done"));
     } catch (err) {}
   }
+
+  async changePasswords(req, res, next) {
+    Accounts.findOne({ email: req.params.account }, (err, result) => {
+      const check = bcrypt.compare(result.password, req.body.oldPassword);
+      if (check === true) {
+        Accounts.updateOne(
+          { email: req.body.email },
+          req.body.newPassword
+        ).then(res.send("Done"));
+      } else {
+        res.send("Wrong Password");
+      }
+    });
+  }
 }
 
 module.exports = new AccountController();

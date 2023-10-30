@@ -18,6 +18,12 @@ function Account() {
   const [studentMultiTestList, setStudentMultiTestList] = useState([]);
   const [studentEssayTestList, setStudentEssayTestList] = useState([]);
   const [level, setLevel] = useState("student");
+  const [editPassword, setEditPassword] = useState({
+    edit: false,
+    oldPassword: "",
+    newPassword: "",
+    repeatPassword: "",
+  });
   const [show, setShow] = useState({
     essay: null,
     multi: null,
@@ -266,6 +272,7 @@ function Account() {
       data: essayTestList[index],
     })
       .then((response) => {
+        console.log(response.data);
         if (response.data == "Done") {
           toast.success("Cập nhật bài thi thành công");
         } else {
@@ -290,6 +297,31 @@ function Account() {
         toast.warn("Bạn không có quyền xoá bài thi");
       }
     });
+  };
+
+  let updatePassword = () => {
+    if (editPassword.repeatPassword != editPassword.newPassword) {
+      toast.warn("Mật khẩu nhập lại không đúng");
+    } else {
+      axios({
+        method: "PUT",
+        withCredentials: true,
+        url: `http://localhost:4000/account//${email}/update-password`,
+        data: {
+          oldPassword: editPassword.oldPassword,
+          newPassword: editPassword.newPassword,
+        },
+      }).then((response) => {
+        if (response.data == "Done") {
+          toast.success("Đổi mật khẩu thành công");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          toast.warn("Mật khẩu không đúng");
+        }
+      });
+    }
   };
 
   return (
@@ -330,6 +362,84 @@ function Account() {
             <strong>Email: </strong>
           </label>
           <input disabled name="email" id="email" value={email} />
+          <a
+            onClick={() => {
+              if (editPassword.edit == false) {
+                setEditPassword((data) => ({
+                  ...data,
+                  edit: true,
+                }));
+              } else {
+                setEditPassword((data) => ({
+                  ...data,
+                  edit: false,
+                }));
+              }
+            }}
+            style={{ marginTop: "10px", color: "blue" }}
+          >
+            Đổi Mật Khẩu
+          </a>
+
+          <label
+            className={editPassword.edit == false ? "hidden" : ""}
+            htmlFor="oldPassword"
+          >
+            <strong>Mật khẩu cũ: </strong>
+          </label>
+          <input
+            className={editPassword.edit == false ? "hidden" : ""}
+            id="oldPassword"
+            onChange={(e) => {
+              setEditPassword((data) => ({
+                ...data,
+                oldPassword: e.target.value,
+              }));
+            }}
+          />
+          <label
+            className={editPassword.edit == false ? "hidden" : ""}
+            htmlFor="newPassword"
+          >
+            <strong>Mật khẩu Mới: </strong>
+          </label>
+          <input
+            className={editPassword.edit == false ? "hidden" : ""}
+            id="newPassword"
+            onChange={(e) => {
+              setEditPassword((data) => ({
+                ...data,
+                newPassword: e.target.value,
+              }));
+            }}
+          />
+
+          <label
+            className={editPassword.edit == false ? "hidden" : ""}
+            htmlFor="repeatPassword"
+          >
+            <strong>Nhập lại mật khẩu: </strong>
+          </label>
+
+          <input
+            className={editPassword.edit == false ? "hidden" : ""}
+            id="repeatPassword"
+            onChange={(e) => {
+              setEditPassword((data) => ({
+                ...data,
+                repeatPassword: e.target.value,
+              }));
+            }}
+          />
+          <button
+            onClick={() => updatePassword()}
+            style={{ width: "fit-content", marginTop: "10px" }}
+            className={
+              editPassword.edit == false ? "hidden" : "btn btn-primary"
+            }
+          >
+            Lưu mật khẩu
+          </button>
         </div>
       </div>
 

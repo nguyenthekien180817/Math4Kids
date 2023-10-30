@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Client/components/layout/navbar/Navbar";
 import HomePage from "./Client/components/pages/HomePage";
 import Account from "./Client/components/pages/Account";
@@ -21,45 +21,47 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/tu-luan" element={<EssayPage />} />
-        <Route path="/trac-nghiem" element={<MultiChoicePage />} />
-        <Route path="/quiz" element={<QuizPage />} />
-        <Route path="/ly-thuyet" element={<TheoryPage />} />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/tu-luan" element={<EssayPage />} />
+          <Route path="/trac-nghiem" element={<MultiChoicePage />} />
+          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/ly-thuyet" element={<TheoryPage />} />
 
-        <Route
-          path="/ly-thuyet/textbook/:name/:pageNumber/:ToC/:bonus"
-          element={<TheoryDetailPage />}
-        />
-        <Route
-          path="/ly-thuyet/textbook/:bookname"
-          element={<TextbookSectionSelection />}
-        />
+          <Route
+            path="/ly-thuyet/textbook/:name/:pageNumber/:ToC/:bonus"
+            element={<TheoryDetailPage />}
+          />
+          <Route
+            path="/ly-thuyet/textbook/:bookname"
+            element={<TextbookSectionSelection />}
+          />
 
-        <Route path="/ly-thuyet/create" element={<CreateTextBookData />} />
-        <Route
-          path="/:slug/create-multichoice"
-          element={<CreateMultiTestPage />}
-        />
-        <Route
-          path="/:slug/store-finished-multi/:id/detail"
-          element={<SubmittedMultiTestPage />}
-        />
-        <Route path="/:slug" element={<Account />} />
-        <Route
-          path="/trac-nghiem/:slug"
-          element={<DetailedMultiChoicePage />}
-        />
-        <Route path="/tu-luan/:slug" element={<DetailedEssayPage />} />
-        <Route path="/:slug/create-essay" element={<CreateEssayTest />} />
-        <Route
-          path="/:slug/store-finished-essay/:id/detail"
-          element={<SubmittedEssayTestPage />}
-        />
-      </Routes>
+          <Route path="/ly-thuyet/create" element={<CreateTextBookData />} />
+          <Route
+            path="/:slug/create-multichoice"
+            element={<CreateMultiTestPage />}
+          />
+          <Route
+            path="/:slug/store-finished-multi/:id/detail"
+            element={<SubmittedMultiTestPage />}
+          />
+          <Route path="/:slug" element={<Account />} />
+          <Route
+            path="/trac-nghiem/:slug"
+            element={<DetailedMultiChoicePage />}
+          />
+          <Route path="/tu-luan/:slug" element={<DetailedEssayPage />} />
+          <Route path="/:slug/create-essay" element={<CreateEssayTest />} />
+          <Route
+            path="/:slug/store-finished-essay/:id/detail"
+            element={<SubmittedEssayTestPage />}
+          />
+        </Routes>
+      </Router>
       <Navbar />
     </div>
   );

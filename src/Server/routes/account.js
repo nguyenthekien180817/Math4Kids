@@ -7,6 +7,7 @@ router.post("/create", accountController.create);
 router.get("/", accountController.getAccounts);
 router.post("/validation", accountController.validation);
 router.get("/get-user", accountController.getUser);
+router.put("/:account/update-password", accountController.changePasswords);
 router.post("/:slug/signout", accountController.signout);
 router.put("/:slug/update", accountController.update);
 router.post("/:slug/store-finished", accountController.storeFinishedTest);
