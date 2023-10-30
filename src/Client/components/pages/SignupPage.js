@@ -67,14 +67,18 @@ function SignupPage(props) {
             }
           );
           setTimeout(() => {
-            window.location.replace("http://localhost:3000/login");
+            window.location.replace(
+              "https://nguyenthekien180817.github.io/Math4Kids/#/login"
+            );
           }, 4000);
         } else {
           toast.success("Tạo tài khoản giáo viên thành công", {
             pauseOnFocusLoss: false,
           });
           setTimeout(() => {
-            window.location.replace("http://localhost:3000");
+            window.location.replace(
+              "https://nguyenthekien180817.github.io/Math4Kids/#/"
+            );
           }, 4000);
         }
       });
