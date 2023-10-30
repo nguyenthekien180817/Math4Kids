@@ -22,9 +22,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/" element={<HomePage />} />
         <Route path="/tu-luan" element={<EssayPage />} />
         <Route path="/trac-nghiem" element={<MultiChoicePage />} />
         <Route path="/quiz" element={<QuizPage />} />
