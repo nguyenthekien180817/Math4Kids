@@ -21,10 +21,19 @@
 .answerInputField {
     display: flex;
     margin-right: auto;
+    height: 80px;
 }
 
 .answerInputField > [type="file"] {
     display: none
+}
+
+.answerInputField input {
+    height: 50px;
+}
+
+.answerInputField label {
+    height: 50px;
 }
 
 .multiQImg  {

@@ -91,15 +91,27 @@ class AccountController {
 
   async changePasswords(req, res, next) {
     Accounts.findOne({ email: req.params.account }, (err, result) => {
-      const check = bcrypt.compare(result.password, req.body.oldPassword);
-      if (check === true) {
-        Accounts.updateOne(
-          { email: req.body.email },
-          req.body.newPassword
-        ).then(res.send("Done"));
-      } else {
-        res.send("Wrong Password");
-      }
+      // try {
+      //   bcrypt.compare
+      // } catch (err) {}
+      bcrypt.compare(
+        req.body.oldPassword,
+        result.password,
+        async (err, result) => {
+          if (result === true) {
+            const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+            Accounts.updateOne(
+              { email: req.params.account },
+              { $set: { password: hashedPassword } }
+            ).then(res.send("Done"));
+          }
+          if (result === false) {
+            res.send("Sai Mat Khau");
+          }
+        }
+      );
+
+      // res.send(result.password);
     });
   }
 }

@@ -5,7 +5,7 @@ import axios from "axios";
 import "../../layout/Multi and Essay Creation card/EssayStyle.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const { base64Converter } = require("../../../util/Base64Converter");
+import { base64Converter } from "../../../util/Base64Converter";
 
 function DetailedEssayPage() {
   const [submitData, setSubmitData] = useState({

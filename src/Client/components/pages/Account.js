@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
-const { base64Converter } = require("../../util/Base64Converter");
+import { base64Converter } from "../../util/Base64Converter";
 
 function Account() {
   const [email, setEmail] = useState("");
@@ -308,10 +308,11 @@ function Account() {
         withCredentials: true,
         url: `http://localhost:4000/account//${email}/update-password`,
         data: {
-          oldPassword: editPassword.oldPassword,
+          oldPassword: String(editPassword.oldPassword),
           newPassword: editPassword.newPassword,
         },
       }).then((response) => {
+        console.log(response.data);
         if (response.data == "Done") {
           toast.success("Đổi mật khẩu thành công");
           setTimeout(() => {

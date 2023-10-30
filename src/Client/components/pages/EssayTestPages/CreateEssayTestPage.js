@@ -5,7 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../layout/Multi and Essay Creation card/TestPage.css";
-const { base64Converter } = require("../../../util/Base64Converter");
+import { base64Converter } from "../../../util/Base64Converter";
 function CreateEssayTest() {
   const [inputList, setInputList] = useState([]);
   const [user, setUser] = useState({

@@ -53,36 +53,22 @@ async function image_to_base64(file) {
   return "";
 }
 
-module.exports = {
-  // base64Converter: (file) => {
-  //   if (file != null) {
-  //     return new Promise((resolve, reject) => {
-  //       const fileReader = new FileReader();
-  //       fileReader.readAsDataURL(file);
-  //       fileReader.onload = () => resolve(fileReader.result);
-  //       fileReader.onerror = (error) => reject(error);
-  //     });
-  //   }
-  //   return "";
-  // },
-
-  base64Converter: async (file, min_image_size = 300) => {
-    const res = await image_to_base64(file);
-    if (res) {
-      const old_size = calc_image_size(res);
-      if (old_size > min_image_size) {
-        const resized = await reduce_image_file_size(res);
-        const new_size = calc_image_size(resized);
-        console.log("new_size=> ", new_size, "KB");
-        console.log("old_size=> ", old_size, "KB");
-        return resized;
-      } else {
-        console.log("image already small enough");
-        return res;
-      }
+export async function base64Converter(file, min_image_size = 300) {
+  const res = await image_to_base64(file);
+  if (res) {
+    const old_size = calc_image_size(res);
+    if (old_size > min_image_size) {
+      const resized = await reduce_image_file_size(res);
+      const new_size = calc_image_size(resized);
+      console.log("new_size=> ", new_size, "KB");
+      console.log("old_size=> ", old_size, "KB");
+      return resized;
     } else {
-      console.log("return err");
-      return null;
+      console.log("image already small enough");
+      return res;
     }
-  },
-};
+  } else {
+    console.log("return err");
+    return null;
+  }
+}
