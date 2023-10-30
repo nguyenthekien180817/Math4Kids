@@ -49,21 +49,24 @@ class AccountController {
       email: req.user.email,
       accountName: req.user.accountName,
       level: req.user.level,
+      session: req.session.passport.user,
     });
   }
 
-  validation(req, res, next) {
-    passport.authenticate("local", (err, account, info) => {
-      if (err) throw err;
-      if (!account) {
-        res.send("Tài khoản không đúng");
-      } else {
-        req.login(account, info, (err) => {
-          if (err) throw err;
-          return res.send("Done");
-        });
-      }
-    })(req, res, next);
+  async validation(req, res, next) {
+    try {
+      passport.authenticate("local", (err, account, info) => {
+        if (err) throw err;
+        if (!account) {
+          res.send("Tài khoản không đúng");
+        } else {
+          req.login(account, info, (err) => {
+            if (err) throw err;
+            return res.send("Done");
+          });
+        }
+      })(req, res, next);
+    } catch (err) {}
   }
 
   signout(req, res, next) {
@@ -91,9 +94,6 @@ class AccountController {
 
   async changePasswords(req, res, next) {
     Accounts.findOne({ email: req.params.account }, (err, result) => {
-      // try {
-      //   bcrypt.compare
-      // } catch (err) {}
       bcrypt.compare(
         req.body.oldPassword,
         result.password,

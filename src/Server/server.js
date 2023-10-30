@@ -9,8 +9,8 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 var session = require("express-session");
+var MongoDBStore = require("connect-mongodb-session")(session);
 const cookieParser = require("cookie-parser");
-const bcrypt = require("bcrypt");
 
 app.use(
   cors({
@@ -22,9 +22,10 @@ app.use(
 app.use(
   session({
     secret: "180817",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: { _expires: 3600000 },
+    store: store,
   })
 );
 
@@ -51,6 +52,15 @@ try {
 } catch (error) {
   console.log("Fail to connect to Database");
 }
+
+var store = new MongoDBStore({
+  uri: "mongodb+srv://khiembinhminh:kiengiang123@m4kdatabase.aa1prtv.mongodb.net/?retryWrites=true&w=majority",
+  collection: "sessions",
+});
+
+store.on("error", function (error) {
+  console.log(error);
+});
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);

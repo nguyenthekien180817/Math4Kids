@@ -25,10 +25,10 @@ function LoginPage(props) {
         if (response.data == "Done") {
           toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
-            window.location.replace(
-              "https://nguyenthekien180817.github.io/Math4Kids/#/"
-            );
-          }, 500);
+            // window.location.replace(
+            //   "https://nguyenthekien180817.github.io/Math4Kids/#/"
+            // );
+          }, 10000);
         } else {
           toast.warn("Sai tài khoản hoặc mật khẩu");
         }

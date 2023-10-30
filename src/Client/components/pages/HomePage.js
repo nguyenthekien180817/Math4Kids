@@ -10,9 +10,10 @@ function HomePage() {
       withCredentials: true,
       url: "http://localhost:4000/account/get-user",
     })
-      .then((response) => console.log(response))
+      .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
+  getUser();
 
   return (
     <div>

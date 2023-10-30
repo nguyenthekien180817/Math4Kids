@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 const moment = require("moment-timezone");
 const dateHanoi = moment.tz(Date.now(), "Asia/Ho_Chi_Minh");
 var slug = require("mongoose-slug-generator");
+const passportLocalMongoose = require("passport-local-mongoose");
+
 mongoose.plugin(slug);
 
 const Accounts = new Schema({
@@ -14,5 +16,7 @@ const Accounts = new Schema({
   createdAt: { type: Date, default: dateHanoi },
   updatedAt: { type: Date, default: dateHanoi },
 });
+
+Accounts.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("Accounts", Accounts);
