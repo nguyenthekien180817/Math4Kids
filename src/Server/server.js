@@ -39,11 +39,15 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 
 try {
-  mongoose.connect("mongodb://localhost:27017/Test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  console.log("Connected to the Database");
+  mongoose
+    .connect(
+      "mongodb+srv://khiembinhminh:kiengiang123@m4kdatabase.aa1prtv.mongodb.net/?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    )
+    .then(console.log("Connected to the Database"));
 } catch (error) {
   console.log("Fail to connect to Database");
 }
