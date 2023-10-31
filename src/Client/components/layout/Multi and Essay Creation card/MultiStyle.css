@@ -41,6 +41,10 @@
     object-fit: contain;
 }
 
+.answerInputField .multiQImg {
+    height: 50px;
+}
+
 label {
     color: black;
 }
