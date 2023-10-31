@@ -22,13 +22,12 @@ function LoginPage(props) {
       url: "http://localhost:4000/account/validation",
     })
       .then((response) => {
+        console.log(response.data);
         if (response.data == "Done") {
           toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
-            // window.location.replace(
-            //   "https://nguyenthekien180817.github.io/Math4Kids/#/"
-            // );
-          }, 10000);
+            window.location.replace("http://localhost:3000/");
+          }, 500);
         } else {
           toast.warn("Sai tài khoản hoặc mật khẩu");
         }

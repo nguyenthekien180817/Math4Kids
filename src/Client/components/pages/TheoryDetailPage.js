@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Document, Page, pdfjs } from "react-pdf";
 import "../layout/Theory Pages/DetailPage.css";
@@ -15,10 +15,6 @@ function TheoryDetailPage() {
   const params = useParams();
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  let offset = {
-    ketnoi: 2,
-    chantroi: 1,
-  };
   console.log(params.pageNumber);
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);

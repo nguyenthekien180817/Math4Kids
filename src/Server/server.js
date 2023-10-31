@@ -7,9 +7,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const passport = require("passport");
-const localStrategy = require("passport-local").Strategy;
 var session = require("express-session");
-var MongoDBStore = require("connect-mongodb-session")(session);
+const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
 
 app.use(
@@ -18,26 +17,6 @@ app.use(
     credentials: true,
   })
 );
-
-app.use(
-  session({
-    secret: "180817",
-    resave: true,
-    saveUninitialized: true,
-    cookie: { _expires: 3600000 },
-    // store: store,
-  })
-);
-
-app.use(cookieParser("180817"));
-
-app.use(bodyParser.json({ limit: "200mb" }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
-
-app.use(passport.initialize());
-app.use(passport.session());
-require("./passportConfig")(passport);
 
 try {
   mongoose
@@ -53,14 +32,24 @@ try {
   console.log("Fail to connect to Database");
 }
 
-var store = new MongoDBStore({
-  uri: "mongodb+srv://khiembinhminh:kiengiang123@m4kdatabase.aa1prtv.mongodb.net/?retryWrites=true&w=majority",
-  collection: "sessions",
-});
+app.use(
+  session({
+    secret: "180817",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { _expires: 360000 },
+  })
+);
 
-store.on("error", function (error) {
-  console.log(error);
-});
+app.use(passport.initialize());
+app.use(passport.session());
+require("./passportConfig")(passport);
+
+app.use(cookieParser("180817"));
+
+app.use(bodyParser.json({ limit: "200mb" }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
