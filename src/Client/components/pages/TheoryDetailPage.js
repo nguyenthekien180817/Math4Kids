@@ -92,7 +92,7 @@ function TheoryDetailPage() {
         </p>
         {pageNumber > 1 && (
           <button className="btn btn-primary" onClick={changePageBack}>
-            Previous Page
+            Trang trước
           </button>
         )}
         <input
@@ -108,7 +108,7 @@ function TheoryDetailPage() {
 
         {pageNumber < numPages && (
           <button className="btn btn-secondary" onClick={changePageNext}>
-            Next Page
+            Trang sau
           </button>
         )}
         <button

@@ -273,7 +273,7 @@ function CreateMultiTestPage() {
             );
           })}
           <button className="btn btn-primary" onClick={submit}>
-            submit
+            Đăng bài thi
           </button>
         </div>
       ) : (

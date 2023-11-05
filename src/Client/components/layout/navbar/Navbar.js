@@ -151,10 +151,12 @@ function Navbar() {
             onMouseOver={() => setVisible3(true)}
           >
             {account.level == "admin" ? (
-              <a>
-                Admin <span />
-                <FontAwesomeIcon icon={faCaretDown} />
-              </a>
+              <>
+                <a>
+                  Admin <span />
+                  <FontAwesomeIcon icon={faCaretDown} />
+                </a>
+              </>
             ) : (
               <></>
             )}
@@ -169,8 +171,15 @@ function Navbar() {
                     Đăng nội dung sách giáo khoa
                   </Link>
                 </li>
+                <li key={window.crypto.randomUUID()}>
+                  <Link to={"/account-control"}>Quản Lý Tài Khoản</Link>
+                </li>
               </ul>
             )}
+          </li>
+
+          <li>
+            <Link to={"/huong-dan"}>Hướng dẫn sử dụng</Link>
           </li>
         </ul>
       </div>

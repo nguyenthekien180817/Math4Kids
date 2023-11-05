@@ -15,11 +15,26 @@ const {
 
 class AccountController {
   getAccounts(req, res, next) {
-    Accounts.find({})
-      .then((accounts) => {
-        res.json({ accounts: multipleMongooseToObject(accounts) });
-      })
-      .catch(next);
+    if (req.body.value != "") {
+      let regex = new RegExp(req.body.value, "i");
+      req.params.level == "admin"
+        ? Accounts.find({
+            email: regex,
+          })
+            .then((accounts) => {
+              res.send(accounts);
+            })
+            .catch(next)
+        : res.send("No Access");
+    } else {
+      req.params.level == "admin"
+        ? Accounts.find({})
+            .then((accounts) => {
+              res.send(accounts);
+            })
+            .catch(next)
+        : res.send("No Access");
+    }
   }
 
   async create(req, res, next) {
@@ -77,9 +92,45 @@ class AccountController {
   }
 
   update(req, res, next) {
-    Accounts.updateOne({ email: req.params.slug }, req.body).then(
+    Accounts.updateOne({ email: req.params.email }, req.body).then(
       res.send("Done")
     );
+  }
+
+  async updateForAdmin(req, res, next) {
+    if (req.params.level != "admin") {
+      res.send("No Access");
+    } else {
+      switch (req.params.type) {
+        case "level":
+          Accounts.updateOne(
+            { email: req.params.email },
+            { $set: { level: req.body.level } }
+          ).then(res.send("Done"));
+          break;
+
+        case "password":
+          const hashedPassword = await bcrypt.hash(req.body.password, 10);
+          Accounts.updateOne(
+            { email: req.params.email },
+            { $set: { password: hashedPassword } }
+          ).then(res.send("Done"));
+          break;
+      }
+    }
+  }
+
+  async deleteAccount(req, res, next) {
+    try {
+      if (req.params.level == "admin") {
+        Accounts.deleteOne({ email: req.body.email }, (err, result) => {
+          if (err) res.send(err);
+          if (result) res.send("Done");
+        });
+      } else {
+        res.send("No Access");
+      }
+    } catch (err) {}
   }
 
   async storeFinishedTest(req, res, next) {

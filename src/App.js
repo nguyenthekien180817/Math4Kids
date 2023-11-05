@@ -17,12 +17,16 @@ import DetailedEssayPage from "./Client/components/pages/EssayTestPages/Detailed
 import SubmittedEssayTestPage from "./Client/components/pages/EssayTestPages/SubmittedEssayTestPage";
 import CreateTextBookData from "./Client/components/pages/CreateNewTextBookData";
 import TextbookSectionSelection from "./Client/components/pages/TextBookSectionSelect";
+import AdminAccountControlPage from "./Client/components/pages/AdminAccountControlPage";
+import ManualPage from "./Client/components/pages/ManualPage";
 import "./App.css";
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/account-control" element={<AdminAccountControlPage />} />
+        <Route path="/huong-dan" element={<ManualPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/tu-luan" element={<EssayPage />} />

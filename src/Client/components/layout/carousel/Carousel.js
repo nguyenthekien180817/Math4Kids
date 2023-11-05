@@ -6,6 +6,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import "./carousel.css";
+import Lambaithi from "./Carousel IMG/LamBaiThi.jpg";
+import HuongDan from "./Carousel IMG/HuongDan.jpg";
 
 function Carousel() {
   const timeoutRef = useRef();
@@ -30,7 +32,7 @@ function Carousel() {
   useEffect(() => {
     timeoutRef.current = setTimeout(
       () => setSlide((index) => (index == slides.length ? 1 : index + 1)),
-      5000
+      3000
     );
 
     return () => {
@@ -40,6 +42,11 @@ function Carousel() {
     };
   }, [slide]);
 
+  let checkVisible = (e) => {
+    console.log(slide);
+    return e.currentTarget.id == slide ? "carouselItem" : "carouselItem hidden";
+  };
+
   return (
     <div className="carouselContainer">
       <div className="carouselLeftField" onClick={handleLeftClick}>
@@ -48,11 +55,16 @@ function Carousel() {
       <div className="carouselRightField" onClick={handleRightClick}>
         <FontAwesomeIcon className="carouselIcon" icon={faChevronRight} />
       </div>
-      <div>
-        <div>
-          <h1>Slide số {slide}</h1>
-        </div>
+
+      <div id="1" className="carouselItem">
+        <img src={Lambaithi} />
+        <h1 className="carouselHeader">Slide số {slide}</h1>
       </div>
+      {/* 
+      <div id="2" className={this.checkVisible(e)}>
+        <img src={HuongDan} />
+        <h1>Slide số {slide}</h1>
+      </div> */}
     </div>
   );
 }

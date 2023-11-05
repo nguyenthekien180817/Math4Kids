@@ -61,7 +61,7 @@ function TheoryPage() {
   };
 
   return (
-    <>
+    <div className="theoryPagContainer">
       <ToastContainer
         autoClose={2000}
         limit={2}
@@ -131,7 +131,7 @@ function TheoryPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

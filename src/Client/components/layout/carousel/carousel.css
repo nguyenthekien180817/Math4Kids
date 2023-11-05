@@ -1,11 +1,24 @@
 .carouselContainer {
-    height: 70vh;
+    height: 94vh;
     width: 100%;
     display: flex;
     position: relative;
     justify-content: center;
-    border: black solid;
+    align-items: center;
+    box-sizing: content-box;
+    overflow: hidden;
+    animation: fadeInAnimation 1s ease-in;
 }   
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 
 .carouselLeftField {
     height: 100%;
@@ -41,8 +54,66 @@
     
 }
 
-
-.carouselRadio {
-    position: absolute;
-    bottom: 0;
+.carouselItem {
+    background-color: rgb(192, 190, 189);
+    height: 100%;
+    width: 100vw;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+    flex-direction: column;
 }
+
+.carouselItem img {
+    width: 100vw;
+    object-fit: cover;
+    position: absolute;
+    transition: transform 0.3s;
+    z-index: -1;
+}
+
+.homeContainer {
+    padding: 0;
+    overflow: hidden;
+}
+
+.carouselItem.hidden {
+    display: none;
+}
+
+.carouselItem p {
+    color: rgb(146, 204, 220);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    font-size: 45px;
+    font-weight: bold;
+    text-shadow: 2px 2px #000000;
+    text-align: center;
+    width: 80vw;
+}
+
+.carouselHeader {
+    font-size: 100px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(146, 204, 220);
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: black;
+    text-shadow: 5px 5px #000000;
+}
+
+.carouselContainer .btn.btn-primary {
+    position: absolute;
+    width: 250px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 400px;
+    color: white;
+    box-shadow: 3px 3px #776b6b;
+}
+
