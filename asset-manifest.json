@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.f7accc18.css",
-    "main.js": "/static/js/main.a8e92313.js",
+    "main.js": "/static/js/main.82117f0b.js",
     "static/js/787.4c9acd41.chunk.js": "/static/js/787.4c9acd41.chunk.js",
     "static/media/ChanTroi1.pdf": "/static/media/ChanTroi1.db671e058f1bf43e5c67.pdf",
     "static/media/CanhDieu1.pdf": "/static/media/CanhDieu1.b6dca106ce92517bcc0e.pdf",
@@ -34,11 +34,11 @@
     "static/media/SGK.jpg": "/static/media/SGK.a79cad9e63fb1076e551.jpg",
     "index.html": "/index.html",
     "main.f7accc18.css.map": "/static/css/main.f7accc18.css.map",
-    "main.a8e92313.js.map": "/static/js/main.a8e92313.js.map",
+    "main.82117f0b.js.map": "/static/js/main.82117f0b.js.map",
     "787.4c9acd41.chunk.js.map": "/static/js/787.4c9acd41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f7accc18.css",
-    "static/js/main.a8e92313.js"
+    "static/js/main.82117f0b.js"
   ]
 }
