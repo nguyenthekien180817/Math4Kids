@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Math4Kids/static/css/main.f7accc18.css",
-    "main.js": "/Math4Kids/static/js/main.2e300fa3.js",
+    "main.js": "/Math4Kids/static/js/main.9b32435f.js",
     "static/js/787.4c9acd41.chunk.js": "/Math4Kids/static/js/787.4c9acd41.chunk.js",
     "static/media/ChanTroi1.pdf": "/Math4Kids/static/media/ChanTroi1.db671e058f1bf43e5c67.pdf",
     "static/media/CanhDieu1.pdf": "/Math4Kids/static/media/CanhDieu1.b6dca106ce92517bcc0e.pdf",
@@ -34,11 +34,11 @@
     "static/media/SGK.jpg": "/Math4Kids/static/media/SGK.a79cad9e63fb1076e551.jpg",
     "index.html": "/Math4Kids/index.html",
     "main.f7accc18.css.map": "/Math4Kids/static/css/main.f7accc18.css.map",
-    "main.2e300fa3.js.map": "/Math4Kids/static/js/main.2e300fa3.js.map",
+    "main.9b32435f.js.map": "/Math4Kids/static/js/main.9b32435f.js.map",
     "787.4c9acd41.chunk.js.map": "/Math4Kids/static/js/787.4c9acd41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f7accc18.css",
-    "static/js/main.2e300fa3.js"
+    "static/js/main.9b32435f.js"
   ]
 }
