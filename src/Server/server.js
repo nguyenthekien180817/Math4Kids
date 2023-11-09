@@ -13,7 +13,7 @@ const cookieParser = require("cookie-parser");
 
 app.use(
   cors({
-    origin: "http://localhost:3000/login",
+    origin: "https://nguyenthekien180817.github.io/Math4Kids/#/",
     credentials: true,
   })
 );
@@ -36,8 +36,17 @@ app.use(
   session({
     secret: "180817",
     resave: false,
-    saveUninitialized: true,
-    cookie: { _expires: 3600000 },
+    saveUninitialized: false,
+    cookie: {
+      _expires: 3600000,
+      // sameSite: "strict",
+      // httpOnly: true,
+      // secure: true,
+    },
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://khiembinhminh:kiengiang123@m4kdatabase.aa1prtv.mongodb.net/?retryWrites=true&w=majority",
+    }),
   })
 );
 
@@ -45,7 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
 
-app.use(cookieParser("180817"));
+// app.use(cookieParser("180817"));
 
 app.use(bodyParser.json({ limit: "200mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));

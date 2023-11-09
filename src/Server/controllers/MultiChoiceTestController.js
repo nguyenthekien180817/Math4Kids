@@ -27,7 +27,7 @@ class MultiChoicePageController {
 
   async showAll(req, res, next) {
     try {
-      MultiTests.find({ author: req.params.slug }, (err, result) => {
+      MultiTests.find({ author: req.params.author }, (err, result) => {
         if (err) res.send(err);
         if (result) {
           res.json({ tests: multipleMongooseToObject(result) });
@@ -82,7 +82,7 @@ class MultiChoicePageController {
     FinishedTests.find({ test_id: req.params.id }, (err, results) => {
       if (err) throw err;
       if (results.length != 0) {
-        if (results[0].author == req.params.slug) {
+        if (results[0].author == req.params.author) {
           res.send(results);
         } else {
           res.send("No access");

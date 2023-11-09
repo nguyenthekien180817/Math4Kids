@@ -26,7 +26,7 @@ function Navbar() {
       url: "http://localhost:4000/account/get-user",
     })
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setAccount(response.data);
       })
       .catch((err) => {});

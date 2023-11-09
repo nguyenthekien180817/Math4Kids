@@ -5,7 +5,7 @@ const EssayTestController = require("../controllers/EssayTestController");
 //router /essay-test
 
 //[GET] show tat ca cac bai thi cua 1 giao vien nhat dinh đã đăng
-router.get("/:slug/show-essay-test", EssayTestController.show);
+router.get("/:author/show-essay-test", EssayTestController.show);
 
 //[GET] show mot bai thi nhat dinh
 router.get("/show-detail/:id", EssayTestController.showIndividual);
@@ -15,7 +15,7 @@ router.post("/:email/store", EssayTestController.store);
 
 //[GET] show tat ca cac bai thi da duoc nop cua 1 giao vien nhat dinh
 router.get(
-  "/:slug/store-finished-essay/:id/detail",
+  "/:author/store-finished-essay/:id/detail",
   EssayTestController.showAllStoredFinish
 );
 
@@ -30,7 +30,7 @@ router.put("/:teacher/:id/update", EssayTestController.updateEssayTest);
 
 //[POST] luu bai thi cua hoc sinh
 router.post(
-  "/:slug/store-finished-essay",
+  "/:student/store-finished-essay",
   EssayTestController.storeFinishedTest
 );
 

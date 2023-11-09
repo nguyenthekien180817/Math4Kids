@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../layout/Account Pages and Pop-up/loginPopup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,7 @@ function LoginPage(props) {
   const [loginAccount, setLoginAccount] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [userData, setUserData] = useState(null);
-
+  let navigate = useNavigate();
   let login = () => {
     console.log(loginAccount, loginPassword);
     axios({
@@ -23,10 +23,13 @@ function LoginPage(props) {
     })
       .then((response) => {
         console.log(response.data);
-        if (response.data == "Done") {
+        if (response.data.user.message == "Done") {
           toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
-            window.location.replace("http://localhost:3000/");
+            window.location.replace(
+              // "https://nguyenthekien180817.github.io/Math4Kids/"
+              "http://localhost:3000/"
+            );
           }, 500);
         } else {
           toast.warn("Sai tài khoản hoặc mật khẩu");

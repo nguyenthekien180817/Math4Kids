@@ -8,7 +8,7 @@ class TextBookController {
   }
 
   async showOne(req, res, next) {
-    textBooks.find({ slug: req.params.bookname }, (err, data) => {
+    textBooks.find({ slug: req.params.slug }, (err, data) => {
       if (err) res.send(err);
       if (data) res.send(data);
     });

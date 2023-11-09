@@ -5,7 +5,7 @@ const TextBookController = require("../controllers/TextBookController");
 //Route textbook
 
 router.get("/", TextBookController.show);
-router.get("/:bookname", TextBookController.showOne);
+router.get("/:slug", TextBookController.showOne);
 router.post("/:level/store", TextBookController.store);
 router.delete("/:level/:slug/delete", TextBookController.deleteBook);
 

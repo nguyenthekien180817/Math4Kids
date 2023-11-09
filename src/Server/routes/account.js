@@ -8,7 +8,7 @@ router.post("/:level/get-all-accounts", accountController.getAccounts);
 router.post("/validation", accountController.validation);
 router.get("/get-user", accountController.getUser);
 router.put("/:account/update-password", accountController.changePasswords);
-router.post("/:slug/signout", accountController.signout);
+router.post("/:account/signout", accountController.signout);
 router.put("/:email/update", accountController.update);
 router.put(
   "/:level/:email/:type/adminUpdate",

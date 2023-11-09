@@ -9,7 +9,7 @@ const {
 
 class EssayTestController {
   show(req, res, next) {
-    EssayTests.find({ author: req.params.slug })
+    EssayTests.find({ author: req.params.author })
       .then((tests) => {
         res.json({ tests: multipleMongooseToObject(tests) });
       })
@@ -77,7 +77,7 @@ class EssayTestController {
     FinishedTests.find({ test_id: req.params.id }, (err, results) => {
       if (err) throw err;
       if (results.length != 0) {
-        if (results[0].author == req.params.slug) {
+        if (results[0].author == req.params.author) {
           res.send(results);
         } else {
           res.send("No access");

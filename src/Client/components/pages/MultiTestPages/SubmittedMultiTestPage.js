@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
 import "../../layout/Account Pages and Pop-up/accountPage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SubmittedMultiTestPage() {
@@ -16,6 +16,7 @@ function SubmittedMultiTestPage() {
   const [show, setShow] = useState(null);
   const [studentData, getStudentData] = useState([]);
   const studentEmail = useRef(null);
+  const navigate = useNavigate();
 
   //[GET] lấy thông tin giáo viên
   useEffect(() => {
@@ -96,7 +97,6 @@ function SubmittedMultiTestPage() {
                 <Link
                   onClick={() => {
                     studentEmail.current = null;
-                    console.log(studentEmail.current);
                   }}
                 >
                   Quay lại
@@ -219,13 +219,13 @@ function SubmittedMultiTestPage() {
                           <th scope="row">{index + 1}</th>
                           <td>
                             <a
-                              href={`/${test.author}/store-finished-multi/${test.test_id}/detail`}
+                              target="_blank"
+                              href={`#/${test.author}/store-finished-multi/${test.test_id}/detail`}
                             >
                               <button
                                 class="btn btn-link"
                                 onClick={() => {
                                   studentEmail.current = null;
-                                  console.log(studentEmail.current);
                                 }}
                               >
                                 {test.test_name}
