@@ -13,7 +13,7 @@ const cookieParser = require("cookie-parser");
 
 app.use(
   cors({
-    origin: "https://nguyenthekien180817.github.io/Math4Kids/#/",
+    origin: "https://nguyenthekien180817.github.io/Math4Kids/",
     credentials: true,
   })
 );
@@ -39,9 +39,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       _expires: 3600000,
-      // sameSite: "strict",
-      // httpOnly: true,
-      // secure: true,
+      sameSite: "strict",
+      httpOnly: true,
+      secure: true,
     },
     store: MongoStore.create({
       mongoUrl:

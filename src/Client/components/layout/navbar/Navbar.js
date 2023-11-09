@@ -38,7 +38,7 @@ function Navbar() {
       withCredentials: true,
       url: `http://localhost:4000/account/${account.email}/signout`,
     })
-      .then(window.location.replace("http://localhost:3000/login"))
+      .then(window.location.reload())
       .catch((err) => {});
   };
 

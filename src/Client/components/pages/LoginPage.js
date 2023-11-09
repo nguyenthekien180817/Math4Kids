@@ -27,8 +27,8 @@ function LoginPage(props) {
           toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
             window.location.replace(
-              // "https://nguyenthekien180817.github.io/Math4Kids/"
-              "http://localhost:3000/"
+              "https://nguyenthekien180817.github.io/Math4Kids/"
+              // "http://localhost:3000/"
             );
           }, 500);
         } else {
