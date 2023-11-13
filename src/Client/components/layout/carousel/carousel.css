@@ -1,5 +1,5 @@
 .carouselContainer {
-    height: 94vh;
+    height: 93.9vh;
     width: 100%;
     display: flex;
     position: relative;
@@ -28,6 +28,7 @@
     left: 0;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .carouselRightField {
@@ -38,11 +39,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .carouselLeftField:hover {
     background-color:rgba(206, 206, 206, 0.8);
     cursor: pointer;
+   
 }
 .carouselRightField:hover {
     background-color:rgba(206, 206, 206, 0.8);

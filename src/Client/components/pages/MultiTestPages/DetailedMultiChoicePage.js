@@ -92,6 +92,12 @@ function DetailedMultiChoicePage() {
         console.log(response);
         if (response.data.message == "Done") {
           toast.success("Nộp bài thành công");
+          setTimeout(() => {
+            window.location.replace(
+              // "https://nguyenthekien180817.github.io/Math4Kids/"
+              "http://localhost:3000/"
+            );
+          }, 2000);
         } else {
           toast.warning("Bạn đã làm bài thi từ trước rồi!");
         }

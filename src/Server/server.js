@@ -11,9 +11,14 @@ var session = require("express-session");
 const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
 
+app.use(function setCommonHeaders(req, res, next) {
+  res.set("Access-Control-Allow-Private-Network", "true");
+  next();
+});
+
 app.use(
   cors({
-    origin: "https://nguyenthekien180817.github.io/Math4Kids/",
+    origin: "https://nguyenthekien180817.github.io",
     credentials: true,
   })
 );
@@ -40,8 +45,8 @@ app.use(
     cookie: {
       _expires: 3600000,
       sameSite: "strict",
-      httpOnly: true,
-      secure: true,
+      // httpOnly: true,
+      // secure: true,
     },
     store: MongoStore.create({
       mongoUrl:

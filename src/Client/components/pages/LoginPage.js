@@ -10,6 +10,8 @@ function LoginPage(props) {
   const [loginPassword, setLoginPassword] = useState("");
   const [userData, setUserData] = useState(null);
   let navigate = useNavigate();
+  const cookie = localStorage.getItem("Cookie");
+
   let login = () => {
     console.log(loginAccount, loginPassword);
     axios({
@@ -17,6 +19,9 @@ function LoginPage(props) {
       data: {
         email: loginAccount,
         password: loginPassword,
+      },
+      headers: {
+        Cookie: cookie,
       },
       withCredentials: true,
       url: "http://localhost:4000/account/validation",
@@ -27,8 +32,8 @@ function LoginPage(props) {
           toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
           setTimeout(() => {
             window.location.replace(
-              "https://nguyenthekien180817.github.io/Math4Kids/"
-              // "http://localhost:3000/"
+              // "https://nguyenthekien180817.github.io/Math4Kids/"
+              "http://localhost:3000/"
             );
           }, 500);
         } else {

@@ -88,7 +88,13 @@ function DetailedEssayPage() {
       },
     }).then((response) => {
       if (response.data == "Done") {
-        toast.success("Bài thi đã được nộp");
+        toast.success("Nộp bài thành công");
+        setTimeout(() => {
+          window.location.replace(
+            // "https://nguyenthekien180817.github.io/Math4Kids/"
+            "http://localhost:3000/"
+          );
+        }, 2000);
       } else {
         toast.warn("Bạn đã nộp bài thi này từ trước rồi!");
       }

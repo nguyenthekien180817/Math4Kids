@@ -74,9 +74,7 @@ function SignupPage(props) {
             pauseOnFocusLoss: false,
           });
           setTimeout(() => {
-            window.location.replace(
-              "https://nguyenthekien180817.github.io/Math4Kids/#/"
-            );
+            window.location.replace("http://localhost:3000/#/login");
           }, 4000);
         }
       });
