@@ -6,7 +6,7 @@ const moment = require("moment-timezone");
 const dateHanoi = moment.tz("Asia/Ho_Chi_Minh").format();
 
 const EssayTests = new Schema({
-  author: { type: String, default: "user01@test" },
+  author: { type: String, default: "user01@test", required: true },
   name: { type: String, required: true },
   time: { type: Number, required: true },
   description: { type: String },

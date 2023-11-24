@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../layout/carousel/carousel.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const carouselData = [
   {
@@ -53,6 +54,20 @@ const carouselData = [
 
 function HomePage() {
   const timeoutRef = useRef();
+  const [isLogin, setLogin] = useState(false);
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:4000/account/get-user",
+    })
+      .then((response) => {
+        console.log(response.data);
+        setLogin(true);
+      })
+      .catch((err) => {});
+  }, []);
 
   const [slide, setSlide] = useState(1);
   let handleLeftClick = () => {
@@ -111,6 +126,11 @@ function HomePage() {
               i + 1 == slide ? `btn btn-primary` : "carouselItem hidden"
             }
             to={data.link}
+            onClick={() => {
+              if (data.button == "Làm bài kiểm tra" && isLogin == false) {
+                alert("Bạn cần đăng nhập trước khi làm bài kiểm tra");
+              }
+            }}
           >
             {data.button}
           </Link>

@@ -72,7 +72,7 @@ class AccountController {
     // });
     if (req.session.passport && req.session.passport.user) {
       res.json({
-        id: req.sessionID,
+        id: req.user.id,
         email: req.user.email,
         accountName: req.user.accountName,
         level: req.session.user.level,
@@ -93,6 +93,7 @@ class AccountController {
           let message = "Done";
           let userId = req.session.passport.user;
           req.session.user = { email, level, message, userId };
+          console.log(req.session);
           return res.send(req.session);
         });
       }

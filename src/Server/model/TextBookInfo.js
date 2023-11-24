@@ -4,7 +4,7 @@ var slug = require("mongoose-slug-generator");
 mongoose.plugin(slug);
 
 const Textbook = new Schema({
-  name: { type: String },
+  name: { type: String, required: true },
   lessons: { type: [String], required: true },
   pageNumber: { type: [Number], required: true },
   slug: { type: String, slug: "name", unique: true },

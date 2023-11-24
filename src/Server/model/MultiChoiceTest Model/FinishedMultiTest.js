@@ -14,14 +14,14 @@ const answerImageArray = new Schema({
 });
 
 const FinishedMultiTest = new Schema({
-  author: { type: String, required: true, default: "Anonymous" },
+  author: { type: String, required: true },
   test_name: { type: String, default: "Bài Test 01" },
-  student_name: { type: String, required: true, default: "Anonymous" },
-  student_email: { type: String, required: true, default: "Anonymous" },
+  student_name: { type: String, required: true },
+  student_email: { type: String, required: true },
   questionArray: { type: [String], default: undefined },
   answersArray: { type: [String], default: undefined },
   resultArray: { type: [String], default: undefined },
-  score: { type: Number, required: true },
+  score: { type: Number, required: true, default: 0 },
   test_id: { type: String, required: true },
   createdAt: { type: Date, default: dateHanoi },
   updatedAt: { type: Date, default: dateHanoi },

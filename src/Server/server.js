@@ -44,7 +44,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       _expires: 3600000,
-      sameSite: "strict",
+      // sameSite: "strict",
       // httpOnly: true,
       // secure: true,
     },

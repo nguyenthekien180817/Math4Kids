@@ -1027,6 +1027,8 @@ function Account() {
                       <th scope="col">Tên Test</th>
                       <th scope="col">Ngày Đăng</th>
                       <th scope="col">ID</th>
+                      <th scope="col">Điểm</th>
+                      <th scope="col"> </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1040,6 +1042,7 @@ function Account() {
                             </td>
                             <td>{test.createdAt}</td>
                             <td>{test.author}</td>
+                            <td>{test.score}</td>
                             <td>
                               <a
                                 name="multi"
@@ -1125,6 +1128,8 @@ function Account() {
                       <th scope="col">Tên Test</th>
                       <th scope="col">Ngày Đăng</th>
                       <th scope="col">Giáo viên</th>
+                      <th scope="col">Điểm</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1138,6 +1143,7 @@ function Account() {
                             </td>
                             <td>{test.createdAt}</td>
                             <td>{test.author}</td>
+                            <td>{test.totalScore}</td>
                             <td>
                               <a
                                 name="essay"

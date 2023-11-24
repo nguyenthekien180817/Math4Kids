@@ -14,7 +14,7 @@ const answerImageArray = new Schema({
 });
 
 const MultiTests = new Schema({
-  author: { type: String, default: "user01@test" },
+  author: { type: String },
   name: { type: String, required: true },
   description: { type: String },
   question: { type: [String], required: true, default: "" },
