@@ -54,7 +54,6 @@ function CreateMultiTestPage() {
 
   let handleDelete = (e) => {
     setInputList(inputList.slice(0, inputList.length - 1));
-    console.log(answerAArray.current);
     questionArray.current = questionArray.current.slice(
       0,
       inputList.length - 1
@@ -71,15 +70,15 @@ function CreateMultiTestPage() {
       0,
       inputList.length - 1
     );
-    answerBImages.current = answerAImages.current.slice(
+    answerBImages.current = answerBImages.current.slice(
       0,
       inputList.length - 1
     );
-    answerCImages.current = answerAImages.current.slice(
+    answerCImages.current = answerCImages.current.slice(
       0,
       inputList.length - 1
     );
-    answerDImages.current = answerAImages.current.slice(
+    answerDImages.current = answerDImages.current.slice(
       0,
       inputList.length - 1
     );
