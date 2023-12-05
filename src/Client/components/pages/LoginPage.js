@@ -13,34 +13,41 @@ function LoginPage(props) {
   const cookie = localStorage.getItem("Cookie");
 
   let login = () => {
-    console.log(loginAccount, loginPassword);
-    axios({
-      method: "POST",
-      data: {
-        email: loginAccount,
-        password: loginPassword,
-      },
-      headers: {
-        Cookie: cookie,
-      },
-      withCredentials: true,
-      url: "http://localhost:4000/account/validation",
-    })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.user.message == "Done") {
-          toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
-          setTimeout(() => {
-            window.location.replace(
-              // "https://nguyenthekien180817.github.io/Math4Kids/"
-              "http://localhost:3000/"
-            );
-          }, 500);
-        } else {
-          toast.warn("Sai tài khoản hoặc mật khẩu");
-        }
+    if (loginPassword == "" || loginAccount == "") {
+      toast.warn("Tài khoản hoặc mật khẩu không được trống");
+    }
+
+    if (loginAccount != "" && loginPassword != "") {
+      axios({
+        method: "POST",
+        data: {
+          email: loginAccount,
+          password: loginPassword,
+        },
+        headers: {
+          Cookie: cookie,
+        },
+        withCredentials: true,
+        url: "http://localhost:4000/account/validation",
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          console.log(response.data);
+          if (response.data != "Tài khoản không đúng") {
+            if (response.data.user.message == "Done") {
+              toast.success("Đăng nhập thành công, chuyển hướng đến trang chủ");
+              setTimeout(() => {
+                window.location.replace(
+                  // "https://nguyenthekien180817.github.io/Math4Kids/"
+                  "http://localhost:3000/"
+                );
+              }, 500);
+            }
+          } else if (response.data == "Tài khoản không đúng") {
+            toast.warn("Sai tài khoản hoặc mật khẩu");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   let getUser = () => {
@@ -63,7 +70,7 @@ function LoginPage(props) {
           </div>
 
           <label className="formLabel" htmlFor="email">
-            Email
+            Tài khoản
           </label>
           <input
             id="email"

@@ -59,6 +59,7 @@ function Account() {
     })
       .then((response) => {
         setMultiTestList(response.data.tests);
+        console.log(response.data.tests);
       })
       .catch((err) => {});
 
@@ -360,7 +361,7 @@ function Account() {
             )}
           </div>
           <label htmlFor="email">
-            <strong>Email: </strong>
+            <strong>Tài khoản đăng nhập: </strong>
           </label>
           <input disabled name="email" id="email" value={email} />
           <a
@@ -1026,7 +1027,7 @@ function Account() {
                       <th scope="col">#</th>
                       <th scope="col">Tên Test</th>
                       <th scope="col">Ngày Đăng</th>
-                      <th scope="col">ID</th>
+                      <th scope="col">Giáo viên</th>
                       <th scope="col">Điểm</th>
                       <th scope="col"> </th>
                     </tr>
@@ -1042,7 +1043,12 @@ function Account() {
                             </td>
                             <td>{test.createdAt}</td>
                             <td>{test.author}</td>
-                            <td>{test.score}</td>
+                            <td>
+                              {(10 /
+                                studentMultiTestList[index].questionArray
+                                  .length) *
+                                test.score}
+                            </td>
                             <td>
                               <a
                                 name="multi"

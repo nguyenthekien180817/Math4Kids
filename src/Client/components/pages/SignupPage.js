@@ -91,7 +91,7 @@ function SignupPage(props) {
           </div>
 
           <label className="formLabel" htmlFor="email">
-            Email
+            Tài khoản
           </label>
           <input
             type="email"

@@ -173,40 +173,44 @@ function CreateMultiTestPage() {
   };
 
   let submit = () => {
-    axios({
-      method: "POST",
-      data: {
-        author: email,
-        name: testName,
-        description: testDescription,
-        question: questionArray.current,
-        answerAArray: answerAArray.current,
-        answerBArray: answerBArray.current,
-        answerCArray: answerCArray.current,
-        answerDArray: answerDArray.current,
-        correctAnswerArray: correctAnswerArray.current,
-        imageArray: {
-          question: questionImages.current,
-          answerA: answerAImages.current,
-          answerB: answerBImages.current,
-          answerC: answerCImages.current,
-          answerD: answerDImages.current,
+    if (testName == "" || testName == null) {
+      toast.warn("Tên bài thi không được để trống");
+    } else {
+      axios({
+        method: "POST",
+        data: {
+          author: email,
+          name: testName,
+          description: testDescription,
+          question: questionArray.current,
+          answerAArray: answerAArray.current,
+          answerBArray: answerBArray.current,
+          answerCArray: answerCArray.current,
+          answerDArray: answerDArray.current,
+          correctAnswerArray: correctAnswerArray.current,
+          imageArray: {
+            question: questionImages.current,
+            answerA: answerAImages.current,
+            answerB: answerBImages.current,
+            answerC: answerCImages.current,
+            answerD: answerDImages.current,
+          },
         },
-      },
-      withCredentials: true,
-      url: `http://localhost:4000/multi-test/${email}/store`,
-    })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data == "Done") {
-          toast.success("Tải bài thi thành công");
-        } else {
-          toast.warn("Bạn đã tạo bài thi với tên này từ trước rồi!");
-        }
+        withCredentials: true,
+        url: `http://localhost:4000/multi-test/${email}/store`,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => {
+          console.log(response.data);
+          if (response.data == "Done") {
+            toast.success("Tải bài thi thành công");
+          } else {
+            toast.warn("Bạn đã tạo bài thi với tên này từ trước rồi!");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (

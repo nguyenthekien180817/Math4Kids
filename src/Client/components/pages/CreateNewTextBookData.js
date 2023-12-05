@@ -37,33 +37,46 @@ function CreateTextBookData() {
   });
 
   let submit = () => {
-    axios({
-      method: "POST",
-      withCredentials: true,
-      data: {
-        name: data.name,
-        lessons: data.lessons,
-        pageNumber: data.pageNumber,
-        thumbnail: data.thumbnail,
-        tableOfContents: data.tableOfContents,
-        numberOfCover: data.numberOfCover,
-      },
-      url: `http://localhost:4000/textbook/${account.level}/store`,
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.data == "Done") {
-          toast.success("Lưu thành công");
-        }
-        if (response.data == "Not An Admin") {
-          toast.warning("Bạn không có quyền thêm sách giáo khoa ");
-        }
+    let checkErr = false;
 
-        if (response.data == "Already Have") {
-          toast.warning("Đã có sách giáo khoa với tên này rồi");
-        }
+    data.pageNumber.map((number, index) => {
+      number = Number(number);
+      if (isNaN(number) || number < 0) {
+        checkErr = true;
+      }
+    });
+
+    if (checkErr) {
+      toast.warn("Số trang không hợp lệ.");
+    } else {
+      axios({
+        method: "POST",
+        withCredentials: true,
+        data: {
+          name: data.name,
+          lessons: data.lessons,
+          pageNumber: data.pageNumber,
+          thumbnail: data.thumbnail,
+          tableOfContents: data.tableOfContents,
+          numberOfCover: data.numberOfCover,
+        },
+        url: `http://localhost:4000/textbook/${account.level}/store`,
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          console.log(response);
+          if (response.data == "Done") {
+            toast.success("Lưu thành công");
+          }
+          if (response.data == "Not An Admin") {
+            toast.warning("Bạn không có quyền thêm sách giáo khoa ");
+          }
+
+          if (response.data == "Already Have") {
+            toast.warning("Đã có sách giáo khoa với tên này rồi");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
   return (
     <div className="createTextBookContainer">

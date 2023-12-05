@@ -60,16 +60,6 @@ class AccountController {
   }
 
   getUser(req, res) {
-    // Accounts.findOne({ _id: req.session.passport.user }, (err, account) => {
-    //   if (err) res.send(err);
-    //   if (account) res.send(account);
-    // });
-    // res.json({
-    //   id: req.sessionID,
-    //   email: req.user.email,
-    //   accountName: req.user.accountName,
-    //   level: req.session.user.level,
-    // });
     if (req.session.passport && req.session.passport.user) {
       res.json({
         id: req.user.id,
@@ -78,6 +68,12 @@ class AccountController {
         level: req.session.user.level,
       });
     }
+    // res.json({
+    //   id: "653f666eda064a4688a5547c",
+    //   email: "admin1",
+    //   accountName: "Nguyễn Thế Kiên",
+    //   level: "teacher",
+    // });
   }
 
   validation(req, res, next) {
